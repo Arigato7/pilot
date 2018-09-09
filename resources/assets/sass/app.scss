@@ -1,0 +1,51 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+@import "~font-awesome/scss/font-awesome";
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.user-photo {
+  width: 15%;
+  border-radius: 50%;
+}
+
+// Material
+.material__author {
+  position: relative;
+  z-index: 1000;
+}
+.material__author img {
+  border-radius: 50%;
+}
+.material__user-mark {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 3rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  z-index: 1200;
+}
+.material__rate {
+  background-color: #ddd;
+}
+.material__rate-positive {
+  height: 3px;
+}
