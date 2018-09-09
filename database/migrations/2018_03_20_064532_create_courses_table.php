@@ -15,6 +15,8 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->length(10)->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
 			$table->integer('course_type_id')->length(10)->unsigned();
 			$table->foreign('course_type_id')->references('id')->on('course_types');
 			$table->string('name');
@@ -22,7 +24,6 @@ class CreateCoursesTable extends Migration
 			$table->dateTime('end_date');
 			$table->string('place');
 			$table->string('description');
-			$table->double('rate', 5, 5)->default(0);
             $table->timestamps();
         });
     }

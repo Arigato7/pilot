@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCoursesTypeTable extends Migration
+class CreateCourseTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateCoursesTypeTable extends Migration
     {
         Schema::create('course_types', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('name');
+            $table->string('name');
             $table->timestamps();
         });
     }

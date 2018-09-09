@@ -39,6 +39,15 @@ class User extends Authenticatable
     public function news() {
         return $this->hasMany('Pilot\News');
     }
+    public function courses() {
+        return $this->hasMany('Pilot\Course');
+    }
+    public function records() {
+        return $this->hasMany('Pilot\CourseRecord');
+    }
+    public function courseComments() {
+        return $this->hasMany('Pilot\CourseComment');
+    }
     public function materialComments() {
         return $this->hasMany('Pilot\MaterialComment');
     }
