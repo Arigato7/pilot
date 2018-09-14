@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between">
-        <h1 class="h1 mb-4 col">Материалы</h1>
+        <h1 class="h1 mb-4 col">Депозиторий</h1>
         <div class="col-8">
             <form id="search-material" action="/material/find" method="post">
                 @csrf
@@ -95,6 +95,11 @@
                     @endif
                 </div>
             </div>
+            @can ('moderate', Auth::user())
+            <div class="card mt-2">
+                <a href="{{ route('materialComplaints') }}" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Список жалоб на материалы">Жалобы на материалы</a>
+            </div>
+            @endcan
         </div>
         <div class="col-lg-8">
             <div class="card">

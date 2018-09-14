@@ -179,6 +179,14 @@ class MaterialController extends Controller
         ]);
     }
     public function store(Request $request) {
+        $messages = [
+            'name.required' => 'Укажите название материала',
+            'type.required' => 'Укажите тип материала',
+            'specialty.required' => 'Укажите специальность',
+            'subject.required' => 'Укажите дисциплину',
+            'description.required' => 'Укажите описание материала',
+            'content.required' => 'Укажите файл материала',
+        ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'type' => 'required',
@@ -186,7 +194,7 @@ class MaterialController extends Controller
             'subject' => 'required',
             'description' => 'required',
             'content' => 'required|mimes:doc,docx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
-        ]);
+        ], $messages);
         if ($validator->fails()) {
             return redirect('material/create')
                         ->withErrors($validator)
@@ -200,9 +208,9 @@ class MaterialController extends Controller
         }
         if ($request->hasFile('content')) {
             $file = $request->file('content');
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', $fileName);
-            $this->content = explode('/', $path)[4];
+            $fileExtension = $file->getClientOriginalExtension();
+            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '.' . $fileExtension);
+            $this->content = date('d_m_o_His') . '.' . $fileExtension;
         }
 
         $material = new Material;
@@ -213,7 +221,7 @@ class MaterialController extends Controller
         $material->subject_id = $request->subject;
         $material->material_type_id = $request->type;
         $material->description = $request->description;
-        $material->content = $request->content;
+        $material->content = $this->content;
         $material->status = 'new';
 
         $material->save();
@@ -228,7 +236,14 @@ class MaterialController extends Controller
         if (Gate::denies('update-material', $material)) {
             abort(403, 'У вас нет прав на редактиование данного материала');
         }
-
+        $messages = [
+            'name.required' => 'Укажите название материала',
+            'type.required' => 'Укажите тип материала',
+            'specialty.required' => 'Укажите специальность',
+            'subject.required' => 'Укажите дисциплину',
+            'description.required' => 'Укажите описание материала',
+            'content.required' => 'Укажите файл материала',
+        ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'type' => 'required',
@@ -236,7 +251,7 @@ class MaterialController extends Controller
             'subject' => 'required|max:255',
             'description' => 'required',
             'content' => 'required|mimes:doc,docx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
-        ]);
+        ], $messages);
         if ($validator->fails()) {
             return redirect('material/' . $material->id . '/edit')
                         ->withErrors($validator)
@@ -251,9 +266,9 @@ class MaterialController extends Controller
                 $this->deleted = $material->content;
             }
             
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', $fileName);
-            $this->content = explode('/', $path)[4];
+            $fileExtension = $file->getClientOriginalExtension();
+            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '.' . $fileExtension);
+            $this->content = date('d_m_o_His') . '.' . $fileExtension;
         }
 
         $material->user_id = Auth::user()->id;
@@ -262,7 +277,7 @@ class MaterialController extends Controller
         $material->subject_id = $request->subject;
         $material->material_type_id = $request->type;
         $material->description = $request->description;
-        $material->content = $request->content;
+        $material->content = $this->content;
         $material->status = 'updated';
         $material->deleted = $this->deleted;
 
@@ -292,7 +307,7 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
         $user = User::findOrFail($material->user_id);
 
-        if ($way != 'forever') {
+        if ($way === 'temp') {
             $material->status = 'deleted';
             $material->who_deleted = Auth::user()->login;
             $material->save();
@@ -305,7 +320,8 @@ class MaterialController extends Controller
             }
             $material->delete();
             return redirect('materials');
-        } else if ($way == 'temp') {
+        }
+        if ($way === 'forever') {
             if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
                 Storage::delete('/public/materials/' . $user->login . '/actual/' . $material->content);
                 if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {

@@ -33,19 +33,17 @@
                         </li>
                         @else
                         <li class="nav-item">
-                            <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Популярные и новые материалы">Материалы</a>
+                            <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Популярные и новые материалы">Депозиторий</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('educationOrganizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список оповещений">Оповещения</a>
+                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
                         </li>
-                        @can ('moderate', Auth::user())
-                        <li class="nav-item">
-                            <a href="{{ route('materialComplaints') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список жалоб на материалы">Жалобы на материалы</a>
-                        </li>
-                        @endcan
                         @can ('administrate', Auth::user())
                         <li class="nav-item">
                             <a href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список пользователей">Пользователи</a>
@@ -100,21 +98,24 @@
                     <ul class="navbar-nav mx-auto">
                         @guest
                         <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link">Новости</a>
+                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
                         </li>
                         @else
                         <li class="nav-item">
-                            <a href="{{ route('materials') }}" class="nav-link">Материалы</a>
+                            <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Депозиторий материалов">Депозитарий</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('educationOrganizations') }}" class="nav-link">Образовательные организации</a>
+                            <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link">Новости</a>
+                            <a href="{{ route('educationOrganizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Образовательные организации">Образовательные организации</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
                         </li>
                         @can ('administrate', Auth::user())
                         <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link">Пользователи</a>
+                            <a href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Администрирование">Пользователи</a>
                         </li>
                         @endcan
                         @endguest

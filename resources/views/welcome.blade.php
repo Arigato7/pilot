@@ -86,7 +86,8 @@
                     @guest
                     <a href="{{ route('news') }}" class="nav-link">Новости</a>
                     @else
-                    <a href="{{ route('materials') }}" class="nav-link">Материалы</a>
+                    <a href="{{ route('materials') }}" class="nav-link">Депозиторий</a>
+                    <a href="{{ route('courses') }}" class="nav-link">Повышение квалификации</a>
                     <a href="{{ route('news') }}" class="nav-link">Новости</a>
                     @endguest
                 </div>
