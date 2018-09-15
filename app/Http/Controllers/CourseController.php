@@ -13,7 +13,7 @@ class CourseController extends Controller
 
     }
     public function create() {
-
+        return view('course.create');
     }
     public function store(Request $request) {
 

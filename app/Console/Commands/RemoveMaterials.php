@@ -44,9 +44,9 @@ class RemoveMaterials extends Command
             foreach ($directories as $directory) {
                 Storage::deleteDirectory($directory);
             }
-            $this->info('Файлы пользователей успешно удалены.');
+            $this->info('Users material files are removed.');
         } else {
-            $this->error('Корневая папка для файлов материалов не существует.');
+            $this->error('Can`t find material folder!');
         }
     }
 }

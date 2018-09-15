@@ -28,14 +28,6 @@ class MaterialController extends Controller
     }
     public function index() {
 
-        $topMaterials = DB::table('materials')
-                            ->join('users', 'materials.user_id', '=', 'users.id')
-                            ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
-                            ->where('materials.deleted_at', null)
-                            ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
-                            ->orderBy('materials.rate', 'desc')
-                            ->take(5)
-                            ->get();
         $newMaterials = DB::table('materials')
                             ->join('users', 'materials.user_id', '=', 'users.id')
                             ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
@@ -50,7 +42,6 @@ class MaterialController extends Controller
         $types = DB::table('material_types')->select('id', 'name')->orderBy('name')->take(5)->get();
 
         return view('material.list', [
-            'topMaterials' => $topMaterials,
             'newMaterials' => $newMaterials,
             'specialties' => $specialties,
             'subjects' => $subjects,
@@ -208,9 +199,9 @@ class MaterialController extends Controller
         }
         if ($request->hasFile('content')) {
             $file = $request->file('content');
-            $fileExtension = $file->getClientOriginalExtension();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '.' . $fileExtension);
-            $this->content = date('d_m_o_His') . '.' . $fileExtension;
+            $fileName = $file->getClientOriginalName();
+            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
+            $this->content = date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
         }
 
         $material = new Material;
@@ -266,9 +257,9 @@ class MaterialController extends Controller
                 $this->deleted = $material->content;
             }
             
-            $fileExtension = $file->getClientOriginalExtension();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '.' . $fileExtension);
-            $this->content = date('d_m_o_His') . '.' . $fileExtension;
+            $fileName = $file->getClientOriginalName();
+            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', ate('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
+            $this->content = ate('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
         }
 
         $material->user_id = Auth::user()->id;

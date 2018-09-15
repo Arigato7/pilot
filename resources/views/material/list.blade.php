@@ -110,46 +110,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h2 class="h2 mb-4">Популярные</h2>
-                    @forelse($topMaterials as $topMaterial)
-                    <div class="material mb-2">
-                        <div class="d-flex justify-content-between">
-                            <div class="col-lg-7 pl-0">
-                                <a href="/material/{{ $topMaterial->id }}" class="material__link">
-                                    {{ $topMaterial->name }}
-                                    <span class="ml-1 badge {{ $topMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                                        @if ($topMaterial->status == 'new')
-                                        Новый
-                                        @elseif ($topMaterial->status == 'updated')
-                                        Обновлен
-                                        @else
-                                        Восстановлен
-                                        @endif
-                                    </span>
-                                </a>
-                                <div class="text-secondary">
-                                    Оценка - {{ $topMaterial->rate }}
-                                </div>
-                            </div>
-                            <div class="material__date text-secondary">
-                                <div class="material__author">
-                                    <a href="/user/{{ $topMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $topMaterial->user_photo != null ? asset('storage/userdata/' . $topMaterial->user_login . '/' . $topMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $topMaterial->user_name }}</div></div>">{{ $topMaterial->user_name }}</a>
-                                </div>
-                                {{ $topMaterial->date }}
-                            </div>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="text-center text-secondary py-5">
-                        <p class="h3">Пусто</p>
-                    </div>
-                    @endforelse
-                    @if ($topMaterials->count() > 0)
-                    <div class="text-center py-2">
-                        <a href="#">Показать все</a>
-                    </div>
-                    @endif
-                    <h2 class="h2 mb-4">Новые</h2>
+                    <h2 class="h2 mb-4">Последние добавленные</h2>
                     @forelse($newMaterials as $newMaterial)
                     <div class="material mb-2">
                         <div class="d-flex justify-content-between">

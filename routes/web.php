@@ -62,6 +62,7 @@ Route::get('/news/create', 'NewsController@create')->name('newsCreate');
 Route::get('/news/{news}', 'NewsController@show');
 
 Route::get('/courses', 'CourseController@list')->name('courses');
+Route::get('/course/create', 'CourseController@create')->name('courseCreate');
 
 Route::get('/user/{user}', 'UserController@show');
 Route::get('/user/{user}/settings', 'UserController@edit');

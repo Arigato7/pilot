@@ -37,6 +37,9 @@ class EventServiceProvider extends ServiceProvider
         'Pilot\Events\OrganizationRated' => [
             'Pilot\Listeners\ChangeOrganizationRate',
         ],
+        'Pilot\Events\CourseSubscribed' => [
+            'Pilot\Listeners\NotifyByEmail',
+        ],
     ];
 
     /**
