@@ -10,7 +10,7 @@ class CourseController extends Controller
         return view('course.list');
     }
     public function show($id) {
-
+        return view('course.show');
     }
     public function create() {
         return view('course.create');
