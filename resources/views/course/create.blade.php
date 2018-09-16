@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">Добавление курса</div>
         <div class="card-body">
-            <form action="#" method="post">
+            <form action="{{ route('courseStore') }}" method="post">
                 @csrf
                 <label for="courseName" class="col-form-label text-secondary">Название курса</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="courseName" placeholder="Введите название курса">
@@ -56,13 +56,13 @@
                     </span>
                 @endif
                 <label for="courseDescription" class="col-form-label text-secondary">Описание</label>
-                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="courseDescription" placeholder="Введите описание курса"></textarea>
+                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="courseDescription" placeholder="Введите описание курса" cols="30" rows="10"></textarea>
                 @if ($errors->has('description'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
                 @endif
-                <button type="submit" class="btn btn-primary">Добавить</button>
+                <button type="submit" class="btn btn-primary mt-2"><i class="fa fa-plus mr-2"></i>Добавить</button>
             </form>
         </div>
     </div>
