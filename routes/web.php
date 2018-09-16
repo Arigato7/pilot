@@ -63,7 +63,7 @@ Route::get('/news/{news}', 'NewsController@show');
 
 Route::get('/courses', 'CourseController@list')->name('courses');
 Route::get('/course/create', 'CourseController@create')->name('courseCreate');
-
+Route::get('/course/{course}', 'CourseController@show');
 Route::post('/course/save', 'CourseController@store')->name('courseStore');
 
 Route::get('/user/{user}', 'UserController@show');

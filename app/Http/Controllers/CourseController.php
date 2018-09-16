@@ -3,15 +3,29 @@
 namespace Pilot\Http\Controllers;
 
 use Validator;
+use Pilot\User;
+use Pilot\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
     public function list() {
-        return view('course.list');
+
+        $courses = DB::table('courses')
+                            ->select('id', 'user_id', 'name', 'start_date', 'end_date', 'place', 'description')
+                            ->orderBy('start_date', 'desc')
+                            ->get();
+
+        return view('course.list', [
+            'courses' => $courses
+        ]);
     }
     public function show($id) {
-        return view('course.show');
+        return view('course.show', [
+            'course' => Course::findOrFail($id)
+        ]);
     }
     public function create() {
         return view('course.create');
@@ -42,6 +56,21 @@ class CourseController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        $startDate = $request->start_date . ' ' . $request->start_time;
+        $endDate = $request->end_date . ' ' . $request->end_time;
+
+        $course = Course::create([
+            'name' => $request->name,
+            'user_id' => Auth::user()->id,
+            'course_type_id' => 1,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'place' => $request->place,
+            'description' => $request->description
+        ]);
+
+        return redirect('course/' . $course->id);
     }
     public function update($id, Request $request) {
 

@@ -12,7 +12,18 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body"></div>
+        <div class="card-body">
+            @forelse($courses as $course)
+            <div class="course">
+                <h3 class="h3 mb-2"><a href="/course/{{ $course->id }}">{{ $course->name }}</a></h3>
+                <div class="text-secondary">{{ $course->place }}</div>
+            </div>
+            @empty
+            <div class="text-center text-secondary py-5">
+                <p class="h3">Пусто</p>
+            </div>
+            @endforelse
+        </div>
     </div>
 </div>
 @endsection
