@@ -16,7 +16,10 @@
             @forelse($courses as $course)
             <div class="course">
                 <h3 class="h3 mb-2"><a href="/course/{{ $course->id }}">{{ $course->name }}</a></h3>
-                <div class="text-secondary">{{ $course->place }}</div>
+                <div class="flex justify-content-between">
+                    <div class="text-secondary col-6">{{ $course->place }}</div>
+                    <div class="text-secondary col-6">Количество часов: {{ $course->place }} ч.</div>
+                </div>
             </div>
             @empty
             <div class="text-center text-secondary py-5">

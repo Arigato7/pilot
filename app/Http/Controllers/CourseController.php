@@ -39,7 +39,12 @@ class CourseController extends Controller
             'end_date.required_with' => 'Теперь укажите дату завершения',
             'end_time.required' => 'Укажите время завершения',
             'end_date.required' => 'Укажите дату завершения',
+            'end_entry_date.required_with' => 'Теперь укажите дату завершения записи',
+            'end_entry_time.required' => 'Укажите время завершения записи',
+            'end_entry_date.required' => 'Укажите дату завершения записи',
             'place.required' => 'Укажите место проведения',
+            'duration.required' => 'Укажите количество часов',
+            'duration.numeric' => 'Сдесь должно быть число',
             'description.required' => 'Укажите описание'
         ];
         $validator = Validator::make($request->all(), [
@@ -48,6 +53,9 @@ class CourseController extends Controller
             'start_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
             'end_date' => 'required_with:end_time|required|date',
             'end_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
+            'end_entry_date' => 'required_with:end_entry_time|required|date',
+            'end_entry_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
+            'duration' => 'required|numeric',
             'place' => 'required|max:255',
             'description' => 'required|max:255'
         ], $messages);
@@ -59,6 +67,7 @@ class CourseController extends Controller
 
         $startDate = $request->start_date . ' ' . $request->start_time;
         $endDate = $request->end_date . ' ' . $request->end_time;
+        $endEntryDate = $request->end_entry_date . ' ' . $request->end_entry_time;
 
         $course = Course::create([
             'name' => $request->name,
@@ -66,6 +75,8 @@ class CourseController extends Controller
             'course_type_id' => 1,
             'start_date' => $startDate,
             'end_date' => $endDate,
+            'end_entry_date' => $endEntryDate,
+            'duration' => $request->duration,
             'place' => $request->place,
             'description' => $request->description
         ]);

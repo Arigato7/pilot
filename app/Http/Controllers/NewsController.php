@@ -23,17 +23,8 @@ class NewsController extends Controller
                         ->take(5)
                         ->get();
 
-        $topNews = DB::table('news')
-                        ->join('users', 'news.user_id', '=', 'users.id')
-                        ->join('user_infos', 'news.user_id', '=', 'user_infos.user_id')
-                        ->select('news.header', 'news.theme', 'news.is_notification', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name')
-                        ->orderBy('news.rate', 'desc')
-                        ->take(5)
-                        ->get();
-
         return view('news.list', [
-            'newNews' => $newNews,
-            'topNews' => $topNews
+            'newNews' => $newNews
         ]);
     }
     public function show($id) {

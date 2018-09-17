@@ -21,7 +21,9 @@ class CreateCoursesTable extends Migration
 			$table->foreign('course_type_id')->references('id')->on('course_types');
 			$table->string('name');
 			$table->dateTime('start_date');
-			$table->dateTime('end_date');
+            $table->dateTime('end_date');
+            $table->dateTime('end_entry_date');
+            $table->integer('duration');
 			$table->string('place');
 			$table->string('description');
             $table->timestamps();

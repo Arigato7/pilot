@@ -15,25 +15,7 @@
             </div>
         </div>
         <div class="card-body">
-            <h2 class="h2 mb-4">Популярные</h2>
-            @forelse($topNews as $item)
-            <div class="news__item">
-                <div class="d-flex justify-content-between">
-                    <div class="col-lg-5">
-                        <a href="#" class="material__link">{{ $item->header }}</a>
-                        <p class="material__author">
-                            <a href="/user/{{ $item->user_login }}" class="text-secondary">{{ $item->user_name }}</a>
-                        </p>
-                    </div>
-                    <p class="material__date text-secondary">{{ $item->date }}</p>
-                </div>
-            </div>
-            @empty
-            <div class="text-center text-secondary py-5">
-                <p class="h3">Пусто</p>
-            </div>
-            @endforelse
-            <h2 class="h2 mb-4">Новые</h2>
+            <h2 class="h2 mb-4">Последние добавленные</h2>
             @forelse($newNews as $item)
             <div class="news__item">
                 <div class="d-flex justify-content-between">
