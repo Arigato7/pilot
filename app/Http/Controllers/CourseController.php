@@ -13,13 +13,13 @@ class CourseController extends Controller
 {
     public function list() {
 
-        $courses = DB::table('courses')
+        /* $courses = DB::table('courses')
                             ->select('id', 'user_id', 'name', 'start_date', 'end_date', 'place', 'description')
                             ->orderBy('start_date', 'desc')
-                            ->get();
+                            ->get(); */
 
         return view('course.list', [
-            'courses' => $courses
+            'courses' => Course::all()
         ]);
     }
     public function show($id) {
@@ -28,11 +28,20 @@ class CourseController extends Controller
         ]);
     }
     public function create() {
-        return view('course.create');
+
+        $types = DB::table('course_types')
+                        ->select('id', 'name')
+                        ->orderBy('created_at')
+                        ->get();
+
+        return view('course.create', [
+            'types' => $types
+        ]);
     }
     public function store(Request $request) {
         $messages = [
             'name.required' => 'Укажите название курса',
+            'type.required' => 'Укажите тип курса',
             'start_date.required_with' => 'Теперь укажите дату начала',
             'start_time.required' => 'Укажите время начала',
             'start_date.required' => 'Укажите дату начала',
@@ -49,6 +58,7 @@ class CourseController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'type' => 'required',
             'start_date' => 'required_with:start_time|required|date',
             'start_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
             'end_date' => 'required_with:end_time|required|date',
@@ -72,7 +82,7 @@ class CourseController extends Controller
         $course = Course::create([
             'name' => $request->name,
             'user_id' => Auth::user()->id,
-            'course_type_id' => 1,
+            'course_type_id' => $request->type,
             'start_date' => $startDate,
             'end_date' => $endDate,
             'end_entry_date' => $endEntryDate,

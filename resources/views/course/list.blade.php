@@ -15,10 +15,18 @@
         <div class="card-body">
             @forelse($courses as $course)
             <div class="course">
-                <h3 class="h3 mb-2"><a href="/course/{{ $course->id }}">{{ $course->name }}</a></h3>
-                <div class="flex justify-content-between">
-                    <div class="text-secondary col-6">{{ $course->place }}</div>
-                    <div class="text-secondary col-6">Количество часов: {{ $course->place }} ч.</div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="h3 mb-2"><a href="/course/{{ $course->id }}">{{ $course->name }}</a></h3>
+                    <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                </div>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-6">
+                        <div class="text-secondary">{{ $course->place }}</div>
+                        <div class="text-secondary">Дата начала: {{ $course->start_date }}</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
+                    </div>
                 </div>
             </div>
             @empty

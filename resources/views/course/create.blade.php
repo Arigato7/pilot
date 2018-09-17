@@ -21,6 +21,20 @@
                         <strong>{{ $errors->first('duration') }}</strong>
                     </span>
                 @endif
+                <label for="courseType" class="col-form-label text-secondary">Тип курса</label>
+                <select class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}" name="type" id="courseType">
+                    <option value="#" selected disabled>Выберите тип курса</option>
+                    @forelse($types as $type)
+                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @empty
+                    <option value="#" disabled>Пусто</option>
+                    @endforelse
+                </select>
+                @if ($errors->has('type'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('type') }}</strong>
+                    </span>
+                @endif
                 <div class="form-row">
                     <div class="col-form-label col-4">
                         <label for="courseStartDate" class="col-form-label text-secondary">Дата начала</label>
