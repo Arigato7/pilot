@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use DateTime;
 use Validator;
 use Pilot\User;
 use Pilot\Course;
@@ -23,8 +24,16 @@ class CourseController extends Controller
         ]);
     }
     public function show($id) {
+        date_default_timezone_set("Europe/Samara"); // Потому что по другому никак
+        $course = Course::findOrFail($id);
+
+        $currentDate = new DateTime(date( "d.m.Y H:i:s", strtotime("now")));
+        $endEntryDate = new DateTime(date( "d.m.Y H:i:s", strtotime($course->end_entry_date)));
+        $diffDateInterval = $currentDate->diff($endEntryDate);
+
         return view('course.show', [
-            'course' => Course::findOrFail($id)
+            'course' => $course,
+            'date_diff' => $diffDateInterval
         ]);
     }
     public function create() {
@@ -74,6 +83,8 @@ class CourseController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        // TODO: сравнивать даты начала курса с датой завершения записи на курс
 
         $startDate = $request->start_date . ' ' . $request->start_time;
         $endDate = $request->end_date . ' ' . $request->end_time;

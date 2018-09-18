@@ -16,7 +16,9 @@
             @forelse($courses as $course)
             <div class="course">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3 class="h3 mb-2"><a href="/course/{{ $course->id }}">{{ $course->name }}</a></h3>
+                    <h3 class="h3 mb-2">
+                        <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
+                    </h3>
                     <a href="#" class="btn btn-lg btn-primary">Записаться</a>
                 </div>
                 <div class="row justify-content-between align-items-center">
