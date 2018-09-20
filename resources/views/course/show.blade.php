@@ -33,7 +33,7 @@
                             @if ($date_diff->invert == 1)
                             <a href="#" class="btn btn-lg btn-primary">Записаться</a>
                             @else
-                                <div class="btn btn-lg btn-danger">Запись зыкрыта</div>
+                                <div class="btn btn-lg btn-danger">Запись закрыта</div>
                             @endif
                         </div>
                     </div>

@@ -13,29 +13,35 @@
             </div>
         </div>
         <div class="card-body">
-            @forelse($courses as $course)
-            <div class="course">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h3 class="h3 mb-2">
-                        <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
-                    </h3>
-                    <a href="#" class="btn btn-lg btn-primary">Записаться</a>
-                </div>
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-6">
-                        <div class="text-secondary">{{ $course->place }}</div>
-                        <div class="text-secondary">Дата начала: {{ $course->start_date }}</div>
+            <div class="list-group list-group-flush">
+                @forelse($courses as $course)
+                <div class="list-group-item course">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="h3 mb-2">
+                            <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
+                        </h3>
+                        @if (date_diff(date_create("now"), date_create($course->end_entry_date))->invert == 1)
+                        <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                        @else
+                            <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                        @endif
                     </div>
-                    <div class="col-6 text-right">
-                        <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-6">
+                            <div class="text-secondary">{{ $course->place }}</div>
+                            <div class="text-secondary">Дата начала: {{ $course->start_date }}</div>
+                        </div>
+                        <div class="col-6 text-right">
+                            <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
+                        </div>
                     </div>
                 </div>
+                @empty
+                <div class="text-center text-secondary py-5">
+                    <p class="h3">Пусто</p>
+                </div>
+                @endforelse
             </div>
-            @empty
-            <div class="text-center text-secondary py-5">
-                <p class="h3">Пусто</p>
-            </div>
-            @endforelse
         </div>
     </div>
 </div>

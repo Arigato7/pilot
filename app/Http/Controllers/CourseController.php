@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class CourseController extends Controller
 {
     public function list() {
-
+        date_default_timezone_set("Europe/Samara");
         /* $courses = DB::table('courses')
                             ->select('id', 'user_id', 'name', 'start_date', 'end_date', 'place', 'description')
                             ->orderBy('start_date', 'desc')
@@ -90,13 +90,22 @@ class CourseController extends Controller
         $endDate = $request->end_date . ' ' . $request->end_time;
         $endEntryDate = $request->end_entry_date . ' ' . $request->end_entry_time;
 
+        $startDateTime = new DateTime(date( "d.m.Y H:i:s", strtotime($startDate)));
+        $endEntryDateTime = new DateTime(date( "d.m.Y H:i:s", strtotime($endEntryDate)));
+
+        $endEntryDateTimeString = $startDateTime
+                                ->diff($endEntryDateTime)
+                                ->invert == 0
+                                ? $endEntryDateTime->sub(date_interval_create_from_date_string('1 day'))->format("Y-m-d H:i:s")
+                                : $endEntryDateTime->format("Y-m-d H:i:s");
+
         $course = Course::create([
             'name' => $request->name,
             'user_id' => Auth::user()->id,
             'course_type_id' => $request->type,
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'end_entry_date' => $endEntryDate,
+            'end_entry_date' => $endEntryDateTimeString,
             'duration' => $request->duration,
             'place' => $request->place,
             'description' => $request->description
