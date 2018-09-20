@@ -43,5 +43,6 @@ class NotifyByEmail
                             ->select('name')
                             ->where('id', $userData->position_id)
                             ->get();
+        
     }
 }
