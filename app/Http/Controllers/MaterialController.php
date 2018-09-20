@@ -225,7 +225,7 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
 
         if (Gate::denies('update-material', $material)) {
-            abort(403, 'У вас нет прав на редактиование данного материала');
+            abort(403, 'У вас нет прав на редактирование данного материала');
         }
         $messages = [
             'name.required' => 'Укажите название материала',

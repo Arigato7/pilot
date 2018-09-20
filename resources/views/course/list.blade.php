@@ -12,7 +12,7 @@
                 @endcan
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body p-0">
             <div class="list-group list-group-flush">
                 @forelse($courses as $course)
                 <div class="list-group-item course">
@@ -20,7 +20,7 @@
                         <h3 class="h3 mb-2">
                             <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
                         </h3>
-                        @if (date_diff(date_create("now"), date_create($course->end_entry_date))->invert == 1)
+                        @if (date_create("now") <= date_create($course->end_entry_date))
                         <a href="#" class="btn btn-lg btn-primary">Записаться</a>
                         @else
                             <div class="btn btn-lg btn-danger">Запись закрыта</div>
@@ -29,7 +29,7 @@
                     <div class="row justify-content-between align-items-center">
                         <div class="col-6">
                             <div class="text-secondary">{{ $course->place }}</div>
-                            <div class="text-secondary">Дата начала: {{ $course->start_date }}</div>
+                            <div class="text-secondary">Дата начала: {{ date( "d.m.Y в H:i", strtotime($course->start_date)) }}</div>
                         </div>
                         <div class="col-6 text-right">
                             <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>

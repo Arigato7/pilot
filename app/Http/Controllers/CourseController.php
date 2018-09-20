@@ -6,7 +6,9 @@ use DateTime;
 use Validator;
 use Pilot\User;
 use Pilot\Course;
+use Pilot\CourseRecord;
 use Illuminate\Http\Request;
+use Pilot\Events\CourseSubscribed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,11 +31,11 @@ class CourseController extends Controller
 
         $currentDate = new DateTime(date( "d.m.Y H:i:s", strtotime("now")));
         $endEntryDate = new DateTime(date( "d.m.Y H:i:s", strtotime($course->end_entry_date)));
-        $diffDateInterval = $currentDate->diff($endEntryDate);
+        $diffDateBool = $currentDate <= $endEntryDate;
 
         return view('course.show', [
             'course' => $course,
-            'date_diff' => $diffDateInterval
+            'date_diff' => $diffDateBool
         ]);
     }
     public function create() {
@@ -84,8 +86,6 @@ class CourseController extends Controller
                         ->withInput();
         }
 
-        // TODO: сравнивать даты начала курса с датой завершения записи на курс
-
         $startDate = $request->start_date . ' ' . $request->start_time;
         $endDate = $request->end_date . ' ' . $request->end_time;
         $endEntryDate = $request->end_entry_date . ' ' . $request->end_entry_time;
@@ -111,6 +111,28 @@ class CourseController extends Controller
             'description' => $request->description
         ]);
 
+        return redirect('course/' . $course->id);
+    }
+    public function enrollment($id, Request $request) {
+
+        $course = Course::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|unique:course_records',
+            'date' => 'required|before:' . $course->end_entry_date
+        ]);
+
+        $record = null;
+
+        if (! $validator->fails()) {
+            $record = CourseRecord::create([
+                'course_id' => $course->id,
+                'user_id' => Auth::user()->id,
+                'date' => $request->date
+            ]);
+        }
+        
+        event(new CourseSubscribed($course));
         return redirect('course/' . $course->id);
     }
     public function update($id, Request $request) {

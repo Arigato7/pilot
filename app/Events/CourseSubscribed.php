@@ -2,6 +2,7 @@
 
 namespace Pilot\Events;
 
+use Pilot\CourseRecord;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,14 +15,16 @@ class CourseSubscribed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $courseRecord;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Course $courseRecord)
     {
-        //
+        $this->courseRecord = $courseRecord;
     }
 
     /**
