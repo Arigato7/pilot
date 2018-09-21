@@ -11,6 +11,10 @@ class Material extends Model
     use SoftDeletes;
     use Searchable;
 
+    /**
+     * @todo Исправить ошибку при поиске материала
+     */
+
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'user_id', 

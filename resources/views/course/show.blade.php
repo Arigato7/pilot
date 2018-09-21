@@ -36,6 +36,7 @@
                                           document.getElementById('entry-course').submit();">Записаться</a>
                             <form id="entry-course" action="/course/{{ $course->id }}/entry" method="POST" style="display: none;">
                                 @csrf
+                                <input type="hidden" name="course_id" value="{{ $course->id }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
                             </form>
@@ -53,6 +54,19 @@
             </div>
             <div class="py-3">
                 {{ $course->description }}
+            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="list-group list-group-flush">
+            <div class="list-group-item course-comment">
+                text
+            </div>
+            <div class="list-group-item course-comment">
+                text
+            </div>
+            <div class="list-group-item course-comment">
+                text
             </div>
         </div>
     </div>

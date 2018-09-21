@@ -8,6 +8,7 @@ use Pilot\User;
 use Pilot\Course;
 use Pilot\CourseRecord;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Pilot\Events\CourseSubscribed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -118,7 +119,8 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|unique:course_records',
+            'course_id' => 'required|unique:course_records',
+            'user_id' => 'unique:course_records,course_id,'.$course->id,
             'date' => 'required|before:' . $course->end_entry_date
         ]);
 
@@ -130,9 +132,9 @@ class CourseController extends Controller
                 'user_id' => Auth::user()->id,
                 'date' => $request->date
             ]);
+            event(new CourseSubscribed($record));
         }
         
-        event(new CourseSubscribed($course));
         return redirect('course/' . $course->id);
     }
     public function update($id, Request $request) {

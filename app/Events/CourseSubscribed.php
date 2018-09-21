@@ -22,7 +22,7 @@ class CourseSubscribed
      *
      * @return void
      */
-    public function __construct(Course $courseRecord)
+    public function __construct(CourseRecord $courseRecord)
     {
         $this->courseRecord = $courseRecord;
     }
