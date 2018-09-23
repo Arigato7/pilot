@@ -15,12 +15,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
+    
     public function list() {
         date_default_timezone_set("Europe/Samara");
-        /* $courses = DB::table('courses')
-                            ->select('id', 'user_id', 'name', 'start_date', 'end_date', 'place', 'description')
-                            ->orderBy('start_date', 'desc')
-                            ->get(); */
 
         return view('course.list', [
             'courses' => Course::all()
@@ -132,7 +129,7 @@ class CourseController extends Controller
                 'user_id' => Auth::user()->id,
                 'date' => $request->date
             ]);
-            event(new CourseSubscribed($record));
+            //event(new CourseSubscribed($record));
         }
         
         return redirect('course/' . $course->id);

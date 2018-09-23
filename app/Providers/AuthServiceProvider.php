@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'Pilot\User' => 'Pilot\Policies\UserPolicy',
+        'Pilot\Course' => 'Pilot\Policies\CoursePolicy',
         'Pilot\Material' => 'Pilot\Policies\MaterialPolicy',
         'Pilot\MaterialComplaint' => 'Pilot\Policies\MaterialComplaintPolicy',
         'Pilot\EducationOrganization' => 'Pilot\Policies\EducationOrganizationPolicy'

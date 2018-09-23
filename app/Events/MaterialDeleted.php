@@ -2,6 +2,7 @@
 
 namespace Pilot\Events;
 
+use Pilot\Material;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,14 +15,16 @@ class MaterialDeleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $material;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Material $material)
     {
-        //
+        $this->material = $material;
     }
 
     /**

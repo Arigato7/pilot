@@ -30,19 +30,23 @@
                             </div>
                         </div>
                         <div class="ml-5">
-                            @if ($date_diff)
-                            <a href="#" class="btn btn-lg btn-primary"  
-                            onclick="event.preventDefault();
-                                          document.getElementById('entry-course').submit();">Записаться</a>
-                            <form id="entry-course" action="/course/{{ $course->id }}/entry" method="POST" style="display: none;">
-                                @csrf
-                                <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
-                            </form>
+                            @can('course-entry', $course)
+                                @if ($date_diff)
+                                <a href="#" class="btn btn-lg btn-primary"  
+                                onclick="event.preventDefault();
+                                            document.getElementById('entry-course').submit();">Записаться</a>
+                                <form id="entry-course" action="/course/{{ $course->id }}/entry" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
+                                </form>
+                                @else
+                                    <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                                @endif
                             @else
-                                <div class="btn btn-lg btn-danger">Запись закрыта</div>
-                            @endif
+                                <div class="btn btn-lg btn-success">Вы записаны</div>
+                            @endcan
                         </div>
                     </div>
                     @if ($date_diff)

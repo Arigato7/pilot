@@ -32,8 +32,7 @@ class NotifyByEmail
     {
         Mail::raw('Работает!!!', function ($message) {
             $message->from('downonrabota@mail.ru', 'Laravel');
-            $message->to('ipek.ikt@gmail.com');
+            $message->to('plstsale@gmail.com');
         });
-        //Mail::send(new CourseSubscribedMail($event->courseRecord->user_id, $event->courseRecord->course_id));
     }
 }

@@ -49,7 +49,7 @@
                 font-size: 84px;
             }
 
-            .links > a {
+            .links a {
                 color: #636b6f;
                 padding: 0 25px;
                 font-size: 12px;
@@ -57,6 +57,28 @@
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+            }
+
+            .smart-row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            a.smart-block {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100px;
+                height: 100px;
+                padding: 5rem;
+                outline-width: 1px;
+                outline-color: #636b6f;
+                outline-offset: 0;
+                outline-style: solid;
+                transition: outline-offset ease-in 0.1s;
+            }
+            a.smart-block:hover {
+                outline-offset: -45px;
             }
 
             .m-b-md {
@@ -84,11 +106,13 @@
 
                 <div class="links">
                     @guest
-                    <a href="{{ route('news') }}" class="nav-link">Новости</a>
+                    <a href="{{ route('news') }}" class="nav-link smart-block">Новости</a>
                     @else
-                    <a href="{{ route('materials') }}" class="nav-link">Депозиторий</a>
-                    <a href="{{ route('courses') }}" class="nav-link">Повышение квалификации</a>
-                    <a href="{{ route('news') }}" class="nav-link">Новости</a>
+                    <div class="smart-row">
+                        <a href="{{ route('materials') }}" class="nav-link smart-block">Депозиторий</a>
+                        <a href="{{ route('courses') }}" class="nav-link smart-block">Повышение квалификации</a>
+                        <a href="{{ route('news') }}" class="nav-link smart-block">Новости</a>
+                    </div>    
                     @endguest
                 </div>
             </div>

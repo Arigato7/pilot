@@ -20,11 +20,15 @@
                         <h3 class="h3 mb-2">
                             <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
                         </h3>
-                        @if (date_create("now") <= date_create($course->end_entry_date))
-                        <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                        @can('course-entry', $course)
+                            @if (date_create("now") <= date_create($course->end_entry_date))
+                            <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                            @else
+                                <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                            @endif
                         @else
-                            <div class="btn btn-lg btn-danger">Запись закрыта</div>
-                        @endif
+                            <div class="btn btn-lg btn-success">Вы записаны</div>
+                        @endcan
                     </div>
                     <div class="row justify-content-between align-items-center">
                         <div class="col-6">
