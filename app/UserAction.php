@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAction extends Model
 {
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'description'
+    ];
 
     public function user() {
-
-    }
-    public function material() {
         
     }
 }

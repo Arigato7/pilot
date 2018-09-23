@@ -63,21 +63,26 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($materials as $material)
-                    <div class="material">
-                        <div class="d-flex justify-content-between">
-                            <a href="/material/{{ $material->id }}" class="material__link">{{ $material->name }}</a>
-                            <p class="material__date text-secondary">{{ $material->date }}</p>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($materials as $material)
+                        <div class="list-group-item material">
+                            <div class="d-flex justify-content-between">
+                                <a href="/material/{{ $material->id }}" class="material__link">{{ $material->name }}</a>
+                                <p class="material__date text-secondary">{{ $material->date }}</p>
+                            </div>
                         </div>
+                        @empty
+                        @can ('edit', $user, Auth::user())
+                        <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Все ждут ваши материалы!</div>
+                        @else
+                        <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Пользователь еще ничего не добавил!</div>
+                        @endcan
+                        @endforelse
+                        @if ($materials->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    @can ('edit', $user, Auth::user())
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Все ждут ваши материалы!</div>
-                    @else
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Пользователь еще ничего не добавил!</div>
-                    @endcan
-                    @endforelse
                 </div>
             </div>
         </div>
@@ -88,24 +93,26 @@
                         Новости пользователя
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($news as $item)
-                    <div class="news">
-                        <div class="d-flex justify-content-between">
-                            <div class="col-7 pl-0">
-                                <a href="#" class="news__link">{{ $item->header }}</a>
-                                <div class="news__theme text-secondary">{{ $item->theme }}</div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($news as $item)
+                        <div class="list-group-item news">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-7 pl-0">
+                                    <a href="#" class="news__link">{{ $item->header }}</a>
+                                    <div class="news__theme text-secondary">{{ $item->theme }}</div>
+                                </div>
+                                <p class="news__date text-secondary">{{ $item->date }}</p>
                             </div>
-                            <p class="news__date text-secondary">{{ $item->date }}</p>
                         </div>
+                        @empty
+                        @can ('edit', $user, Auth::user())
+                        <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Все ждут ваши новости!</div>
+                        @else
+                        <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Пользователь еще ничего не добавил!</div>
+                        @endcan
+                        @endforelse
                     </div>
-                    @empty
-                    @can ('edit', $user, Auth::user())
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Все ждут ваши новости!</div>
-                    @else
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Пользователь еще ничего не добавил!</div>
-                    @endcan
-                    @endforelse
                 </div>
             </div>
         </div>
@@ -121,16 +128,21 @@
                         <a href="{{ route('educationOrganizations') }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($organizations as $organization)
-                    <div class="education-organization">
-                        <div class="d-flex justify-content-between py-2">
-                            <a href="#" class="education-organization__link">{{ $organization->name }}</a>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($organizations as $organization)
+                        <div class="list-group-item education-organization">
+                            <div class="d-flex justify-content-between py-2">
+                                <a href="#" class="education-organization__link">{{ $organization->name }}</a>
+                            </div>
                         </div>
+                        @empty
+                        <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Добавьте уже образовательные организации!</div>
+                        @endforelse
+                        @if ($organizations->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Добавьте уже образовательные организации!</div>
-                    @endforelse
                 </div>
             </div>
         </div>
@@ -142,16 +154,21 @@
                         <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($specialties as $specialty)
-                    <div class="specialty">
-                        <div class="d-flex justify-content-between py-2">
-                            <a href="#" class="specialty__link">{{ $specialty->name }}</a>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($specialties as $specialty)
+                        <div class="list-group-item specialty">
+                            <a href="/material/filter/specialty/{{ $specialty->id }}" class="d-block">{{ $specialty->name }}</a>
                         </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary">
+                            Пусто
+                        </div>
+                        @endforelse
+                        @if ($specialties->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Добавьте уже специальности!</div>
-                    @endforelse
                 </div>
             </div>
         </div>
@@ -165,16 +182,21 @@
                         <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($subjects as $subject)
-                    <div class="subject">
-                        <div class="d-flex justify-content-between py-2">
-                            <a href="#" class="subject__link">{{ $subject->name }}</a>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($subjects as $subject)
+                        <div class="list-group-item subject">
+                            <a href="/material/filter/subject/{{ $subject->id }}">{{ $subject->name }}</a>
                         </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary">
+                            Пусто
+                        </div>
+                        @endforelse
+                        @if ($subjects->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-secondary d-flex align-items-center justify-content-center">Добавьте уже дисциплины!</div>
-                    @endforelse
                 </div>
             </div>
         </div>
@@ -183,8 +205,18 @@
     @endcan
     <div class="card actions">
         <div class="card-header">Действия пользователя</div>
-        <div class="card-body">
-
+        <div class="card-body p-0">
+            <div class="list-group list-group-flush">
+                @forelse($actions as $action)
+                <div class="list-group-item action">
+                    <div class="d-flex justify-content-between py-2">
+                        <div>{{ $action->description }}</div>
+                    </div>
+                </div>
+                @empty
+                <div class="list-group-item text-secondary d-flex align-items-center justify-content-center">Пользователь ничего не делал...</div>
+                @endforelse
+            </div>
         </div>
     </div>
 </div>

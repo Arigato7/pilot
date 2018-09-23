@@ -6,7 +6,7 @@
         <div class="card-header">
             Список пользователей
         </div>
-        <div class="card-body">
+        <div class="card-body p-0">
             <table class="table table-borderless table-hover">
                 <thead>
                     <tr>

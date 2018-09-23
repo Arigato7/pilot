@@ -5,6 +5,7 @@ namespace Pilot\Http\Controllers;
 use Validator;
 use Pilot\User;
 use Pilot\Material;
+use Pilot\UserAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,11 @@ class UserController extends Controller
                         ->take(5)
                         ->get();
 
+        $userActions = DB::table('user_actions')
+                        ->select('description')
+                        ->where('user_id', $user->id)
+                        ->get();
+
         return view('user.show', [
             'user' => $user,
             'materials' => $materials,
@@ -65,6 +71,7 @@ class UserController extends Controller
             'organizations' => $organizations,
             'specialties' => $specialties,
             'subjects' => $subjects,
+            'actions' => $userActions
         ]);
     }
     public function edit() {

@@ -258,8 +258,8 @@ class MaterialController extends Controller
             }
             
             $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', ate('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
-            $this->content = ate('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
+            $this->content = date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
         }
 
         $material->user_id = Auth::user()->id;

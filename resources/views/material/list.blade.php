@@ -25,18 +25,20 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($types as $type)
-                    <div class="subject">
-                        <a href="/material/filter/type/{{ $type->id }}">{{ $type->name }}</a>
-                    </div>
-                    @empty
-                    <div class="text-center text-secondary">
-                        Пусто
-                    </div>
-                    @endforelse
-                    <div class="text-center">
-                        <a href="#">Показать все</a>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($types as $type)
+                        <div class="list-group-item subject">
+                            <a href="/material/filter/type/{{ $type->id }}">{{ $type->name }}</a>
+                        </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary">
+                            Пусто
+                        </div>
+                        @endforelse
+                        @if ($types->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -49,24 +51,24 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($specialties as $specialty)
-                    <div class="subject">
-                        <div class="d-flex justify-content-between">
-                            <a href="/material/filter/specialty/{{ $specialty->id }}" class="d-block">{{ $specialty->name }}</a>
-                            <div class="text-secondary">{{ $specialty->code }}</div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($specialties as $specialty)
+                        <div class="list-group-item specialty">
+                            <div class="d-flex justify-content-between">
+                                <a href="/material/filter/specialty/{{ $specialty->id }}" class="d-block">{{ $specialty->name }}</a>
+                                <div class="text-secondary">{{ $specialty->code }}</div>
+                            </div>
                         </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary">
+                            Пусто
+                        </div>
+                        @endforelse
+                        @if ($specialties->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-center text-secondary">
-                        Пусто
-                    </div>
-                    @endforelse
-                    @if ($specialties->count() > 0)
-                    <div class="text-center py-2">
-                        <a href="{{ route('specialties') }}">Показать все</a>
-                    </div>
-                    @endif
                 </div>
             </div>
             <div class="card subjects">
@@ -78,21 +80,21 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body">
-                    @forelse($subjects as $subject)
-                    <div class="subject">
-                        <a href="/material/filter/subject/{{ $subject->id }}">{{ $subject->name }}</a>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @forelse($subjects as $subject)
+                        <div class="list-group-item subject">
+                            <a href="/material/filter/subject/{{ $subject->id }}">{{ $subject->name }}</a>
+                        </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary">
+                            Пусто
+                        </div>
+                        @endforelse
+                        @if ($subjects->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-center text-secondary">
-                        Пусто
-                    </div>
-                    @endforelse
-                    @if ($subjects->count() > 0)
-                    <div class="text-center py-2">
-                        <a href="#">Показать все</a>
-                    </div>
-                    @endif
                 </div>
             </div>
             @can ('moderate', Auth::user())
@@ -109,46 +111,46 @@
                         <a href="{{ route('materialCreate') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h2 class="h2 mb-4">Последние добавленные</h2>
-                    @forelse($newMaterials as $newMaterial)
-                    <div class="material mb-2">
-                        <div class="d-flex justify-content-between">
-                            <div class="col-lg-7 pl-0">
-                                <a href="/material/{{ $newMaterial->id }}" class="material__link">
-                                    {{ $newMaterial->name }}
-                                    <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                                        @if ($newMaterial->status == 'new')
-                                        Новый
-                                        @elseif ($newMaterial->status == 'updated')
-                                        Обновлен
-                                        @else
-                                        Восстановлен
-                                        @endif
-                                    </span>
-                                </a>
-                                <div class="text-secondary">
-                                    Оценка - {{ $newMaterial->rate }}
+                <div class="card-body p-0">
+                    <h2 class="h2 p-4">Последние добавленные</h2>
+                    <div class="list-group list-group-flush">
+                        @forelse($newMaterials as $newMaterial)
+                        <div class="list-group-item material">
+                            <div class="d-flex justify-content-between">
+                                <div class="col-lg-7 pl-0">
+                                    <a href="/material/{{ $newMaterial->id }}" class="material__link">
+                                        {{ $newMaterial->name }}
+                                        <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
+                                            @if ($newMaterial->status == 'new')
+                                            Новый
+                                            @elseif ($newMaterial->status == 'updated')
+                                            Обновлен
+                                            @else
+                                            Восстановлен
+                                            @endif
+                                        </span>
+                                    </a>
+                                    <div class="text-secondary">
+                                        Оценка - {{ $newMaterial->rate }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="material__date text-secondary">
-                                <div class="material__author">
-                                    <a href="/user/{{ $newMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a>
+                                <div class="material__date text-secondary">
+                                    <div class="material__author">
+                                        <a href="/user/{{ $newMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a>
+                                    </div>
+                                    {{ $newMaterial->date }}
                                 </div>
-                                {{ $newMaterial->date }}
                             </div>
                         </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary py-5">
+                            <p class="h3">Пусто</p>
+                        </div>
+                        @endforelse
+                        @if ($newMaterials->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
-                    @empty
-                    <div class="text-center text-secondary py-5">
-                        <p class="h3">Пусто</p>
-                    </div>
-                    @endforelse
-                    @if ($newMaterials->count() > 0)
-                    <div class="text-center py-2">
-                        <a href="#">Показать все</a>
-                    </div>
-                    @endif
                 </div>
             </div>
         </div>

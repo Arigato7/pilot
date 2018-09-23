@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Pilot\Events\NewsCreated' => [
             'Pilot\Listeners\CreateNewsFolder',
+            'Pilot\Listeners\CreateNewsNotification'
         ],
         'Pilot\Events\MaterialCreated' => [
             'Pilot\Listeners\CreateMaterialNotification',
@@ -39,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Pilot\Events\CourseSubscribed' => [
             'Pilot\Listeners\NotifyByEmail',
+            'Pilot\Listeners\CreateCourseSubscribedNotification'
         ],
     ];
 

@@ -2,9 +2,9 @@
 
 namespace Pilot\Listeners;
 
-use Pilot\Events\MaterialCreated;
-use Pilot\Events\NewsCreated;
 use Pilot\News;
+use Pilot\UserAction;
+use Pilot\Events\MaterialCreated;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,15 +34,10 @@ class CreateMaterialNotification
                             ->where('user_id', $event->material->user_id)
                             ->first();
 
-        $news = News::create([
+        $userAction = UserAction::create([
             'user_id' => $event->material->user_id,
-            'header' => $user->name . ' добавил материал - ' . $event->material->name,
-            'theme' => 'Оповещение',
-            'is_notification' => 'true',
-            'description' => $event->material->description,
-            'content' => ''
+            'description' => $user->name . ' добавил материал - ' . $event->material->name,
         ]);
         
-        event(new NewsCreated($news));
     }
 }

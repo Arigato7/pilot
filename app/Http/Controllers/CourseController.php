@@ -129,7 +129,7 @@ class CourseController extends Controller
                 'user_id' => Auth::user()->id,
                 'date' => $request->date
             ]);
-            //event(new CourseSubscribed($record));
+            event(new CourseSubscribed($record));
         }
         
         return redirect('course/' . $course->id);
