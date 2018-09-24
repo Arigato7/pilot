@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    
+    /**
+     * Список с курсами
+     *
+     * @return void
+     */
     public function list() {
         date_default_timezone_set("Europe/Samara");
 
@@ -23,19 +27,39 @@ class CourseController extends Controller
             'courses' => Course::all()
         ]);
     }
+    /**
+     * Страница с курсом
+     *
+     * @param int $id
+     * @return void
+     */
     public function show($id) {
-        date_default_timezone_set("Europe/Samara"); // Потому что по другому никак
+        date_default_timezone_set("Europe/Samara");
         $course = Course::findOrFail($id);
 
         $currentDate = new DateTime(date( "d.m.Y H:i:s", strtotime("now")));
         $endEntryDate = new DateTime(date( "d.m.Y H:i:s", strtotime($course->end_entry_date)));
         $diffDateBool = $currentDate <= $endEntryDate;
 
+        $comments = DB::table('course_comments')
+                            ->join('users', 'course_comments.user_id', '=', 'users.id')
+                            ->join('user_infos', 'course_comments.user_id', '=', 'user_infos.user_id')
+                            ->select('course_comments.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo', 'user_infos.rate as user_rate')
+                            ->where('course_comments.course_id', $course->id)
+                            ->orderBy('date', 'desc')
+                            ->get();
+
         return view('course.show', [
             'course' => $course,
-            'date_diff' => $diffDateBool
+            'date_diff' => $diffDateBool,
+            'comments' => $comments
         ]);
     }
+    /**
+     * Форма создания курса
+     *
+     * @return void
+     */
     public function create() {
 
         $types = DB::table('course_types')
@@ -47,6 +71,12 @@ class CourseController extends Controller
             'types' => $types
         ]);
     }
+    /**
+     * Запись данных курса в БД
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         $messages = [
             'name.required' => 'Укажите название курса',
@@ -111,6 +141,13 @@ class CourseController extends Controller
 
         return redirect('course/' . $course->id);
     }
+    /**
+     * Запись на курс
+     *
+     * @param int $id
+     * @param Request $request
+     * @return void
+     */
     public function enrollment($id, Request $request) {
 
         $course = Course::findOrFail($id);
@@ -134,9 +171,22 @@ class CourseController extends Controller
         
         return redirect('course/' . $course->id);
     }
+    /**
+     * Обновление данных курса в БД
+     *
+     * @param int $id
+     * @param Request $request
+     * @return void
+     */
     public function update($id, Request $request) {
 
     }
+    /**
+     * Удаление курса
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete($id) {
         
     }

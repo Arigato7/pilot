@@ -61,17 +61,40 @@
             </div>
         </div>
     </div>
+    @can('create-course-comment', $course)
     <div class="card mt-3">
         <div class="list-group list-group-flush">
-            <div class="list-group-item course-comment">
-                text
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    Оставить комментарий
+                    <button type="button" class="btn btn-primary" onclick="event.preventDefault();
+                    document.getElementById('create-course-comment').submit();">Отправить</button>
+                </div>
             </div>
+            <form action="/course/{{ $course->id }}/comment" method="post" id="create-course-comment">
+                @csrf
+                <textarea name="description" id="commentDescription" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} border-0" cols="30" rows="4" placeholder="Что думаете по этому поводу?"></textarea>
+                @if ($errors->has('description'))
+                    <div class="invalid-tooltip">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            </form>
+        </div>
+    </div>
+    @endcan
+    <div class="card mt-3">
+        <div class="list-group list-group-flush">
+            @forelse ($comments as $comment)
             <div class="list-group-item course-comment">
-                text
+                {{ $comment->description }}
             </div>
+            @empty
             <div class="list-group-item course-comment">
-                text
+                Пусто
             </div>
+            @endforelse
         </div>
     </div>
 </div>

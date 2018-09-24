@@ -18,6 +18,7 @@ class CreateUserActionsTable extends Migration
             $table->integer('user_id')->length(10)->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->text('description');
+            $table->timestamp('date');
             $table->timestamps();
         });
     }

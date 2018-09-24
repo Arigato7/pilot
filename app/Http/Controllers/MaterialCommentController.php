@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class MaterialCommentController extends Controller
 {
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         // Проверка данных на правильность
         $validator = Validator::make($request->all(), [
@@ -35,6 +41,13 @@ class MaterialCommentController extends Controller
 
         return redirect('material/' . $request->material_id);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $material_id
+     * @param [type] $id
+     * @return void
+     */
     public function delete($material_id, $id) {
         $comment = MaterialComment::findOrFail($id);
 
@@ -44,6 +57,12 @@ class MaterialCommentController extends Controller
 
         return redirect('material/' . $material_id);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $material_id
+     * @return void
+     */
     public function deleteAll($material_id) {
         $material = Material::findOrFail($material_id);
 

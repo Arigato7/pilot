@@ -8,7 +8,8 @@ class UserAction extends Model
 {
     protected $fillable = [
         'user_id',
-        'description'
+        'description',
+        'date'
     ];
 
     public function user() {

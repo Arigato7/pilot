@@ -66,6 +66,8 @@ Route::get('/course/create', 'CourseController@create')->name('courseCreate');
 Route::get('/course/{course}', 'CourseController@show');
 Route::post('/course/save', 'CourseController@store')->name('courseStore');
 
+Route::post('/course/{course}/comment', 'CourseCommentController@store');
+
 Route::post('/course/{course}/entry', 'CourseController@enrollment');
 
 Route::get('/user/{user}', 'UserController@show');

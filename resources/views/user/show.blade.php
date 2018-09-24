@@ -211,6 +211,9 @@
                 <div class="list-group-item action">
                     <div class="d-flex justify-content-between py-2">
                         <div>{{ $action->description }}</div>
+                        <div class="text-secodary">
+                            {{ date( "H:i d M Y", strtotime($action->date)) }}
+                        </div>
                     </div>
                 </div>
                 @empty

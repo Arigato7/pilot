@@ -20,12 +20,27 @@ use Illuminate\Support\Facades\Response;
 
 class MaterialController extends Controller
 {
+    /**
+     * Файл материала
+     *
+     * @var string
+     */
     protected $content;
+    /**
+     * Временно удаленный файл материала
+     *
+     * @var string
+     */
     protected $deleted = null;
 
     public function __construct() {
         $this->middleware('auth');
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index() {
 
         $newMaterials = DB::table('materials')
@@ -48,6 +63,12 @@ class MaterialController extends Controller
             'types' => $types
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function show($id) {
         $material = Material::findOrFail($id);
 
@@ -82,6 +103,11 @@ class MaterialController extends Controller
             'error' => $error
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function create() {
         $specialties = DB::table('specialties')->select('id', 'name')->get();
 
@@ -95,6 +121,12 @@ class MaterialController extends Controller
             'types' => $types
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function typeMaterial($id) {
         $type = MaterialType::findOrFail($id);
 
@@ -114,6 +146,12 @@ class MaterialController extends Controller
             'title' => $title
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function usersMaterials($id) {
         $user = User::findOrFail($id);
 
@@ -133,6 +171,12 @@ class MaterialController extends Controller
             'title' => $title
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function subjectMaterials($id) {
         $subject = Subject::findOrFail($id);
 
@@ -151,6 +195,12 @@ class MaterialController extends Controller
             'title' => $title
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function specialtyMaterials($id) {
         $specialty = Specialty::findOrFail($id);
 
@@ -169,6 +219,12 @@ class MaterialController extends Controller
             'title' => $title
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         $messages = [
             'name.required' => 'Укажите название материала',
@@ -220,6 +276,13 @@ class MaterialController extends Controller
         event(new MaterialCreated($material));
         return redirect('materials');
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function update(Request $request, $id) {
 
         $material = Material::findOrFail($id);
@@ -276,6 +339,12 @@ class MaterialController extends Controller
 
         return redirect('material/'. $material->id);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function edit($id) {
         $material = Material::findOrFail($id);
         
@@ -292,7 +361,13 @@ class MaterialController extends Controller
             'types' => $types
         ]);
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @param [type] $way
+     * @return void
+     */
     public function delete($id, $way) {
 
         $material = Material::findOrFail($id);
@@ -325,7 +400,12 @@ class MaterialController extends Controller
 
         return redirect('materials');
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function restore($id) {
 
         Material::onlyTrashed()
@@ -338,7 +418,12 @@ class MaterialController extends Controller
 
         return redirect('material/' . $material->id);
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function download($id) {
         $material = Material::findOrFail($id);
 

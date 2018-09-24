@@ -24,4 +24,8 @@ class CoursePolicy
     {
         //
     }
+
+    public function createCourseComment(User $user, Course $course) {
+        return $course->comments->whereIn('user_id', [$user->id])->count() === 0;
+    }
 }

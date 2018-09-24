@@ -29,7 +29,7 @@ class UserController extends Controller
         ]);
     }
     public function show($login) {
-
+        
         $user = User::where('login', $login)->first();
 
         $materials = DB::table('materials')
@@ -60,7 +60,7 @@ class UserController extends Controller
                         ->get();
 
         $userActions = DB::table('user_actions')
-                        ->select('description')
+                        ->select('description', 'date')
                         ->where('user_id', $user->id)
                         ->get();
 
