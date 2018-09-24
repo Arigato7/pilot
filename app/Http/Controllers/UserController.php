@@ -15,10 +15,21 @@ use Pilot\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    /**
+     * Undocumented variable
+     *
+     * @var [type]
+     */
     private $photo;
+
     public function __construct() {
         $this->middleware('auth');
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index() {
         if (Gate::denies('administrate', Auth::user())) {
             abort(403, 'Вы не имеете право на просмотр данной страницы');
@@ -28,6 +39,12 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $login
+     * @return void
+     */
     public function show($login) {
         
         $user = User::where('login', $login)->first();
@@ -74,6 +91,11 @@ class UserController extends Controller
             'actions' => $userActions
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function edit() {
         $educationOrganizations = DB::table('education_organizations')
                                         ->select('id', 'name')
@@ -90,6 +112,12 @@ class UserController extends Controller
             'materials' => $materials
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function update(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',

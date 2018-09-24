@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class MaterialCommentController extends Controller
 {
     /**
-     * Undocumented function
+     * Запись комментария к материалу в БД
      *
      * @param Request $request
      * @return void
@@ -42,10 +42,10 @@ class MaterialCommentController extends Controller
         return redirect('material/' . $request->material_id);
     }
     /**
-     * Undocumented function
+     * Удаление комментария к материалу
      *
-     * @param [type] $material_id
-     * @param [type] $id
+     * @param int $material_id
+     * @param int $id
      * @return void
      */
     public function delete($material_id, $id) {
@@ -58,9 +58,9 @@ class MaterialCommentController extends Controller
         return redirect('material/' . $material_id);
     }
     /**
-     * Undocumented function
+     * Удаление всех комментариев к материалу
      *
-     * @param [type] $material_id
+     * @param int $material_id
      * @return void
      */
     public function deleteAll($material_id) {

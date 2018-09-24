@@ -19,7 +19,13 @@ class MaterialComplaintPolicy
     {
         //
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param User $user
+     * @param Material $material
+     * @return void
+     */
     public function createMaterialComplaint(User $user, Material $material) {
         return $material->complaints->whereIn('user_id', [$user->id])->count() === 0;
     }

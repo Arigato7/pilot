@@ -14,6 +14,11 @@ class EducationOrganization extends Model
         'email',
         'rate'
     ];
+    /**
+     * Пользователи с подобной образовательной организацией
+     *
+     * @return void
+     */
     public function users() {
         return $this->hasMany('Pilot\UserInfo');
     }

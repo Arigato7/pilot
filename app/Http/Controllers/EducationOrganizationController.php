@@ -15,6 +15,11 @@ class EducationOrganizationController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function list() {
 
         $organizations = EducationOrganization::all();
@@ -25,9 +30,20 @@ class EducationOrganizationController extends Controller
             'positions' => $positions
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function create() {
         return view('organizations.create');
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function show($id) {
 
         $organization = EducationOrganization::findOrFail($id);
@@ -43,12 +59,25 @@ class EducationOrganizationController extends Controller
             'users' => $users
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function edit($id) {
         $organization = EducationOrganization::findOrFail($id);
         return view('organizations.edit', [
             'organization' => $organization
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function update(Request $request, $id) {
 
         $organization = EducationOrganization::findOrFail($id);
@@ -82,6 +111,12 @@ class EducationOrganizationController extends Controller
 
         return redirect('organization/' . $organization->id);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -106,6 +141,12 @@ class EducationOrganizationController extends Controller
 
         return redirect('organizations');
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function delete($id) {
         $organization = EducationOrganization::findOrFail($id);
         if (Gate::denies('delete-organization', Auth::user(), $organization)) {

@@ -56,7 +56,13 @@ class MaterialPolicy
     {
         return $user->id === $material->user_id;
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param User $user
+     * @param Material $material
+     * @return void
+     */
     public function createMaterialComment(User $user, Material $material) {
         return $material->comments->whereIn('user_id', [$user->id])->count() === 0;
     }

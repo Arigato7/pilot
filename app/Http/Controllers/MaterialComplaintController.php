@@ -15,7 +15,11 @@ class MaterialComplaintController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index() {
         if (Gate::denies('moderate', Auth::user())) {
             return redirect('materials');
@@ -32,6 +36,12 @@ class MaterialComplaintController extends Controller
             'complaints' => $complaints
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $material_id
+     * @return void
+     */
     public function create($material_id) {
         $material = Material::findOrFail($material_id);
 
@@ -39,6 +49,12 @@ class MaterialComplaintController extends Controller
             'material' => $material
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'description' => 'required|max:2000',
@@ -60,6 +76,12 @@ class MaterialComplaintController extends Controller
 
         return redirect('material/' . $material->id);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function delete($id) {
         if (Gate::denies('moderate', Auth::user())) {
             abort(403, 'У вас нет прав на удаление жалобы.');

@@ -37,7 +37,7 @@ class MaterialController extends Controller
         $this->middleware('auth');
     }
     /**
-     * Undocumented function
+     * Вывод списка с материалами
      *
      * @return void
      */
@@ -64,9 +64,9 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Вывод страницы материала
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function show($id) {
@@ -104,7 +104,7 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма создания материала
      *
      * @return void
      */
@@ -122,9 +122,9 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Вывод материалов по типу
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function typeMaterial($id) {
@@ -147,9 +147,9 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Вывод материалов по пользователю
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function usersMaterials($id) {
@@ -172,9 +172,9 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Вывод материалов по дисциплине
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function subjectMaterials($id) {
@@ -196,9 +196,9 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Вывод материалов по специальности
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function specialtyMaterials($id) {
@@ -220,7 +220,7 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Запись  материала в БД
      *
      * @param Request $request
      * @return void
@@ -277,10 +277,10 @@ class MaterialController extends Controller
         return redirect('materials');
     }
     /**
-     * Undocumented function
+     * Обновление данных материала в БД
      *
      * @param Request $request
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function update(Request $request, $id) {
@@ -340,9 +340,9 @@ class MaterialController extends Controller
         return redirect('material/'. $material->id);
     }
     /**
-     * Undocumented function
+     * Форма редактирования материала
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function edit($id) {
@@ -362,10 +362,11 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Удаление материала из БД
+     * @todo Разбить на два метода: deleteTemp и deleteForever
      *
-     * @param [type] $id
-     * @param [type] $way
+     * @param int $id
+     * @param string $way
      * @return void
      */
     public function delete($id, $way) {
@@ -401,9 +402,9 @@ class MaterialController extends Controller
         return redirect('materials');
     }
     /**
-     * Undocumented function
+     * Восстановление временно удаленного материала
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function restore($id) {
@@ -419,9 +420,9 @@ class MaterialController extends Controller
         return redirect('material/' . $material->id);
     }
     /**
-     * Undocumented function
+     * Скачивание файла материала
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function download($id) {

@@ -13,6 +13,11 @@ class NewsController extends Controller
     public function __construct() {
         
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function index() {
                         
         $newNews = DB::table('news')
@@ -27,13 +32,30 @@ class NewsController extends Controller
             'newNews' => $newNews
         ]);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function show($id) {
         $news = News::findOrFail($id);
         return view('news.show');
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function create() {
         return view('news.create');
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
         
     }

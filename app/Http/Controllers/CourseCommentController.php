@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class CourseCommentController extends Controller
 {
     /**
-     * Undocumented function
+     * Запись комментария к курсу в БД
      *
      * @param Request $request
-     * @param [type] $course_id
+     * @param int $course_id
      * @return void
      */
     public function store(Request $request, $course_id) {
@@ -41,9 +41,21 @@ class CourseCommentController extends Controller
 
         return redirect('course/' . $course->id);
     }
+    /**
+     * Удаление комментария к курсу из БД
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete($id) {
 
     }
+    /**
+     * Удаление всех комментариев к курсу из БД
+     *
+     * @param int $course_id
+     * @return void
+     */
     public function deleteAll($course_id) {
 
     }

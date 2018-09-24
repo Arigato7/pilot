@@ -16,12 +16,24 @@ class MaterialSearchController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function find(Request $request) {
         
         $name = $request->materialName;
 
         return redirect('material/search/' . $name);
     }
+    /**
+     * Undocumented function
+     *
+     * @param [type] $name
+     * @return void
+     */
     public function search($name) {
         $materials = Material::search($name)->get();
         return view('material.search', [

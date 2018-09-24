@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Жалобы на материалы</div>
-        <div class="card-body">
+        <div class="card-body p-0">
             <table class="table table-borderless table-hover">
                 <thead>
                     <tr>
