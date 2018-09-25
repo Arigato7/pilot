@@ -17,7 +17,7 @@ class CreateUserInfoTable extends Migration
             $table->increments('id');
 			$table->integer('user_id')->length(10)->unsigned();
 			$table->integer('education_organization_id')->length(10)->unsigned()->default(1);
-			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('education_organization_id')->references('id')->on('education_organizations');
             $table->integer('position_id')->length(10)->unsigned();
             $table->foreign('position_id')->references('id')->on('positions');

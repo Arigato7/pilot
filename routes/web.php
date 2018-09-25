@@ -37,7 +37,8 @@ Route::get('/material/{material}/edit', 'MaterialController@edit');
 Route::post('/material/{material}/save', 'MaterialController@update');
 Route::get('/material/{material}/download', 'MaterialController@download');
 
-Route::post('/material/{material}/delete/{way}', 'MaterialController@delete');
+Route::post('/material/{material}/delete/temp', 'MaterialController@deleteTemp');
+Route::post('/material/{material}/delete/forever', 'MaterialController@deleteForever');
 Route::post('/material/{material}/restore', 'MaterialController@restore');
 
 Route::get('/material/filter/type/{type}', 'MaterialController@typeMaterial');

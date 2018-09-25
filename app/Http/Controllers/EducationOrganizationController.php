@@ -16,7 +16,7 @@ class EducationOrganizationController extends Controller
         $this->middleware('auth');
     }
     /**
-     * Undocumented function
+     * Список образовательных организаций
      *
      * @return void
      */
@@ -31,7 +31,7 @@ class EducationOrganizationController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма создания образовательной организации
      *
      * @return void
      */
@@ -39,9 +39,9 @@ class EducationOrganizationController extends Controller
         return view('organizations.create');
     }
     /**
-     * Undocumented function
+     * Страница с образовательной организацией
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function show($id) {
@@ -60,9 +60,9 @@ class EducationOrganizationController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма редактирования данных организации
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function edit($id) {
@@ -72,17 +72,17 @@ class EducationOrganizationController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Обновление данных организации в БД
      *
      * @param Request $request
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function update(Request $request, $id) {
 
         $organization = EducationOrganization::findOrFail($id);
 
-        if (Gate::denies('update-organization', Auth::user(), $organization)) {
+        if (Gate::denies('update-organization', $organization)) {
             abort(403, 'У вас нет прав на изменение данных образовательной организации.');
         }
 
@@ -112,7 +112,7 @@ class EducationOrganizationController extends Controller
         return redirect('organization/' . $organization->id);
     }
     /**
-     * Undocumented function
+     * Запись данных организации в БД
      *
      * @param Request $request
      * @return void
@@ -142,9 +142,9 @@ class EducationOrganizationController extends Controller
         return redirect('organizations');
     }
     /**
-     * Undocumented function
+     * Удаление организации из БД
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function delete($id) {

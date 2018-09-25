@@ -34,7 +34,7 @@ class EducationOrganizationPolicy
     }
 
     /**
-     * Determine whether the user can update the educationOrganization.
+     * Возможность изменить данные организации
      *
      * @param  \Pilot\User  $user
      * @param  \Pilot\EducationOrganization  $educationOrganization
@@ -46,7 +46,7 @@ class EducationOrganizationPolicy
     }
 
     /**
-     * Determine whether the user can delete the educationOrganization.
+     * Возможность удалить организацию
      *
      * @param  \Pilot\User  $user
      * @param  \Pilot\EducationOrganization  $educationOrganization
@@ -54,6 +54,7 @@ class EducationOrganizationPolicy
      */
     public function deleteOrganization(User $user, EducationOrganization $educationOrganization)
     {
-        return $user->role->name === 'administrator' && $educationOrganization->users->count() === 0;
+        return $user->role->name === 'administrator' 
+                && $educationOrganization->users->count() === 0;
     }
 }

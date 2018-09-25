@@ -90,7 +90,7 @@
                                 <div class="material__name">
                                     <a href="#">{{ $material->name }}</a>
                                     <div class="text-secondary">
-                                        Удален {{ $material->deleted_at }} пользователем {{ $material->who_deleted }}
+                                        Удален {{ date( "в H:i d.m.Y", strtotime($material->deleted_at)) }} пользователем {{ $material->who_deleted }}
                                     </div>
                                 </div>
                                 <div class="material__actions">

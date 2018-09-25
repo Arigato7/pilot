@@ -240,7 +240,7 @@ class MaterialController extends Controller
             'specialty' => 'required',
             'subject' => 'required',
             'description' => 'required',
-            'content' => 'required|mimes:doc,docx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
+            'content' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
         ], $messages);
         if ($validator->fails()) {
             return redirect('material/create')
@@ -274,7 +274,7 @@ class MaterialController extends Controller
         $material->save();
 
         event(new MaterialCreated($material));
-        return redirect('materials');
+        return redirect('material/' . $material->id);
     }
     /**
      * Обновление данных материала в БД
@@ -304,7 +304,7 @@ class MaterialController extends Controller
             'specialty' => 'required',
             'subject' => 'required|max:255',
             'description' => 'required',
-            'content' => 'required|mimes:doc,docx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
+            'content' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
         ], $messages);
         if ($validator->fails()) {
             return redirect('material/' . $material->id . '/edit')
@@ -362,43 +362,49 @@ class MaterialController extends Controller
         ]);
     }
     /**
-     * Удаление материала из БД
-     * @todo Разбить на два метода: deleteTemp и deleteForever
+     * Мягкое удаление материала
      *
      * @param int $id
-     * @param string $way
      * @return void
      */
-    public function delete($id, $way) {
+    public function deleteTemp($id) {
 
         $material = Material::findOrFail($id);
         $user = User::findOrFail($material->user_id);
 
-        if ($way === 'temp') {
-            $material->status = 'deleted';
-            $material->who_deleted = Auth::user()->login;
-            $material->save();
-            if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
-                if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                    Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
-                }
-                Storage::move('/public/materials/' . $user->login . '/actual/' . $material->content, '/public/materials/' . $user->login . '/deleted/' . $material->content);
-                $material->deleted = $material->content;
+        $material->status = 'deleted';
+        $material->who_deleted = Auth::user()->login;
+        $material->save();
+
+        if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
+            if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
+                Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
             }
-            $material->delete();
-            return redirect('materials');
-        }
-        if ($way === 'forever') {
-            if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
-                Storage::delete('/public/materials/' . $user->login . '/actual/' . $material->content);
-                if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                    Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
-                }
-            }
-            $material->forceDelete();
-            return redirect('materials');
+            Storage::move('/public/materials/' . $user->login . '/actual/' . $material->content, '/public/materials/' . $user->login . '/deleted/' . $material->content);
+            $material->deleted = $material->content;
         }
 
+        $material->delete();
+
+        return redirect('materials');
+    }
+    /**
+     * Удаление материала из БД с удалением его файла
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteForever($id) {
+        $material = Material::findOrFail($id);
+        $user = User::findOrFail($material->user_id);
+
+        if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
+            Storage::delete('/public/materials/' . $user->login . '/actual/' . $material->content);
+            if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
+                Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+            }
+        }
+        $material->forceDelete();
         return redirect('materials');
     }
     /**

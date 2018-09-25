@@ -36,31 +36,33 @@
                     <div class="text-left col-6">{{ $organization->address }}</div>
                 </div>
             </div>
-            <div class="organization__users">
-                <h3 class="h3 py-4">Пользователи</h3>
-                <table class="table table-borderless table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Должность</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($users as $user)
-                        <tr>
-                            <td>
-                                <a href="/user/{{ $user->login }}">{{ $user->name }}</a>
-                            </td>
-                            <td>{{ $user->position }}</td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="2">Пусто</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="organization__users">
+            <h3 class="h3 p-4">Пользователи</h3>
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Должность</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($users as $user)
+                    <tr>
+                        <td>
+                            <a href="/user/{{ $user->login }}">{{ $user->name }}</a>
+                        </td>
+                        <td>{{ $user->position }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="2">Пусто</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

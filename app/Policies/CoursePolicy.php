@@ -4,6 +4,7 @@ namespace Pilot\Policies;
 
 use Pilot\User;
 use Pilot\Course;
+use Pilot\CourseRecord;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CoursePolicy
@@ -17,8 +18,7 @@ class CoursePolicy
      * @return void
      */
     public function courseEntry(User $user, Course $course) {
-        return $course->records->whereIn('user_id', [$user->id])->count() === 0
-                && $course->records->whereIn('course_id', [$course->id])->count() === 0;
+        return $course->records->where('user_id', $user->id)->count() === 0;
     }
 
     /**

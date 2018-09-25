@@ -16,7 +16,7 @@ class CreateUserActionsTable extends Migration
         Schema::create('user_actions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->length(10)->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('description');
             $table->timestamp('date');
             $table->timestamps();

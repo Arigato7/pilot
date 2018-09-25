@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Gate;
 use DateTime;
 use Validator;
 use Pilot\User;
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Список с курсами
      *

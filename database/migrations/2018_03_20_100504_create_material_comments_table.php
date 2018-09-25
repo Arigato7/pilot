@@ -17,8 +17,8 @@ class CreateMaterialCommentsTable extends Migration
             $table->increments('id');
 			$table->integer('material_id')->length(10)->unsigned();
 			$table->integer('user_id')->length(10)->unsigned();
-			$table->foreign('material_id')->references('id')->on('materials');
-			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('description');
             $table->string('review');
 			$table->timestamp('date');
