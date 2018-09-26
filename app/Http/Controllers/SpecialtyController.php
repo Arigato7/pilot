@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class SpecialtyController extends Controller
 {
     /**
-     * Undocumented function
+     * Список специальностей
      *
      * @return void
      */
@@ -20,7 +20,7 @@ class SpecialtyController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма создания специальности
      *
      * @return void
      */
@@ -30,9 +30,9 @@ class SpecialtyController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма редактирования специальности
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function edit($id) {
@@ -42,7 +42,7 @@ class SpecialtyController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Запись данных специальности в БД
      *
      * @param Request $request
      * @return void
@@ -51,19 +51,19 @@ class SpecialtyController extends Controller
 
     }
     /**
-     * Undocumented function
+     * Обновление данных специальности в БД
      *
      * @param Request $request
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function update(Request $request, $id) {
 
     }
     /**
-     * Undocumented function
+     * Удаление специальности из БД
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function delete($id) {
