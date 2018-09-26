@@ -28,7 +28,7 @@ class CourseController extends Controller
         date_default_timezone_set("Europe/Samara");
 
         return view('course.list', [
-            'courses' => Course::all()
+            'courses' => Course::all()->sortByDesc('date')
         ]);
     }
     /**
@@ -157,8 +157,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'course_id' => 'required|unique:course_records',
-            'user_id' => 'unique:course_records,course_id,'.$course->id,
+            'course_id' => 'required',
             'date' => 'required|before:' . $course->end_entry_date
         ]);
 

@@ -16,9 +16,9 @@ use Pilot\Http\Controllers\Controller;
 class UserController extends Controller
 {
     /**
-     * Undocumented variable
+     * Файл фото пользователя
      *
-     * @var [type]
+     * @var string
      */
     private $photo;
 
@@ -26,7 +26,7 @@ class UserController extends Controller
         $this->middleware('auth');
     }
     /**
-     * Undocumented function
+     * Список пользователей
      *
      * @return void
      */
@@ -40,9 +40,9 @@ class UserController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Страница пользователя
      *
-     * @param [type] $login
+     * @param int $login
      * @return void
      */
     public function show($login) {
@@ -92,7 +92,7 @@ class UserController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма редактирования данных пользователя
      *
      * @return void
      */
@@ -113,7 +113,7 @@ class UserController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Обновление данных пользователя в БД
      *
      * @param Request $request
      * @return void

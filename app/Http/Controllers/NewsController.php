@@ -14,7 +14,7 @@ class NewsController extends Controller
         
     }
     /**
-     * Undocumented function
+     * Список новостей
      *
      * @return void
      */
@@ -33,9 +33,9 @@ class NewsController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Страница с новостью
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function show($id) {
@@ -43,7 +43,7 @@ class NewsController extends Controller
         return view('news.show');
     }
     /**
-     * Undocumented function
+     * Форма создания новости
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class NewsController extends Controller
         return view('news.create');
     }
     /**
-     * Undocumented function
+     * Запись новости в БД
      *
      * @param Request $request
      * @return void

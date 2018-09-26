@@ -14,12 +14,10 @@ class Material extends Model
     /**
      * @todo Исправить ошибку при поиске материала
      */
-
-    protected $dates = ['deleted_at'];
     protected $fillable = [
-        'user_id', 
-        'name', 
-        'specialty_id', 
+        'user_id',
+        'name',
+        'specialty_id',
         'subject_id',
         'material_type_id',
         'description',
@@ -27,7 +25,8 @@ class Material extends Model
         'deleted',
         'status',
         'rate'
-    ]; 
+    ];
+    protected $dates = ['deleted_at'];
     protected $hidden = [];
     /**
      * Автор материала

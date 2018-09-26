@@ -16,7 +16,7 @@ class MaterialComplaintController extends Controller
         $this->middleware('auth');
     }
     /**
-     * Undocumented function
+     * Список с жалобами на материал
      *
      * @return void
      */
@@ -37,9 +37,9 @@ class MaterialComplaintController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Форма создания жалобы на материал
      *
-     * @param [type] $material_id
+     * @param int $material_id
      * @return void
      */
     public function create($material_id) {
@@ -50,7 +50,7 @@ class MaterialComplaintController extends Controller
         ]);
     }
     /**
-     * Undocumented function
+     * Запись жалобы на материал в БД
      *
      * @param Request $request
      * @return void
@@ -77,9 +77,9 @@ class MaterialComplaintController extends Controller
         return redirect('material/' . $material->id);
     }
     /**
-     * Undocumented function
+     * Удаление жалобы на материал из БД
      *
-     * @param [type] $id
+     * @param int $id
      * @return void
      */
     public function delete($id) {

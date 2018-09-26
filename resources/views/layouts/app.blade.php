@@ -36,6 +36,9 @@
                             <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Популярные и новые материалы">Депозиторий</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>
                         </li>
                         <li class="nav-item">
@@ -103,6 +106,9 @@
                         @else
                         <li class="nav-item">
                             <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Депозиторий материалов">Депозитарий</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>

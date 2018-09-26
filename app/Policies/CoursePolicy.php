@@ -5,6 +5,7 @@ namespace Pilot\Policies;
 use Pilot\User;
 use Pilot\Course;
 use Pilot\CourseRecord;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CoursePolicy
@@ -18,7 +19,12 @@ class CoursePolicy
      * @return void
      */
     public function courseEntry(User $user, Course $course) {
-        return $course->records->where('user_id', $user->id)->count() === 0;
+        $courseRecords = DB::table('course_records')
+                            ->select('id')
+                            ->where('course_id', $course->id)
+                            ->where('user_id', $user->id)
+                            ->get();
+        return $courseRecords->count() === 0;
     }
 
     /**
