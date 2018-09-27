@@ -110,7 +110,7 @@ class CourseController extends Controller
             'end_entry_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
             'duration' => 'required|numeric',
             'place' => 'required|max:255',
-            'description' => 'required|max:255'
+            'description' => 'required'
         ], $messages);
         if ($validator->fails()) {
             return redirect('course/create')

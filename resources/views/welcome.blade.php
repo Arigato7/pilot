@@ -68,17 +68,17 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                width: 100px;
-                height: 100px;
+                width: 50px;
+                height: 50px;
                 padding: 5rem;
                 outline-width: 1px;
                 outline-color: #636b6f;
                 outline-offset: 0;
                 outline-style: solid;
-                transition: outline-offset ease-in 0.1s;
+                transition: outline-offset ease-in 0.3s;
             }
             a.smart-block:hover {
-                outline-offset: -45px;
+                outline-offset: -100px;
             }
 
             .m-b-md {

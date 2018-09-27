@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         'Pilot\User' => 'Pilot\Policies\UserPolicy',
         'Pilot\Course' => 'Pilot\Policies\CoursePolicy',
         'Pilot\Material' => 'Pilot\Policies\MaterialPolicy',
+        'Pilot\PracticalWork' => 'Pilot\Policies\PracticalWorkPolicy',
         'Pilot\MaterialComplaint' => 'Pilot\Policies\MaterialComplaintPolicy',
         'Pilot\EducationOrganization' => 'Pilot\Policies\EducationOrganizationPolicy'
     ];

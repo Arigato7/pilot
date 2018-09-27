@@ -72,6 +72,9 @@ Route::post('/course/{course}/comment', 'CourseCommentController@store');
 Route::post('/course/{course}/entry', 'CourseController@enrollment');
 
 Route::get('/practical-works', 'PracticalWorkController@list')->name('practicalWork');
+Route::get('/practical-work/create', 'PracticalWorkController@create')->name('practicalWorkCreate');
+
+Route::post('/practical-work/save', 'PracticalWorkController@store')->name('practicalWorkStore');
 
 Route::get('/user/{user}', 'UserController@show');
 Route::get('/user/{user}/settings', 'UserController@edit');
