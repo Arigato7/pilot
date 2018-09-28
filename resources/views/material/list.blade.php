@@ -21,7 +21,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Типы материалов
                         @can ('administrate', Auth::user())
-                        <a href="#" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                        <a href="{{ route('materialTypes') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
                         @endcan
                     </div>
                 </div>
@@ -116,29 +116,33 @@
                     <div class="list-group list-group-flush">
                         @forelse($newMaterials as $newMaterial)
                         <div class="list-group-item material">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div class="col-lg-7 pl-0">
-                                    <a href="/material/{{ $newMaterial->id }}" class="material__link">
-                                        {{ $newMaterial->name }}
-                                        <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                                            @if ($newMaterial->status == 'new')
-                                            Новый
-                                            @elseif ($newMaterial->status == 'updated')
-                                            Обновлен
-                                            @else
-                                            Восстановлен
-                                            @endif
-                                        </span>
-                                    </a>
+                                    <h3>
+                                        <a href="/material/{{ $newMaterial->id }}" class="material__link">
+                                            {{ $newMaterial->name }}
+                                            <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
+                                                @if ($newMaterial->status == 'new')
+                                                Новый
+                                                @elseif ($newMaterial->status == 'updated')
+                                                Обновлен
+                                                @else
+                                                Восстановлен
+                                                @endif
+                                            </span>
+                                        </a>
+                                    </h3>
                                     <div class="text-secondary">
+                                        Автор: 
+                                        <a href="/user/{{ $newMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a> 
                                         Оценка - {{ $newMaterial->rate }}
                                     </div>
                                 </div>
-                                <div class="material__date text-secondary">
-                                    <div class="material__author">
-                                        <a href="/user/{{ $newMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a>
+                                <div class="material__date">
+                                    <a href="/material/{{ $newMaterial->id }}" class="btn btn-lg btn-primary w-100">Открыть</a>
+                                    <div class="text-secondary">
+                                        {{ date( "d.m.Y в H:i", strtotime($newMaterial->date)) }}
                                     </div>
-                                    {{ $newMaterial->date }}
                                 </div>
                             </div>
                         </div>

@@ -7,6 +7,7 @@ use Pilot\Subject;
 use Pilot\Specialty;
 use Pilot\PracticalWork;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PracticalWorkController extends Controller
 {
@@ -19,7 +20,22 @@ class PracticalWorkController extends Controller
      * @return void
      */
     public function list() {
-        return view('practical.list');
+
+        $specialties = DB::table('specialties')
+                            ->select('id', 'name', 'code')
+                            ->orderBy('name')
+                            ->take(5)
+                            ->get();
+        $subjects = DB::table('subjects')
+                            ->select('id', 'name')
+                            ->orderBy('name')
+                            ->take(5)
+                            ->get();
+
+        return view('practical.list', [
+            'specialties' => $specialties,
+            'subjects' => $subjects
+        ]);
     }
     /**
      * Форма создания практического занятия
