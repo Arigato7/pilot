@@ -8,6 +8,7 @@ use Pilot\Specialty;
 use Pilot\PracticalWork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PracticalWorkController extends Controller
 {
@@ -32,9 +33,12 @@ class PracticalWorkController extends Controller
                             ->take(5)
                             ->get();
 
+        $practicalWorks = PracticalWork::all()->sortByDesc('date');
+
         return view('practical.list', [
             'specialties' => $specialties,
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'practicals' => $practicalWorks
         ]);
     }
     /**
@@ -65,6 +69,9 @@ class PracticalWorkController extends Controller
      */
     public function show($id) {
 
+        $practical = PracticalWork::findOrFail($id);
+
+        return view('practical.show');
     }
     /**
      * Запись практического занятия 
@@ -73,6 +80,8 @@ class PracticalWorkController extends Controller
      * @return void
      */
     public function store(Request $request) {
+        date_default_timezone_set("Europe/Samara");
+
         $messages = [
             'name.required' => 'Укажите название практической работы',
             'specialty.required' => 'Укажите специальность',
@@ -96,6 +105,17 @@ class PracticalWorkController extends Controller
                         ->withInput();
         }
 
+        $practical = PracticalWork::create([
+            'user_id' => Auth::user()->id,
+            'specialty_id' => $request->specialty,
+            'subject_id' => $request->subject,
+            'name' => $request->name,
+            'resource' => $request->resource,
+            'description' => $request->description,
+            'date' => date( "Y-m-d H:i:s", strtotime('now'))
+        ]);
+
+        return redirect('practical-work/' . $practical->id);
     }
     /**
      * Обновление данных практического занятия в БД

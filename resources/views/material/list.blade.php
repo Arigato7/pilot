@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
         <h1 class="h1 mb-4 col">Депозиторий</h1>
         <div class="col-8">
             <form id="search-material" action="/material/find" method="post">

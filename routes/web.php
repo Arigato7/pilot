@@ -104,8 +104,8 @@ Route::post('/course/{course}/entry', 'CourseController@enrollment');
  */
 Route::get('/practical-works', 'PracticalWorkController@list')->name('practicalWork');
 Route::get('/practical-work/create', 'PracticalWorkController@create')->name('practicalWorkCreate');
-
 Route::post('/practical-work/save', 'PracticalWorkController@store')->name('practicalWorkStore');
+Route::get('/practical-work/{practical}', 'PracticalWorkController@show');
 /**
  * Маршруты для пользователей
  */

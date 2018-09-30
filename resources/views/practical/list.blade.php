@@ -75,22 +75,33 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="h3 mb-2">
-                                    <a href="#">text</a>
-                                </h3>
-                                <a href="#" class="btn btn-lg btn-primary">Открыть</a>
-                            </div>
-                            <div class="row justify-content-between align-items-center">
-                                <div class="col-6">
-                                    <div class="text-secondary">текст</div>
+                        @forelse ($practicals as $practical)
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="h3 mb-2">
+                                        <a href="/practical-work/{{ $practical->id }}">{{ $practical->name }}</a>
+                                    </h3>
+                                    <a href="/practical-work/{{ $practical->id }}" class="btn btn-lg btn-primary">Открыть</a>
                                 </div>
-                                <div class="col-6 text-right">
-                                    <div class="text-secondary">тест</div>
+                                <div class="row justify-content-between align-items-center">
+                                    <div class="col-6">
+                                        <div class="text-secondary">text</div>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <div class="text-secondary">
+                                            {{ date( "d.m.Y в H:i", strtotime($practical->date)) }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        @empty
+                        <div class="list-group-item text-center text-secondary py-5">
+                            <p class="h3">Пусто</p>
                         </div>
+                        @endforelse
+                        @if ($practicals->count() > 5)
+                        <a href="#" class="btn btn-primary">Показать все</a>
+                        @endif
                     </div>
                 </div>
             </div>

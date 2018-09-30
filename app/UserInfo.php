@@ -15,12 +15,21 @@ class UserInfo extends Model
         'about',
         'photo'
     ];
+    /**
+     * 
+     */
     public function user() {
         return $this->belongsTo('Pilot\User');
     }
+    /**
+     * 
+     */
     public function educationOrganization() {
         return $this->belongsTo('Pilot\EducationOrganization');
     }
+    /**
+     * 
+     */
     public function position() {
         return $this->belongsTo('Pilot\Position');
     }
