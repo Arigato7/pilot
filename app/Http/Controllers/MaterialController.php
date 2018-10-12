@@ -314,6 +314,8 @@ class MaterialController extends Controller
 
         if ($request->hasFile('content')) {
             $file = $request->file('content');
+            
+            
 
             if (Storage::exists('/public/materials/' . Auth::user()->login . '/actual/' . $material->content)) {
                 Storage::move('/public/materials/' . Auth::user()->login . '/actual/' . $material->content, '/public/materials/' . Auth::user()->login . '/deleted/' . $material->content);
@@ -378,7 +380,7 @@ class MaterialController extends Controller
 
         if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
             if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+                unlink(storage_path('app/public/materials/' . $user->login . '/deleted/' . $material->deleted));
             }
             Storage::move('/public/materials/' . $user->login . '/actual/' . $material->content, '/public/materials/' . $user->login . '/deleted/' . $material->content);
             $material->deleted = $material->content;
@@ -399,9 +401,9 @@ class MaterialController extends Controller
         $user = User::findOrFail($material->user_id);
 
         if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
-            Storage::delete('/public/materials/' . $user->login . '/actual/' . $material->content);
+            unlink(storage_path('app/public/materials/' . $user->login . '/actual/' . $material->content));
             if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                Storage::delete('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+                unlink(storage_path('app/public/materials/' . $user->login . '/deleted/' . $material->deleted));
             }
         }
         $material->forceDelete();

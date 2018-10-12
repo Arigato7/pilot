@@ -71,7 +71,9 @@ class PracticalWorkController extends Controller
 
         $practical = PracticalWork::findOrFail($id);
 
-        return view('practical.show');
+        return view('practical.show', [
+            'practical' => $practical
+        ]);
     }
     /**
      * Запись практического занятия 

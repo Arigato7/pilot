@@ -68,13 +68,13 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                padding: 3rem;
                 width: 50px;
-                height: 50px;
-                padding: 5rem;
                 outline-width: 1px;
                 outline-color: #636b6f;
                 outline-offset: 0;
                 outline-style: solid;
+                box-sizing: border-box;
                 transition: outline-offset ease-in 0.3s;
             }
             a.smart-block:hover {
@@ -106,13 +106,12 @@
 
                 <div class="links">
                     @guest
-                    <a href="{{ route('news') }}" class="nav-link smart-block">Новости</a>
+                    <a href="{{ route('news') }}" class="nav-link">Новости</a>
                     @else
-                    <div class="smart-row">
-                        <a href="{{ route('materials') }}" class="nav-link smart-block">Депозиторий</a>
-                        <a href="{{ route('courses') }}" class="nav-link smart-block">Повышение квалификации</a>
-                        <a href="{{ route('news') }}" class="nav-link smart-block">Новости</a>
-                    </div>    
+                    <a href="{{ route('materials') }}" class="nav-link">Депозиторий</a>
+                    <a href="{{ route('practicalWork') }}" class="nav-link">Дистанционное обучение</a>
+                    <a href="{{ route('courses') }}" class="nav-link">Повышение квалификации</a>
+                    <a href="{{ route('news') }}" class="nav-link">Новости</a>  
                     @endguest
                 </div>
             </div>

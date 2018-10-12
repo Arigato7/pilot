@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-6">
-                                        <div class="text-secondary">text</div>
+                                        <div class="text-secondary"></div>
                                     </div>
                                     <div class="col-6 text-right">
                                         <div class="text-secondary">
