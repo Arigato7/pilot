@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Pilot\MaterialType;
 use Illuminate\Http\Request;
 
 class MaterialTypeController extends Controller
@@ -15,7 +16,9 @@ class MaterialTypeController extends Controller
      * @return void
      */
     public function list() {
-        return view('material.type.list');
+        return view('material.type.list', [
+            'types' => MaterialType::all()->sortByDesc('name')
+        ]);
     }
     /**
      * Запись типа материала в БД

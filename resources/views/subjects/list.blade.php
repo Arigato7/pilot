@@ -4,7 +4,9 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Дисциплины</div>
-        <div class="card-body"></div>
+        <div class="card-body">
+            
+        </div>
     </div>
 </div>
 @endsection
