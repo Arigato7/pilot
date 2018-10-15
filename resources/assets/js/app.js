@@ -6,9 +6,8 @@
 
 require("./bootstrap");
 require("jquery");
-// require('axios');
-
-// window.Vue = require('vue');
+window.axios = require('axios');
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,9 +15,9 @@ require("jquery");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-/* Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('material-types', require('./components/MaterialTypes.vue'));
 
-const materialSearchViewModel = new Vue({
+/* const materialSearchViewModel = new Vue({
     el: '#materials',
     data: {
         materials: [],

@@ -21,3 +21,7 @@ Route::get('/s', [
     'as' => 'api.search',
     'uses' => 'Api\SearchController@materialSearch'
 ]);
+Route::get('/material-types', [
+    'as' => 'api.materialTypes',
+    'uses' => 'Api\MaterialTypeController@getAllMaterialTypes'
+]);
