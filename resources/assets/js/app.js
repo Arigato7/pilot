@@ -17,6 +17,10 @@ window.Vue = require('vue');
 
 Vue.component('material-types', require('./components/MaterialTypes.vue'));
 
+var materialTypesViewModel = new Vue({
+    el: '#materialTypes'
+});
+
 /* const materialSearchViewModel = new Vue({
     el: '#materials',
     data: {

@@ -8,9 +8,6 @@ use Pilot\Http\Controllers\Controller;
 
 class MaterialTypeController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth');
-    }
 
     public function getAllMaterialTypes() {
         return MaterialType::all()->sortByDesc('name');
