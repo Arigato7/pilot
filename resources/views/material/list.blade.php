@@ -76,7 +76,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Дисциплины
                         @can ('administrate', Auth::user())
-                        <a href="#" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                        <a href="{{ route('subjects') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
                         @endcan
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Pilot\Subject;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -15,7 +16,9 @@ class SubjectController extends Controller
      * @return void
      */
     public function list() {
-        return view('subjects.list');
+        return view('subjects.list', [
+            'subjects' => Subject::all()->sortByDesc('name')
+        ]);
     }
     /**
      * Форма создания дисциплины
