@@ -19,11 +19,9 @@ class CreateNewsTable extends Migration
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->string('header');
             $table->string('theme');
-            $table->string('is_notification');
 			$table->text('description');
 			$table->string('content');
 			$table->timestamp('date');
-			$table->double('rate', 5, 5)->default(0);
             $table->timestamps();
         });
     }

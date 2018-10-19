@@ -27,5 +27,8 @@ class PositionTableSeeder extends Seeder
         Position::create([
             'name' => 'Преподаватель'
         ]);
+        Position::create([
+            'name' => 'Студент'
+        ]);
     }
 }

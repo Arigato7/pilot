@@ -52,6 +52,7 @@
             </div>
         </div>
     </div>
+    @can('moderate', Auth::user())
     <div class="d-flex my-4">
         <div class="col-lg-6">
             <div class="card user-materials">
@@ -117,7 +118,8 @@
             </div>
         </div>
     </div>
-    <div class="card actions">
+    @endcan
+    <div class="card actions mt-4">
         <div class="card-header">Действия пользователя</div>
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
