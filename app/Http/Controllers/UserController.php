@@ -31,9 +31,6 @@ class UserController extends Controller
      * @return void
      */
     public function index() {
-        if (Gate::denies('administrate', Auth::user())) {
-            abort(403, 'Вы не имеете право на просмотр данной страницы');
-        }
         $users = User::all();
         return view('user.list', [
             'users' => $users

@@ -14,6 +14,7 @@ class MaterialComplaintController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+        $this->middleware('check.moderator');
     }
     /**
      * Список с жалобами на материал

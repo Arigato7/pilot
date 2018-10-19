@@ -9,6 +9,7 @@ class MaterialTypeController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+        $this->middleware('check.admin');
     }
     /**
      * Список типов материалов

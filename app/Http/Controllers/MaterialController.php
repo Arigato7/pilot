@@ -35,6 +35,7 @@ class MaterialController extends Controller
 
     public function __construct() {
         $this->middleware('auth');
+        $this->middleware('check.teacher');
     }
     /**
      * Вывод списка с материалами

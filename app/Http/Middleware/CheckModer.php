@@ -3,6 +3,8 @@
 namespace Pilot\Http\Middleware;
 
 use Closure;
+use Pilot\Role;
+use Illuminate\Support\Facades\Auth;
 
 class CheckModer
 {
@@ -13,10 +15,11 @@ class CheckModer
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next)
     {
-        if (! ($role === 'moderator'
-            || $role === 'administrator')) {
+        $role = Role::findOrFail(Auth::user()->role_id);
+        if (! ($role->name === 'moderator'
+            || $role->name === 'administrator')) {
             return redirect('/');
         }
         return $next($request);

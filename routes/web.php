@@ -112,4 +112,4 @@ Route::get('/practical-work/{practical}', 'PracticalWorkController@show');
 Route::get('/user/{user}', 'UserController@show');
 Route::get('/user/{user}/settings', 'UserController@edit');
 Route::post('/user/{user}/change', 'UserController@update');
-Route::get('/users', 'UserController@index')->name('users');
+Route::get('/users', 'UserController@index')->name('users')->middleware('check.admin');

@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class MaterialCommentController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('check.teacher');
+    }
     /**
      * Запись комментария к материалу в БД
      *

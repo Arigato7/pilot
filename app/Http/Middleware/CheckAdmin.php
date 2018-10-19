@@ -3,6 +3,7 @@
 namespace Pilot\Http\Middleware;
 
 use Closure;
+use Pilot\Role;
 use Illuminate\Support\Facades\Auth;
 
 class CheckAdmin
@@ -16,8 +17,8 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-        $role = Auth::user()->role->name;
-        if (! $role === 'administrator') {
+        $role = Role::findOrFail(Auth::user()->role_id);
+        if (!($role->name === 'administrator')) {
             return redirect('/');
         }
         return $next($request);

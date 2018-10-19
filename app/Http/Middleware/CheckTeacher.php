@@ -3,6 +3,7 @@
 namespace Pilot\Http\Middleware;
 
 use Closure;
+use Pilot\Role;
 use Illuminate\Support\Facades\Auth;
 
 class CheckTeacher
@@ -16,10 +17,10 @@ class CheckTeacher
      */
     public function handle($request, Closure $next)
     {
-        $role = Auth::user()->role->name;
-        if (! ($role === 'teacher' 
-            || $role === 'moderator'
-            || $role === 'administrator')) {
+        $role = Role::findOrFail(Auth::user()->role_id);
+        if (! ($role->name === 'teacher' 
+            || $role->name === 'moderator'
+            || $role->name === 'administrator')) {
             return redirect('/');
         }
         return $next($request);
