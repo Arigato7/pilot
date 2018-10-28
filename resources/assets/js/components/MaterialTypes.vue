@@ -32,13 +32,21 @@
         },
         methods: {
             del: function(id) {
-                axios
+                var instance = axios.create({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                instance
                 .post('/api/material-type/' + id + '/delete')
-                .then(() => (alert('well done')))
+                .then(() => (alert('Тип материала успешно обновлен')))
                 .catch(error => {
                     console.log(error);
+                    alert('Не удалось удалить тип материала');
                 })
-                .finally(() => (this.$forceUpdate()));
+                .finally(() => {
+                    location.reload();
+                });
             },
             add: function(name) {
                 alert(name);
@@ -51,10 +59,16 @@
             }
         },
         mounted() {
-            axios
+            var instance = axios.create({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            instance
             .get('/api/material-types')
             .then(response => {
                 this.types = response.data;
+                console.log(response.headers);
             })
             .catch(error => {
                 console.log(error);

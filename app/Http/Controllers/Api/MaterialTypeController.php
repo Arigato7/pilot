@@ -8,6 +8,7 @@ use Pilot\Http\Controllers\Controller;
 
 class MaterialTypeController extends Controller
 {
+    
     /**
      * Undocumented function
      *
@@ -43,6 +44,6 @@ class MaterialTypeController extends Controller
      */
     public function deleteMaterialType($id) {
         MaterialType::findOrFail($id)->delete();
-        return true;
+        return redirect('material-types');
     }
 }
