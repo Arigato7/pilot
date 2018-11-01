@@ -152,4 +152,32 @@ class UserController extends Controller
                     ]);
         return redirect('user/' . Auth::user()->login . '/settings');
     }
+    /**
+     * Удаление пользователя
+     *
+     * @param int $id
+     * @return void
+     */
+    public function delete($id) {
+
+    }
+    /**
+     * Редактирование учетных данных пользователя (админ)
+     *
+     * @param int $id
+     * @return void
+     */
+    public function editProps($id) {
+        return view('user.edit');
+    }
+    /**
+     * Сохранение учетных данных в БД
+     *
+     * @param Request $request
+     * @param int $id
+     * @return void
+     */
+    public function saveProps(Request $request, $id) {
+
+    }
 }
