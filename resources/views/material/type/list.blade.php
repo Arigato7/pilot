@@ -13,6 +13,23 @@
             <div id="materialTypes">
                 <material-types></material-types>
             </div>
+            {{-- <div class="list-group list-group-flush">
+                @forelse ($types as $type)
+                    <div class="list-group-item">
+                        <div class="d-flex align-items-center justify-content-between">
+                            {{ $type->name }}
+                            <div>
+                                <span class="fa fa-2x fa-close text-danger mr-2" data-toggle="tooltip" data-placement="left" title="Удалить"></span>
+                                <span class="fa fa-2x fa-edit text-primary" data-toggle="tooltip" data-placement="right" title="Изменить"></span>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="list-gruop-item">
+                        Пусто
+                    </div>
+                @endforelse
+            </div> --}}
         </div>
     </div>
 </div>

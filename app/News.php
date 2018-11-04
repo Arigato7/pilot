@@ -10,7 +10,6 @@ class News extends Model
         'user_id',
         'header',
         'theme',
-        'is_notification',
         'description',
         'content'
     ];

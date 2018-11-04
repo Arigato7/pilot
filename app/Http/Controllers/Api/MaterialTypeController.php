@@ -10,7 +10,7 @@ class MaterialTypeController extends Controller
 {
     
     /**
-     * Получение списка типов материала
+     * Undocumented function
      *
      * @return void
      */
@@ -18,7 +18,7 @@ class MaterialTypeController extends Controller
         return MaterialType::all()->sortByDesc('name');
     }
     /**
-     * Добавление типа материала в БД
+     * Undocumented function
      *
      * @param Request $request
      * @return void
@@ -27,10 +27,10 @@ class MaterialTypeController extends Controller
 
     }
     /**
-     * Обновление данных типа материала в БД
+     * Undocumented function
      *
      * @param Request $request
-     * @param int $id
+     * @param [type] $id
      * @return void
      */
     public function updateMaterialType(Request $request, $id) {
@@ -39,7 +39,7 @@ class MaterialTypeController extends Controller
     /**
      * Undocumented function
      *
-     * @param int $id
+     * @param [type] $id
      * @return void
      */
     public function deleteMaterialType($id) {

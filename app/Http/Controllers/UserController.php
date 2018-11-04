@@ -3,14 +3,10 @@
 namespace Pilot\Http\Controllers;
 
 use Validator;
-use Pilot\Role;
 use Pilot\User;
 use Pilot\Material;
-use Pilot\UserInfo;
-use Pilot\Position;
 use Pilot\UserAction;
 use Illuminate\Http\Request;
-use Pilot\EducationOrganization;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -155,38 +151,5 @@ class UserController extends Controller
                         'about' => $request->about
                     ]);
         return redirect('user/' . Auth::user()->login . '/settings');
-    }
-    /**
-     * Удаление пользователя
-     *
-     * @param int $id
-     * @return void
-     */
-    public function delete($id) {
-
-    }
-    /**
-     * Редактирование учетных данных пользователя (админ)
-     *
-     * @param int $id
-     * @return void
-     */
-    public function editProps($id) {
-        $loginData = User::findOrFail($id);
-
-
-        return view('user.edit', [
-            'loginData' => $loginData
-        ]);
-    }
-    /**
-     * Сохранение учетных данных в БД
-     *
-     * @param Request $request
-     * @param int $id
-     * @return void
-     */
-    public function saveProps(Request $request, $id) {
-
     }
 }

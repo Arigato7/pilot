@@ -24,10 +24,7 @@
                             <a href="/user/{{ $user->login }}">{{ $user->login }}</a>
                         </td>
                         <td>{{ $user->role->name }}</td>
-                        <td>
-                            <a href="/user/{{ $user->id }}/props" class="btn btn-primary">Изменить</a>
-                            <a href="#" class="btn btn-danger disabled" disabled>Удалить</a>
-                        </td>
+                        <td>test</td>
                     </tr>
                     @empty
                     <tr>

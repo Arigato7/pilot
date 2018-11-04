@@ -23,7 +23,7 @@ class NewsController extends Controller
         $newNews = DB::table('news')
                         ->join('users', 'news.user_id', '=', 'users.id')
                         ->join('user_infos', 'news.user_id', '=', 'user_infos.user_id')
-                        ->select('news.header', 'news.theme', 'news.is_notification', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name')
+                        ->select('news.header', 'news.theme', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name')
                         ->orderBy('news.date', 'desc')
                         ->take(5)
                         ->get();
