@@ -14,7 +14,7 @@
                 </h1>
                 <div class="material__panel">
                     @can('update-material', $material)
-                    <a href="/material/{{ $material->id }}/edit" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
+                    <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
                     @else
                     <a href="/complaint/create/{{ $material->id }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
                     @endcan
@@ -26,7 +26,7 @@
                                 onclick="event.preventDefault();
                                               document.getElementById('del-material-forever').submit();">
                                 Удалить полностью
-                                <form id="del-material-forever" action="/material/{{ $material->id }}/delete/forever" method="POST" style="display: none;">
+                                <form id="del-material-forever" action="{{ route('materials.delete.forever', ['id'=>$material->id]) }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                              </a>
@@ -34,7 +34,7 @@
                                 onclick="event.preventDefault();
                                               document.getElementById('del-material-temp').submit();">
                                 Удалить временно
-                                <form id="del-material-temp" action="/material/{{ $material->id }}/delete/temp" method="POST" style="display: none;">
+                                <form id="del-material-temp" action="{{ route('materials.delete.temp', ['id'=>$material->id]) }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>
                              </a>
@@ -65,7 +65,7 @@
                     <div class="w-25">
                         <h4>Оценка: <span class="badge badge-pill badge-primary font-weight-bold">{{ $material->rate }}</span></h4>
                     </div>
-                    <a href="/material/{{ $material->id }}/download" class="btn btn-primary"><i class="fa fa-download mr-2"></i>Скачать</a>
+                    <a href="{{ route('materials.download', ['id'=>$material->id]) }}" class="btn btn-primary"><i class="fa fa-download mr-2"></i>Скачать</a>
                 </div>
             </div>
         </div>

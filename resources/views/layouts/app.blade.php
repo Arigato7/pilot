@@ -44,7 +44,7 @@
                             <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('educationOrganizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
+                            <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
@@ -118,7 +118,7 @@
                             <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('educationOrganizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Образовательные организации">Образовательные организации</a>
+                            <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Образовательные организации">Образовательные организации</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>

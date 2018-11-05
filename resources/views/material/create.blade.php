@@ -5,7 +5,7 @@
     <div class="card create-material">
         <div class="card-header">Добавить материал</div>
         <div class="card-body">
-            <form action="{{ route('materialSave') }}" method="POST" name="createMaterial" enctype="multipart/form-data">
+            <form action="{{ route('materials.store') }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                 @csrf
                 <label for="materialName" class="col-form-label text-secondary">Название материала</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="materialName" placeholder="Введите название материала">

@@ -21,13 +21,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Маршруты для образовательных организаций
  */
-Route::get('/organizations', 'EducationOrganizationController@list')->name('educationOrganizations');
-Route::get('/organization/create', 'EducationOrganizationController@create')->name('createOrganization');
-Route::post('/organization/add', 'EducationOrganizationController@store')->name('addOrganization');
-Route::get('/organization/{organization}', 'EducationOrganizationController@show');
-Route::get('/organization/{organization}/edit', 'EducationOrganizationController@edit');
-Route::post('/organization/{organization}/save', 'EducationOrganizationController@update');
-Route::post('/organization/{organization}/del', 'EducationOrganizationController@delete');
+Route::get('/organizations', 'EducationOrganizationController@list')->name('organizations');
+Route::get('/organization/create', 'EducationOrganizationController@create')->name('organizations.create');
+Route::post('/organization/add', 'EducationOrganizationController@store')->name('organizations.store');
+Route::get('/organization/{organization}', 'EducationOrganizationController@show')->name('organizations.show');
+Route::get('/organization/{organization}/edit', 'EducationOrganizationController@edit')->name('organizations.edit');
+Route::post('/organization/{organization}/save', 'EducationOrganizationController@update')->name('organizations.update');
+Route::post('/organization/{organization}/del', 'EducationOrganizationController@delete')->name('organizations.delete');
 /**
  * Маршруты специальностей
  */
@@ -40,15 +40,15 @@ Route::get('/subjects', 'SubjectController@list')->name('subjects');
  * Маршруты материалов
  */
 Route::get('/materials', 'MaterialController@index')->name('materials');
-Route::get('/material/create', 'MaterialController@create')->name('materialCreate');
-Route::post('/material/save', 'MaterialController@store')->name('materialSave');
-Route::get('/material/{material}', 'MaterialController@show');
-Route::get('/material/{material}/edit', 'MaterialController@edit');
-Route::post('/material/{material}/save', 'MaterialController@update');
-Route::get('/material/{material}/download', 'MaterialController@download');
-Route::post('/material/{material}/delete/temp', 'MaterialController@deleteTemp');
-Route::post('/material/{material}/delete/forever', 'MaterialController@deleteForever');
-Route::post('/material/{material}/restore', 'MaterialController@restore');
+Route::get('/material/create', 'MaterialController@create')->name('materials.create');
+Route::post('/material/save', 'MaterialController@store')->name('materials.store');
+Route::get('/material/{material}', 'MaterialController@show')->name('materials.show');
+Route::get('/material/{material}/edit', 'MaterialController@edit')->name('materials.edit');
+Route::post('/material/{material}/save', 'MaterialController@update')->name('materials.update');
+Route::get('/material/{material}/download', 'MaterialController@download')->name('materials.download');
+Route::post('/material/{material}/delete/temp', 'MaterialController@deleteTemp')->name('materials.delete.temp');
+Route::post('/material/{material}/delete/forever', 'MaterialController@deleteForever')->name('materials.delete.forever');
+Route::post('/material/{material}/restore', 'MaterialController@restore')->name('materials.restore');
 /**
  * Маршруты для фильрации материалов
  */

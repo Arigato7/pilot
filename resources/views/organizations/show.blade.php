@@ -8,7 +8,7 @@
                 Образовательная организация {{ $organization->name }}
                 <div class="organization__panel text-right">
                     @can ('update-organization', $organization)
-                    <a href="/organization/{{ $organization->id }}/edit" title="Редактировать"><i class="fa fa-2x fa-edit text-primary mr-2"></i></a>
+                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать"><i class="fa fa-2x fa-edit text-primary mr-2"></i></a>
                     @endcan
                 </div>
             </div>

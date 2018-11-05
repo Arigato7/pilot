@@ -15,7 +15,7 @@
                 <div class="list-group-item material">
                     <div class="d-flex justify-content-between">
                         <div class="col-lg-5">
-                            <a href="/material/{{ $material->id }}" class="material__link">{{ $material->name }}</a>
+                            <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="material__link">{{ $material->name }}</a>
                             <p class="material__author">
                                 <a href="/user/{{ $material->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $material->user_photo != null ? asset('storage/userdata/' . $material->user_login . '/' . $material->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $material->user_name }}</div></div>">{{ $material->user_name }}</a>
                             </p>

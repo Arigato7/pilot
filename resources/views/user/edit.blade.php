@@ -17,7 +17,7 @@
                         <div class="form-group row align-items-center">
                             <label for="userLogin" class="col-sm-3 col-form-label col-form-label-lg">Логин</label>
                             <div class="col-sm-9">
-                                <input type="text" name="login" class="form-control form-control-lg" id="userLogin" placeholder="Логин пользователя" value="{{ $loginData->login }}">
+                                <input type="text" name="login" class="form-control form-control-lg" id="userLogin" placeholder="Логин пользователя" value="{{ $userData->login }}">
                             </div>
                         </div>
                         <div class="row align-items-center">
@@ -37,7 +37,11 @@
                             <label for="organizationName" class="col-sm-3 col-form-label col-form-label-lg">Название</label>
                             <div class="col-sm-9">
                                 <select class="form-control form-control-lg" id="organizationName" name="organization">
-                                    <option>Название организации</option>
+                                    @forelse($organizations as $organization)
+                                    <option value="{{ $organization->id }}" {{ $organization->id === $userData->organization_id ? 'selected' : '' }}>{{ $organization->name }}</option>
+                                    @empty
+                                    <option value="#" selected disabled>Пусто</option>
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
@@ -45,7 +49,11 @@
                             <label for="positionName" class="col-sm-3 col-form-label col-form-label-lg">Должность</label>
                             <div class="col-sm-9">
                                 <select class="form-control form-control-lg" id="positionName" name="position">
-                                    <option>Должность</option>
+                                    @forelse($positions as $position)
+                                    <option value="{{ $position->id }}" {{ $position->id === $userData->position_id ? 'selected' : '' }}>{{ $position->name }}</option>
+                                    @empty
+                                    <option value="#" selected disabled>Пусто</option>
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
@@ -61,13 +69,13 @@
                         <div class="form-group row align-items-center">
                             <label for="userEmail" class="col-sm-3 col-form-label col-form-label-lg">Email</label>
                             <div class="col-sm-9">
-                                <input type="email" name="email" class="form-control form-control-lg" id="userEmail" placeholder="email">
+                                <input type="email" name="email" class="form-control form-control-lg" id="userEmail" placeholder="email" value="{{ $userData->user_email }}">
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <label for="userTel" class="col-sm-3 col-form-label col-form-label-lg">Телефон</label>
                             <div class="col-sm-9">
-                                <input type="text" name="phone" class="form-control form-control-lg" id="userTel" placeholder="Номер телефона">
+                                <input type="text" name="phone" class="form-control form-control-lg" id="userTel" placeholder="Номер телефона" value="{{ $userData->user_phone }}">
                             </div>
                         </div>
                     </div>
@@ -81,7 +89,11 @@
                             <label for="roleName" class="col-sm-3 col-form-label col-form-label-lg">Роль</label>
                             <div class="col-sm-9">
                                 <select class="form-control form-control-lg" id="roleName" name="role">
-                                    <option>Роль</option>
+                                    @forelse($roles as $role)
+                                    <option value="{{ $role->id }}" {{ $role->id === $userData->role_id ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @empty
+                                    <option value="#" selected disabled>Пусто</option>
+                                    @endforelse
                                 </select>
                             </div>
                         </div>
@@ -96,25 +108,25 @@
                     <div class="form-group row align-items-center">
                         <label for="userName" class="col-sm-3 col-form-label col-form-label-lg">Имя</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control form-control-lg" id="userName" placeholder="Имя">
+                            <input type="text" name="name" class="form-control form-control-lg" id="userName" placeholder="Имя" value="{{ $userData->user_name }}">
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label for="userLastname" class="col-sm-3 col-form-label col-form-label-lg">Фамилия</label>
                         <div class="col-sm-9">
-                            <input type="text" name="lastname" class="form-control form-control-lg" id="userLastname" placeholder="Фамилия">
+                            <input type="text" name="lastname" class="form-control form-control-lg" id="userLastname" placeholder="Фамилия" value="{{ $userData->user_lastname }}">
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label for="userMiddlename" class="col-sm-3 col-form-label col-form-label-lg">Отчество</label>
                         <div class="col-sm-9">
-                            <input type="text" name="middlename" class="form-control form-control-lg" id="userMiddlename" placeholder="Отчество">
+                            <input type="text" name="middlename" class="form-control form-control-lg" id="userMiddlename" placeholder="Отчество" value="{{ $userData->user_middlename }}">
                         </div>
                     </div>
                     <div class="form-group row align-items-center">
                         <label for="userAbout" class="col-sm-3 col-form-label col-form-label-lg">О себе</label>
                         <div class="col-sm-9">
-                            <textarea name="about" id="userAbout" class="form-control form-control-lg" cols="30" rows="5" placeholder="О себе"></textarea>
+                            <textarea name="about" id="userAbout" class="form-control form-control-lg" cols="30" rows="5" placeholder="О себе">{{ $userData->user_about }}</textarea>
                         </div>
                     </div>
                 </div>

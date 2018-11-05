@@ -111,7 +111,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 Список материалов
-                                <a href="{{ route('materialCreate') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
+                                <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                             </div>
                         </div>
                         <div class="card-body p-0">
@@ -122,7 +122,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="col-lg-7 pl-0">
                                             <h3>
-                                                <a href="/material/{{ $newMaterial->id }}" class="material__link">
+                                                <a href="{{ route('materials.show', ['id'=>$newMaterial->id]) }}" class="material__link">
                                                     {{ $newMaterial->name }}
                                                     <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
                                                         @if ($newMaterial->status == 'new')
@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="material__date">
-                                            <a href="/material/{{ $newMaterial->id }}" class="btn btn-lg btn-primary w-100">Открыть</a>
+                                            <a href="{{ route('materials.show', ['id'=>$newMaterial->id]) }}" class="btn btn-lg btn-primary w-100">Открыть</a>
                                             <div class="text-secondary">
                                                 {{ date( "d.m.Y в H:i", strtotime($newMaterial->date)) }}
                                             </div>

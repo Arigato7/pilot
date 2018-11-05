@@ -114,7 +114,7 @@ class MaterialController extends Controller
 
         $subjects = DB::table('subjects')->select('id', 'name')->get();
 
-        $types = DB::table('material_types')->select('id', 'name')->get();
+        $types = MaterialType::all()->sortByDesc('name');
 
         return view('material.create', [
             'specialties' => $specialties,

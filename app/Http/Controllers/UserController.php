@@ -172,11 +172,33 @@ class UserController extends Controller
      * @return void
      */
     public function editProps($id) {
-        $loginData = User::findOrFail($id);
 
+        $userData = DB::table('users')
+                        ->join('roles', 'users.role_id', '=', 'roles.id')
+                        ->join('user_infos', 'users.id', '=', 'user_infos.user_id')
+                        ->join('positions', 'user_infos.position_id', '=', 'positions.id')
+                        ->join('education_organizations', 'user_infos.education_organization_id', '=', 'education_organizations.id')
+                        ->where('users.id', $id)
+                        ->select('users.*',
+                                'roles.id as role_id',
+                                'roles.name as role_name',
+                                'user_infos.name as user_name',
+                                'user_infos.lastname as user_lastname',
+                                'user_infos.middlename as user_middlename',
+                                'user_infos.email as user_email',
+                                'user_infos.phone as user_phone',
+                                'user_infos.about as user_about',
+                                'positions.id as position_id', 
+                                'positions.name as position_name',
+                                'education_organizations.id as organization_id',
+                                'education_organizations.name as organization_name')
+                        ->first();
 
         return view('user.edit', [
-            'loginData' => $loginData
+            'userData' => $userData,
+            'roles' => Role::all()->sortByDesc('name'),
+            'positions' => Position::all()->sortByDesc('name'),
+            'organizations' => EducationOrganization::all()->sortByDesc('name'),
         ]);
     }
     /**

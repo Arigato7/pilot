@@ -7,7 +7,7 @@
             Редактировать материал
         </div>
         <div class="card-body">
-                <form action="/material/{{ $material->id }}/save" method="POST" name="createMaterial" enctype="multipart/form-data">
+                <form action="{{ route('materials.update', ['id'=>$material->id]) }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                     @csrf
                     <label for="materialName" class="col-form-label text-secondary">Название материала</label>
                     <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="materialName" placeholder="Введите название материала" value="{{ $material->name }}">

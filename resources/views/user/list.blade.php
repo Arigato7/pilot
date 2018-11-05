@@ -26,7 +26,9 @@
                         <td>{{ $user->role->name }}</td>
                         <td>
                             <a href="/user/{{ $user->id }}/props" class="btn btn-primary">Изменить</a>
-                            <a href="#" class="btn btn-danger disabled" disabled>Удалить</a>
+                            @if (Auth::user()->id !== $user->id)
+                                <a href="#" class="btn btn-danger disabled" disabled>Удалить</a>
+                            @endif
                         </td>
                     </tr>
                     @empty

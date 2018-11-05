@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             @can ('update-organization', $organization)
-            <form action="/organization/{{ $organization->id }}/save" method="POST" name="createMaterial" enctype="multipart/form-data">
+            <form action="{{ route('organizations.update', ['id'=>$organization->id]) }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                 @csrf
                 <label for="organizationName" class="col-form-label text-secondary">Название образовательной организации</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="organizationName" placeholder="Введите название организации" value="{{ $organization->name }}">
