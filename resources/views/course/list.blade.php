@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 Список курсов повышения квалификации
                 @can ('administrate', Auth::user())
-                <a href="{{ route('courseCreate') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus"></i></a>
+                <a href="{{ route('courses.create') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus"></i></a>
                 @endcan
             </div>
         </div>
@@ -18,7 +18,7 @@
                 <div class="list-group-item course">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="h3 mb-2">
-                            <a href="/course/{{ $course->id }}">{{ $course->name }}</a>
+                            <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
                         </h3>
                         @can('course-entry', $course)
                             @if (date_create("now") <= date_create($course->end_entry_date))

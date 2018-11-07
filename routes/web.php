@@ -52,10 +52,10 @@ Route::post('/material/{material}/restore', 'MaterialController@restore')->name(
 /**
  * Маршруты для фильрации материалов
  */
-Route::get('/material/filter/type/{type}', 'MaterialController@typeMaterial');
-Route::get('/material/filter/user/{user}', 'MaterialController@usersMaterials');
-Route::get('/material/filter/subject/{subject}', 'MaterialController@subjectMaterials');
-Route::get('/material/filter/specialty/{specialty}', 'MaterialController@specialtyMaterials');
+Route::get('/material/filter/type/{type}', 'MaterialController@typeMaterial')->name('materials.filter.type');
+Route::get('/material/filter/user/{user}', 'MaterialController@usersMaterials')->name('materials.filter.user');
+Route::get('/material/filter/subject/{subject}', 'MaterialController@subjectMaterials')->name('materials.filter.subject');
+Route::get('/material/filter/specialty/{specialty}', 'MaterialController@specialtyMaterials')->name('materials.filter.specialty');
 /**
  * Маршруты для поиска материалов
  */
@@ -64,13 +64,13 @@ Route::post('/material/find', 'MaterialSearchController@find');
 /**
  * Маршруты для комментариев к материалам
  */
-Route::post('/material/{material}/comment', 'MaterialCommentController@store');
-Route::post('/material/{material}/comment/{id}/delete', 'MaterialCommentController@delete');
-Route::get('/material/{material}/comment/delete', 'MaterialCommentController@deleteAll');
+Route::post('/material/{material}/comment', 'MaterialCommentController@store')->name('materials.comment.store');
+Route::post('/material/{material}/comment/{id}/delete', 'MaterialCommentController@delete')->name('materials.comment.delete');
+Route::get('/material/{material}/comment/delete', 'MaterialCommentController@deleteAll')->name('materials.comment.delete.all');
 /**
  * Маршруты для типов материалов
  */
-Route::get('/material-types', 'MaterialTypeController@list')->name('materialTypes');
+Route::get('/material-types', 'MaterialTypeController@list')->name('materials.types');
 /**
  * Маршруты для жалоб к материалам
  */
@@ -88,17 +88,17 @@ Route::get('/news/{news}', 'NewsController@show');
  * Маршруты для курсов
  */
 Route::get('/courses', 'CourseController@list')->name('courses');
-Route::get('/course/create', 'CourseController@create')->name('courseCreate');
-Route::get('/course/{course}', 'CourseController@show');
-Route::post('/course/save', 'CourseController@store')->name('courseStore');
+Route::get('/course/create', 'CourseController@create')->name('courses.create');
+Route::get('/course/{course}', 'CourseController@show')->name('courses.show');
+Route::post('/course/save', 'CourseController@store')->name('courses.store');
 /**
  * Маршруты для комментариев к курсам
  */
-Route::post('/course/{course}/comment', 'CourseCommentController@store');
+Route::post('/course/{course}/comment', 'CourseCommentController@store')->name('courses.comment.store');
 /**
  * Маршрут для записи на курс
  */
-Route::post('/course/{course}/entry', 'CourseController@enrollment');
+Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('courses.enroll');
 /**
  * Маршруты для дистанционного обучения
  */

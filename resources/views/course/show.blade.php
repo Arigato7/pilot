@@ -35,7 +35,7 @@
                                 <a href="#" class="btn btn-lg btn-primary"  
                                 onclick="event.preventDefault();
                                             document.getElementById('entry-course').submit();">Записаться</a>
-                                <form id="entry-course" action="/course/{{ $course->id }}/entry" method="POST" style="display: none;">
+                                <form id="entry-course" action="{{ route('courses.enroll', ['id'=>$course->id]) }}" method="POST" style="display: none;">
                                     @csrf
                                     <input type="hidden" name="course_id" value="{{ $course->id }}">
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -71,7 +71,7 @@
                     document.getElementById('create-course-comment').submit();">Отправить</button>
                 </div>
             </div>
-            <form action="/course/{{ $course->id }}/comment" method="post" id="create-course-comment">
+            <form action="{{ route('courses.comment.store', ['id'=>$course->id]) }}" method="post" id="create-course-comment">
                 @csrf
                 <textarea name="description" id="commentDescription" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} border-0" cols="30" rows="4" placeholder="Что думаете по этому поводу?"></textarea>
                 @if ($errors->has('description'))

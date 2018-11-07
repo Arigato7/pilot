@@ -5,7 +5,7 @@
     @if ($error == '')
     <div class="card material">
         <div class="card-header">
-            Автор: <a href="/material/filter/user/{{ $user->id }}">{{ $userInfo->name . ' ' . $userInfo->lastname }}</a>
+            Автор: <a href="{{ route('materials.filter.user', ['id'=>$user->id]) }}">{{ $userInfo->name . ' ' . $userInfo->lastname }}</a>
         </div>
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
@@ -77,7 +77,7 @@
                     Отзывы <span class="text-secondary ml-2">({{ $comments->count() }})</span>
                     @can ('moderate', Auth::user())
                     @if ($comments->count() > 0)
-                    <a href="/material/{{ $material->id }}/comment/delete" class="btn btn-danger">Удалить все</a>
+                    <a href="{{ route('materials.comment.delete.all', ['material'=>$material->id]) }}" class="btn btn-danger">Удалить все</a>
                     @endif
                     @endcan
                 </h2>
@@ -92,7 +92,7 @@
             </div>
             <div class="material__add-comment list-group-item p-0">
                 @can ('create-material-comment', $material)
-                <form action="/material/{{ $material->id }}/comment" method="POST" id="js-review-field">
+                <form action="{{ route('materials.comment.store', ['id'=>$material->id]) }}" method="POST" id="js-review-field">
                     @csrf
                     <textarea name="description" id="commentDescription" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} border-0 p-3" cols="30" rows="4" placeholder="Что думаете по этому поводу?"></textarea>
                     @if ($errors->has('description'))
@@ -169,7 +169,7 @@
                             <div class="material__delete mt-2 text-right">
                             <a href="#" class="btn btn-danger" onclick="event.preventDefault();
                             document.getElementById('comment-delete').submit();"><i class="fa fa-close mr-2"></i>Удалить</a>
-                            <form id="comment-delete" action="/material/{{ $material->id }}/comment/{{ $comment->id }}/delete" method="POST" style="display: none;">
+                            <form id="comment-delete" action="{{ route('materials.comment.delete', ['material'=>$material->id,'comment'=>$comment->id]) }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                             </div>

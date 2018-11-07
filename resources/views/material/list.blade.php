@@ -24,7 +24,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 Типы материалов
                                 @can ('administrate', Auth::user())
-                                <a href="{{ route('materialTypes') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('materials.types') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
                                 @endcan
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="list-group list-group-flush">
                                 @forelse($types as $type)
                                 <div class="list-group-item subject">
-                                    <a href="/material/filter/type/{{ $type->id }}">{{ $type->name }}</a>
+                                    <a href="{{ route('materials.filter.type', ['id'=>$type->id]) }}">{{ $type->name }}</a>
                                 </div>
                                 @empty
                                 <div class="list-group-item text-center text-secondary">
@@ -59,7 +59,7 @@
                                 @forelse($specialties as $specialty)
                                 <div class="list-group-item specialty">
                                     <div class="d-flex justify-content-between">
-                                        <a href="/material/filter/specialty/{{ $specialty->id }}" class="d-block">{{ $specialty->name }}</a>
+                                        <a href="{{ route('materials.filter.specialty', ['id'=>$specialty->id]) }}" class="d-block">{{ $specialty->name }}</a>
                                         <div class="text-secondary">{{ $specialty->code }}</div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                             <div class="list-group list-group-flush">
                                 @forelse($subjects as $subject)
                                 <div class="list-group-item subject">
-                                    <a href="/material/filter/subject/{{ $subject->id }}">{{ $subject->name }}</a>
+                                    <a href="{{ route('materials.filter.subject', ['id'=>$subject->id]) }}">{{ $subject->name }}</a>
                                 </div>
                                 @empty
                                 <div class="list-group-item text-center text-secondary">

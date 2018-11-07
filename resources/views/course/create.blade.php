@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">Добавление курса</div>
         <div class="card-body">
-            <form action="{{ route('courseStore') }}" method="post">
+            <form action="{{ route('courses.store') }}" method="post">
                 @csrf
                 <label for="courseName" class="col-form-label text-secondary">Название курса</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="courseName" placeholder="Введите название курса">
