@@ -5,7 +5,7 @@
     <div class="card profile">
         <div class="card-header">
             <div class="d-flex justify-content-between">
-                <div class="profile__title">Личный кабинет</div>
+                <div class="profile__title">Личный кабинет администратора</div>
                 <div class="profile__role">{{ Auth::user()->role->name }}</div>
             </div>
         </div>
