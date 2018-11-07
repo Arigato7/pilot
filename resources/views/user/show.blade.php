@@ -60,7 +60,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Материалы пользователя
                         @can ('edit', $user, Auth::user())
-                        <a href="{{ route('materialCreate') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
+                        <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
                         @endcan
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         @forelse($materials as $material)
                         <div class="list-group-item material">
                             <div class="d-flex justify-content-between">
-                                <a href="/material/{{ $material->id }}" class="material__link">{{ $material->name }}</a>
+                                <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="material__link">{{ $material->name }}</a>
                                 <p class="material__date text-secondary">{{ $material->date }}</p>
                             </div>
                         </div>
