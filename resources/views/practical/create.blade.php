@@ -7,7 +7,7 @@
             Добавление практической работы
         </div>
         <div class="card-body">
-            <form action="{{ route('practicalWorkStore') }}" method="post">
+            <form action="{{ route('practicals.store') }}" method="post">
                 @csrf
                 <label for="practicalName" class="col-form-label text-secondary">Название практической работы</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="practicalName" placeholder="Введите название практической работы" aria-describedby="practicalNameHelpBlock">

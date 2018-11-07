@@ -69,7 +69,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Практические работы
                         @can ('administrate', Auth::user())
-                        <a href="{{ route('practicalWorkCreate') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('practicals.create') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus"></i></a>
                         @endcan
                     </div>
                 </div>
@@ -79,9 +79,9 @@
                             <div class="list-group-item">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h3 class="h3 mb-2">
-                                        <a href="/practical-work/{{ $practical->id }}">{{ $practical->name }}</a>
+                                        <a href="{{ route('practicals.show', ['id'=>$practical->id]) }}">{{ $practical->name }}</a>
                                     </h3>
-                                    <a href="/practical-work/{{ $practical->id }}" class="btn btn-lg btn-primary">Открыть</a>
+                                    <a href="{{ route('practicals.show', ['id'=>$practical->id]) }}" class="btn btn-lg btn-primary">Открыть</a>
                                 </div>
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-6">

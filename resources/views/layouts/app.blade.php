@@ -41,7 +41,7 @@
                         </li>
                         @endcan
                         <li class="nav-item">
-                            <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
+                            <a href="{{ route('practicals') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
@@ -115,7 +115,7 @@
                         </li>
                         @endcan
                         <li class="nav-item">
-                            <a href="{{ route('practicalWork') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
+                            <a href="{{ route('practicals') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Образовательные организации">Образовательные организации</a>

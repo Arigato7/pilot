@@ -102,10 +102,10 @@ Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('cour
 /**
  * Маршруты для дистанционного обучения
  */
-Route::get('/practical-works', 'PracticalWorkController@list')->name('practicalWork');
-Route::get('/practical-work/create', 'PracticalWorkController@create')->name('practicalWorkCreate');
-Route::post('/practical-work/save', 'PracticalWorkController@store')->name('practicalWorkStore');
-Route::get('/practical-work/{practical}', 'PracticalWorkController@show');
+Route::get('/practical-works', 'PracticalWorkController@list')->name('practicals');
+Route::get('/practical-work/create', 'PracticalWorkController@create')->name('practicals.create');
+Route::post('/practical-work/save', 'PracticalWorkController@store')->name('practicals.store');
+Route::get('/practical-work/{practical}', 'PracticalWorkController@show')->name('practicals.show');
 /**
  * Маршруты для пользователей
  */
