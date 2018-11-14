@@ -16,7 +16,7 @@
                     @can('update-material', $material)
                     <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
                     @else
-                    <a href="/complaint/create/{{ $material->id }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
+                    <a href="{{ route('materials.complaint.create') }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
                     @endcan
                     @can('moderate', Auth::user())
                     <div class="dropdown d-inline-block">
@@ -148,7 +148,7 @@
                         {{ $comment->user_rate }}
                     </div>
                     <div class="my-3">
-                        <a href="/user/{{ $comment->user_login }}">{{ $comment->user_name }}</a>
+                        <a href="{{ route('users.show', ['login'=>$comment->user_login]) }}">{{ $comment->user_name }}</a>
                     </div>
                 </div>
                 <div class="col-lg-10 pl-4">

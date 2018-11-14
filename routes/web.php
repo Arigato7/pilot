@@ -73,10 +73,10 @@ Route::get('/material-types', 'MaterialTypeController@list')->name('materials.ty
 /**
  * Маршруты для жалоб к материалам
  */
-Route::get('/complaints', 'MaterialComplaintController@index')->name('materialComplaints');
-Route::get('/complaint/create/{material}', 'MaterialComplaintController@create');
-Route::post('/complaint/save', 'MaterialComplaintController@store')->name('saveMaterialComplaints');
-Route::post('/complaint/{complaint}/delete', 'MaterialComplaintController@delete');
+Route::get('/complaints', 'MaterialComplaintController@index')->name('materials.complaints');
+Route::get('/complaint/create/{material}', 'MaterialComplaintController@create')->name('materials.complaint.create');
+Route::post('/complaint/save', 'MaterialComplaintController@store')->name('materials.complaint.store');
+Route::post('/complaint/{complaint}/delete', 'MaterialComplaintController@delete')->name('materials.complaint.delete');
 /**
  * Маршруты для новостей
  */
@@ -108,9 +108,9 @@ Route::get('/practical-work/{practical}', 'PracticalWorkController@show')->name(
 /**
  * Маршруты для пользователей
  */
-Route::get('/user/{user}', 'UserController@show');
-Route::get('/user/{user}/settings', 'UserController@edit');
-Route::get('/user/{user}/props', 'UserController@editProps');
-Route::post('/user/{user}/change', 'UserController@update');
-Route::post('/user/{user}/save-props', 'UserController@saveProps');
+Route::get('/user/{user}', 'UserController@show')->name('users.show');
+Route::get('/user/{user}/settings', 'UserController@edit')->name('users.edit');
+Route::get('/user/{user}/props', 'UserController@editProps')->name('users.props.edit');
+Route::post('/user/{user}/change', 'UserController@update')->name('users.update');
+Route::post('/user/{user}/save-props', 'UserController@saveProps')->name('users.props.update');
 Route::get('/users', 'UserController@index')->name('users')->middleware('check.admin');

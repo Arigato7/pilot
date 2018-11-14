@@ -7,7 +7,7 @@
             <h3 class="h3">Редактирование данных пользователя  <span class="badge badge-primary">BETA</span></h3>
         </div>
     </div>
-    <form action="#" method="post">
+    <form action="{{ route('users.props.update', ['id'=>$userData->id]) }}" method="post">
         @csrf
         <div class="d-flex justify-align-between mb-4">
             <div class="col-lg-6 pl-0">

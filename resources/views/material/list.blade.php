@@ -102,7 +102,7 @@
                     </div>
                     @can ('moderate', Auth::user())
                     <div class="card mt-2">
-                        <a href="{{ route('materialComplaints') }}" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Список жалоб на материалы">Жалобы на материалы</a>
+                        <a href="{{ route('materials.complaints') }}" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Список жалоб на материалы">Жалобы на материалы</a>
                     </div>
                     @endcan
                 </div>
@@ -137,7 +137,7 @@
                                             </h3>
                                             <div class="text-secondary">
                                                 Автор: 
-                                                <a href="/user/{{ $newMaterial->user_login }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a> 
+                                                <a href="{{ route('users.show', ['login'=>$newMaterial->user_login]) }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name }}</div></div>">{{ $newMaterial->user_name }}</a> 
                                                 Оценка - {{ $newMaterial->rate }}
                                             </div>
                                         </div>

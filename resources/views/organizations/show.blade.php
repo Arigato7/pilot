@@ -52,7 +52,7 @@
                     @forelse($users as $user)
                     <tr>
                         <td>
-                            <a href="/user/{{ $user->login }}">{{ $user->name }}</a>
+                            <a href="{{ route('users.show', ['login'=>$user->login]) }}">{{ $user->name }}</a>
                         </td>
                         <td>{{ $user->position }}</td>
                     </tr>

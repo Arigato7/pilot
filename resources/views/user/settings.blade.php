@@ -16,7 +16,7 @@
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         <div class="settings__change">
                             <div class="settings__view">
-                                <form action="/user/{{ Auth::user()->login }}/change" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('users.update', ['login'=>Auth::user()->login]) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <label for="userName" class="col-form-label text-secondary">Изменить имя</label>
                                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="userName" placeholder="Ваше имя" value="{{ Auth::user()->userInfo->name }}">

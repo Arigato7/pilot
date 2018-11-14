@@ -21,11 +21,11 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>
-                            <a href="/user/{{ $user->login }}">{{ $user->login }}</a>
+                            <a href="{{ route('users.show', ['login'=>$user->login]) }}">{{ $user->login }}</a>
                         </td>
                         <td>{{ $user->role->name }}</td>
                         <td>
-                            <a href="/user/{{ $user->id }}/props" class="btn btn-primary">Изменить</a>
+                            <a href="{{ route('users.props.edit', ['id'=>$user->id]) }}" class="btn btn-primary">Изменить</a>
                             @if (Auth::user()->id !== $user->id)
                                 <a href="#" class="btn btn-danger disabled" disabled>Удалить</a>
                             @endif

@@ -209,6 +209,20 @@ class UserController extends Controller
      * @return void
      */
     public function saveProps(Request $request, $id) {
-
+        $user = User::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'login' => 'required|max:255',
+            'position' => 'required',
+            'organization' => 'required',
+            'role' => 'required',
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return redirect('user/' . $user->id . '/props')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        return redirect('users');
     }
 }
