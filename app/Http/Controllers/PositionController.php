@@ -10,24 +10,48 @@ class PositionController extends Controller
         $this->middleware('auth');
         $this->middleware('check.admin');
     }
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function list() {
 
     }
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function create() {
 
     }
-
-    public function store() {
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request) {
 
     }
-
-    public function update() {
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function update(Request $request, $id) {
 
     }
-
-    public function delete() {
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function delete($id) {
         
     }
 }
