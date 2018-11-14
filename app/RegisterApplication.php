@@ -11,6 +11,6 @@ class RegisterApplication extends Model
         'lastname',
         'login',
         'email',
-        'phone's
+        'phone'
     ];
 }
