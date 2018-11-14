@@ -55,6 +55,7 @@ class RegisterApplicationController extends Controller
      * @return void
      */
     public function delete($id) {
-
+        RegisterApplication::findOrFail($id)->delete();
+        return redirect()->route('users');
     }
 }

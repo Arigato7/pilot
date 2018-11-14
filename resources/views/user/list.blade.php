@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             Список пользователей
         </div>
@@ -34,6 +34,52 @@
                     @empty
                     <tr>
                         <td colspan="4">Пусто</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Заявки на регистрацию
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ИД</th>
+                        <th scope="col">Логин</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Телефон</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($applications as $application)
+                    <tr>
+                        <td>{{ $application->id }}</td>
+                        <td>
+                            {{ $application->login }}
+                        </td>
+                        <td>{{ $application->name }}</td>
+                        <td>{{ $application->lastname }}</td>
+                        <td>{{ $application->email }}</td>
+                        <td>{{ $application->phone }}</td>
+                        <td>
+                            <a href="#" class="btn btn-success">Принять</a>
+                            <a href="#" class="btn btn-danger" onclick="document.getElementById('delete-application-{{ $application->id }}').submit()">
+                                Удалить
+                                <form id="delete-application-{{ $application->id }}" action="{{ route('application.delete', ['id'=>$application->id]) }}" method="post" style="display: none;">
+                                    @csrf
+                                </form>
+                            </a>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6">Пусто</td>
                     </tr>
                     @endforelse
                 </tbody>

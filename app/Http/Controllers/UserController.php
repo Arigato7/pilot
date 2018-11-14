@@ -10,6 +10,7 @@ use Pilot\UserInfo;
 use Pilot\Position;
 use Pilot\UserAction;
 use Illuminate\Http\Request;
+use Pilot\RegisterApplication;
 use Pilot\EducationOrganization;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,9 @@ class UserController extends Controller
      * @return void
      */
     public function index() {
-        $users = User::all();
         return view('user.list', [
-            'users' => $users
+            'users' => User::all(),
+            'applications' => RegisterApplication::all()->sortByDesc('created_at')
         ]);
     }
     /**
