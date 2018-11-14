@@ -15,6 +15,11 @@ class CreateRegisterApplicationsTable extends Migration
     {
         Schema::create('register_applications', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('login');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }
