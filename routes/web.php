@@ -109,6 +109,7 @@ Route::get('/practical-work/{practical}', 'PracticalWorkController@show')->name(
  * Маршруты для заявок на регистрацию
  */
 Route::post('/register-application/store', 'RegisterApplicationController@store')->name('application.store');
+Route::post('/register-application/{application}/accept', 'RegisterApplicationController@accept')->name('application.accept')->middleware('check.admin');
 Route::post('/register-application/{application}/delete', 'RegisterApplicationController@delete')->name('application.delete')->middleware('check.admin');
 /**
  * Маршруты для пользователей

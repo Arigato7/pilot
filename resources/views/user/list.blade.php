@@ -68,7 +68,12 @@
                         <td>{{ $application->email }}</td>
                         <td>{{ $application->phone }}</td>
                         <td>
-                            <a href="#" class="btn btn-success">Принять</a>
+                            <a href="#" class="btn btn-success" onclick="document.getElementById('accept-application-{{ $application->id }}').submit()">
+                                Принять
+                                <form id="accept-application-{{ $application->id }}" action="{{ route('application.accept', ['id'=>$application->id]) }}" method="post" style="display: none;">
+                                    @csrf
+                                </form>
+                            </a>
                             <a href="#" class="btn btn-danger" onclick="document.getElementById('delete-application-{{ $application->id }}').submit()">
                                 Удалить
                                 <form id="delete-application-{{ $application->id }}" action="{{ route('application.delete', ['id'=>$application->id]) }}" method="post" style="display: none;">

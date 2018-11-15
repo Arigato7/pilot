@@ -3,11 +3,44 @@
 namespace Pilot\Http\Controllers;
 
 use Validator;
+use Pilot\User;
+use Pilot\UserInfo;
 use Illuminate\Http\Request;
+use Pilot\Events\UserCreated;
 use Pilot\RegisterApplication;
 
 class RegisterApplicationController extends Controller
 {
+    /**
+     * Генерирует случайный пароль
+     *
+     * @param int $length
+     * @return void
+     */
+    protected function getRandomPassword($length) {
+        $symbols = [
+            'a','b','c','d','e','f',
+            'g','h','i','j','k','l',
+            'm','n','o','p','r','s',
+            't','u','v','x','y','z',
+            'A','B','C','D','E','F',
+            'G','H','I','J','K','L',
+            'M','N','O','P','R','S',
+            'T','U','V','X','Y','Z',
+            '1','2','3','4','5','6',
+            '7','8','9','0','.',',',
+            '(',')','[',']','!','?',
+            '&','^','%','@','*','$',
+            '<','>','/','|','+','-',
+            '{','}','`','~'
+        ];
+        $password = '';
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, count($symbols) - 1);
+            $password .= $symbols[$index];
+        }
+        return $password;
+    }
     /**
      * Запись данных заявки на регистрацию в БД
      *
@@ -47,7 +80,30 @@ class RegisterApplicationController extends Controller
      * @return void
      */
     public function accept($id) {
+        $application = RegisterApplication::findOrFail($id);
 
+        $user = new User;
+
+        $user->role_id = 3;
+        $user->login = $application->login;
+        $user->password = bcrypt('lab');
+
+        $user->save();
+        
+        $info = new UserInfo;
+
+        $info->user_id = $user->id;
+        $info->name = $application->name;
+        $info->lastname = $application->lastname;
+        $info->about = $this->getRandomPassword(11);
+        $info->email = $application->email;
+        $info->phone = $application->phone;
+
+        $info->save();
+
+        event(new UserCreated($user));
+        $this->delete($application->id);
+        return redirect()->route('users');
     }
     /**
      * Удаление заявки на регистрацию из БД
