@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Регистрация</div>
+                <div class="card-header">Подача заявки на регистрацию</div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('application.store') }}">
                         @csrf
@@ -57,7 +57,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Регистрация
+                                    Подать заявку
                                 </button>
                             </div>
                         </div>

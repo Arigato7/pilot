@@ -102,8 +102,17 @@ class RegisterApplicationController extends Controller
         $info->save();
 
         event(new UserCreated($user));
-        $this->delete($application->id);
+        $this->deleteApplication($application->id);
         return redirect()->route('users');
+    }
+    /**
+     * Удаление данных заявки из БД
+     *
+     * @param int $id
+     * @return void
+     */
+    protected function deleteApplication($id) {
+        RegisterApplication::findOrFail($id)->delete();
     }
     /**
      * Удаление заявки на регистрацию из БД
@@ -112,7 +121,7 @@ class RegisterApplicationController extends Controller
      * @return void
      */
     public function delete($id) {
-        RegisterApplication::findOrFail($id)->delete();
+        $this->delete($id);
         return redirect()->route('users');
     }
 }
