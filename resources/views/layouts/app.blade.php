@@ -32,7 +32,7 @@
                             <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список новостей">Новости</a>
                         </li>
                         @else
-                        @can ('moderate', Auth::user())
+                        @can ('teach', Auth::user())
                         <li class="nav-item">
                             <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Популярные и новые материалы">Депозиторий</a>
                         </li>
@@ -106,7 +106,7 @@
                             <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
                         </li>
                         @else
-                        @can ('moderate', Auth::user())
+                        @can ('teach', Auth::user())
                         <li class="nav-item">
                             <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Депозиторий материалов">Депозитарий</a>
                         </li>

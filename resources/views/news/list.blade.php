@@ -8,7 +8,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 Список новостей
                 @auth
-                <a href="{{ route('newsCreate') }}" class="btn btn-primary btn-sm" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
+                <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                 @else
                 <div>Чтобы добавить новости <a href="{{ route('login') }}">войдите</a> или <a href="{{ route('register') }}">зарегистрируйтесь</a></div>
                 @endauth
@@ -19,8 +19,11 @@
             @forelse($newNews as $item)
             <div class="news__item">
                 <div class="d-flex justify-content-between">
-                    <div class="col-lg-5">
-                        <a href="#" class="material__link">{{ $item->header }}</a>
+                    <div class="col-lg-8">
+                        <a href="#" class="h1 material__link">{{ $item->header }}</a>
+                        <div class="my-2 text-secondary">
+                            {{ $item->description }}
+                        </div>
                         <p class="material__author">
                             <a href="/user/{{ $item->user_login }}" class="text-secondary">{{ $item->user_name }}</a>
                         </p>

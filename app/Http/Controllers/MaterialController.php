@@ -221,6 +221,32 @@ class MaterialController extends Controller
         ]);
     }
     /**
+     * Создание директорий файлов материалов
+     *
+     * @param string $currentDirectory
+     * @param string $deletedDirectory
+     * @return void
+     */
+    protected function createMaterialDirectories($currentDirectory, $deletedDirectory) {
+        if (! Storage::exists($currentDirectory) && ! Storage::exists($deletedDirectory)) {
+            Storage::makeDirectory($currentDirectory);
+            Storage::makeDirectory($deletedDirectory);
+        }
+    }
+    /**
+     * Создание имени файла материала
+     *
+     * @param string $fileName
+     * @return void
+     */
+    protected function materialFileName($fileName) {
+        return date('d_m_o_His') 
+                . '_'
+                . pathinfo($fileName, PATHINFO_FILENAME) 
+                . '.'
+                . pathinfo($fileName, PATHINFO_EXTENSION);
+    }
+    /**
      * Запись  материала в БД
      *
      * @param Request $request
@@ -248,17 +274,17 @@ class MaterialController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $currentDirectory = "/public/materials/" . Auth::user()->login . "/actual";
-        $deletedDirectory = "/public/materials/" . Auth::user()->login . "/deleted";
-        if (! Storage::exists($currentDirectory) && ! Storage::exists($deletedDirectory)) {
-            Storage::makeDirectory($currentDirectory);
-            Storage::makeDirectory($deletedDirectory);
-        }
+
+        $this->createMaterialDirectories("/public/materials/" . Auth::user()->login . "/actual",
+                                         "/public/materials/" . Auth::user()->login . "/deleted");
+
         if ($request->hasFile('content')) {
             $file = $request->file('content');
             $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
-            $this->content = date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+            $path = $file->storeAs('/public/materials/' 
+                        . Auth::user()->login 
+                        . '/actual', $this->materialFileName($fileName));
+            $this->content = $this->materialFileName($fileName);
         }
 
         $material = new Material;
@@ -316,16 +342,16 @@ class MaterialController extends Controller
         if ($request->hasFile('content')) {
             $file = $request->file('content');
             
-            
-
             if (Storage::exists('/public/materials/' . Auth::user()->login . '/actual/' . $material->content)) {
-                Storage::move('/public/materials/' . Auth::user()->login . '/actual/' . $material->content, '/public/materials/' . Auth::user()->login . '/deleted/' . $material->content);
+                $this->moveMaterialFile('/public/materials/' . Auth::user()->login . '/actual/' . $material->content,
+                                        '/public/materials/' . Auth::user()->login . '/deleted/' . $material->content);
                 $this->deleted = $material->content;
             }
             
             $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' . Auth::user()->login . '/actual', date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION));
-            $this->content = date('d_m_o_His') . '_' . pathinfo($fileName, PATHINFO_FILENAME) . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+            $path = $file->storeAs('/public/materials/' 
+                        . Auth::user()->login . '/actual', $this->materialFileName($fileName));
+            $this->content = $this->materialFileName($fileName);
         }
 
         $material->user_id = Auth::user()->id;
@@ -365,6 +391,29 @@ class MaterialController extends Controller
         ]);
     }
     /**
+     * Удаление файла материала
+     *
+     * @param string $path
+     * @return void
+     */
+    protected function deleteMaterialFile($path) {
+        if (Storage::exists(storage_path($path))) {
+            Storage::delete(storage_path($path));
+        }
+    }
+    /**
+     * Undocumented function
+     *
+     * @param string $from
+     * @param string $to
+     * @return void
+     */
+    protected function moveMaterialFile($from, $to) {
+        if (! Storage::exists($to)) {
+            Storage::move($from, $to);
+        }
+    }
+    /**
      * Мягкое удаление материала
      *
      * @param int $id
@@ -379,14 +428,13 @@ class MaterialController extends Controller
         $material->who_deleted = Auth::user()->login;
         $material->save();
 
-        if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
-            if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                unlink(storage_path('app/public/materials/' . $user->login . '/deleted/' . $material->deleted));
-            }
-            Storage::move('/public/materials/' . $user->login . '/actual/' . $material->content, '/public/materials/' . $user->login . '/deleted/' . $material->content);
-            $material->deleted = $material->content;
-        }
+        $this->deleteMaterialFile('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+        $this->moveMaterialFile('/public/materials/' . $user->login . '/actual/' . $material->content,
+                                    '/public/materials/' . $user->login . '/deleted/' . $material->content);
 
+        $material->deleted = $material->content;
+
+        $material->save();
         $material->delete();
 
         return redirect('materials');
@@ -401,12 +449,9 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
         $user = User::findOrFail($material->user_id);
 
-        if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
-            unlink(storage_path('app/public/materials/' . $user->login . '/actual/' . $material->content));
-            if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
-                unlink(storage_path('app/public/materials/' . $user->login . '/deleted/' . $material->deleted));
-            }
-        }
+        $this->deleteMaterialFile('/public/materials/' . $user->login . '/actual/' . $material->content);
+        $this->deleteMaterialFile('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+        
         $material->forceDelete();
         return redirect('materials');
     }
@@ -421,10 +466,17 @@ class MaterialController extends Controller
         Material::onlyTrashed()
                         ->where('id', $id)
                         ->restore();
+
         $material = Material::findOrFail($id);
 
+        $this->moveMaterialFile('/public/materials/' . Auth::user()->login . '/deleted/' . $material->deleted,
+                                '/public/materials/' . Auth::user()->login . '/actual/' . $material->deleted);
+
+        $material->content = $material->deleted;
+        $material->deleted = null;
         $material->status = 'restored';
         $material->save();
+
 
         return redirect('material/' . $material->id);
     }

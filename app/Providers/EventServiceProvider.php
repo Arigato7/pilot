@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'Pilot\Events\UserCreated' => [
             'Pilot\Listeners\CreateUserFolder',
+            'Pilot\Listeners\NotifyUserByEmail',
         ],
         'Pilot\Events\NewsCreated' => [
             'Pilot\Listeners\CreateNewsFolder',

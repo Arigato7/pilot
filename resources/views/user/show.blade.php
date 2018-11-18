@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    @can('moderate', Auth::user())
+    @can('teach', Auth::user())
     <div class="d-flex my-4">
         <div class="col-lg-6">
             <div class="card user-materials">
@@ -92,6 +92,9 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         Новости пользователя
+                        @can ('administrate', Auth::user())
+                        <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body p-0">

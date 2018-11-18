@@ -101,7 +101,7 @@ class RegisterApplicationController extends Controller
 
         $info->save();
 
-        event(new UserCreated($user));
+        event(new UserCreated($user, $this->getRandomPassword(11)));
         $this->deleteApplication($application->id);
         return redirect()->route('users');
     }
@@ -121,7 +121,7 @@ class RegisterApplicationController extends Controller
      * @return void
      */
     public function delete($id) {
-        $this->delete($id);
+        $this->deleteApplication($id);
         return redirect()->route('users');
     }
 }

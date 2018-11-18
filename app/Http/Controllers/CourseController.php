@@ -33,6 +33,16 @@ class CourseController extends Controller
         ]);
     }
     /**
+     * Возвращает объект DateTime из строки
+     *
+     * @param string $format
+     * @param string $date
+     * @return void
+     */
+    protected function dateTimeFromString($format, $date) {
+        return new DateTime(date($format, strtotime($date)));
+    }
+    /**
      * Страница с курсом
      *
      * @param int $id
@@ -42,8 +52,8 @@ class CourseController extends Controller
         date_default_timezone_set("Europe/Samara");
         $course = Course::findOrFail($id);
 
-        $currentDate = new DateTime(date( "d.m.Y H:i:s", strtotime("now")));
-        $endEntryDate = new DateTime(date( "d.m.Y H:i:s", strtotime($course->end_entry_date)));
+        $currentDate = $this->dateTimeFromString("d.m.Y H:i:s", "now");
+        $endEntryDate = $this->dateTimeFromString("d.m.Y H:i:s", $course->end_entry_date);
         $diffDateBool = $currentDate <= $endEntryDate;
 
         $comments = DB::table('course_comments')
@@ -123,11 +133,11 @@ class CourseController extends Controller
         $endDate = $request->end_date . ' ' . $request->end_time;
         $endEntryDate = $request->end_entry_date . ' ' . $request->end_entry_time;
 
-        $startDateTime = new DateTime(date( "d.m.Y H:i:s", strtotime($startDate)));
-        $endEntryDateTime = new DateTime(date( "d.m.Y H:i:s", strtotime($endEntryDate)));
+        $startDateTime = $this->dateTimeFromString("d.m.Y H:i:s", $startDate);
+        $endEntryDateTime = $this->dateTimeFromString("d.m.Y H:i:s", $endEntryDate);
 
         $endEntryDateTimeString = $startDateTime
-                                ->diff($endEntryDateTime)
+                                ->diff($this->dateTimeFromString("d.m.Y H:i:s", $endEntryDate))
                                 ->invert == 0
                                 ? $endEntryDateTime->sub(date_interval_create_from_date_string('1 day'))->format("Y-m-d H:i:s")
                                 : $endEntryDateTime->format("Y-m-d H:i:s");
@@ -174,6 +184,15 @@ class CourseController extends Controller
         }
         
         return redirect('course/' . $course->id);
+    }
+    /**
+     * Отписка от курса
+     *
+     * @param int $id
+     * @return boolean
+     */
+    public function cancellation($id) {
+
     }
     /**
      * Обновление данных курса в БД
