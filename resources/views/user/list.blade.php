@@ -50,6 +50,7 @@
                     <tr>
                         <th scope="col">ИД</th>
                         <th scope="col">Логин</th>
+                        <th scope="col">Пароль</th>
                         <th scope="col">Имя</th>
                         <th scope="col">Фамилия</th>
                         <th scope="col">Email</th>
@@ -63,15 +64,24 @@
                         <td>
                             {{ $application->login }}
                         </td>
+                        <td>
+                            <input id="app_pass" type="text" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="app_pass">
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+                        </td>
                         <td>{{ $application->name }}</td>
                         <td>{{ $application->lastname }}</td>
                         <td>{{ $application->email }}</td>
                         <td>{{ $application->phone }}</td>
                         <td>
-                            <a href="#" class="btn btn-success" onclick="document.getElementById('accept-application-{{ $application->id }}').submit()">
+                            <a href="#" class="btn btn-success" onclick="document.getElementById('application-pass').value = document.getElementById('app_pass').value; document.getElementById('accept-application-{{ $application->id }}').submit()">
                                 Принять
                                 <form id="accept-application-{{ $application->id }}" action="{{ route('application.accept', ['id'=>$application->id]) }}" method="post" style="display: none;">
                                     @csrf
+                                    <input id="application-pass" type="text" name="password" style="display: none;">
                                 </form>
                             </a>
                             <a href="#" class="btn btn-danger" onclick="document.getElementById('delete-application-{{ $application->id }}').submit()">

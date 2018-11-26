@@ -134,7 +134,7 @@
         </div>
         <div class="card">
             <div class="card-body text-right">
-                <button type="button" class="btn btn-success btn-lg">Сохранить</button>
+                <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
                 <a href="#" class="btn btn-lg btn-primary">Отмена</a>
             </div>
         </div>

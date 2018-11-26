@@ -79,14 +79,24 @@ class RegisterApplicationController extends Controller
      * @param int $id
      * @return void
      */
-    public function accept($id) {
+    public function accept(Request $request, $id) {
         $application = RegisterApplication::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('users')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $user = new User;
 
         $user->role_id = 3;
         $user->login = $application->login;
-        $user->password = bcrypt('lab');
+        $user->password = bcrypt($request->password);
 
         $user->save();
         
@@ -95,13 +105,12 @@ class RegisterApplicationController extends Controller
         $info->user_id = $user->id;
         $info->name = $application->name;
         $info->lastname = $application->lastname;
-        $info->about = $this->getRandomPassword(11);
         $info->email = $application->email;
         $info->phone = $application->phone;
 
         $info->save();
 
-        event(new UserCreated($user, $this->getRandomPassword(11)));
+        event(new UserCreated($user, $request->password));
         $this->deleteApplication($application->id);
         return redirect()->route('users');
     }

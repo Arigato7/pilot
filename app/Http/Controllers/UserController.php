@@ -211,6 +211,7 @@ class UserController extends Controller
      */
     public function saveProps(Request $request, $id) {
         $user = User::findOrFail($id);
+
         $validator = Validator::make($request->all(), [
             'login' => 'required|max:255',
             'position' => 'required',
@@ -224,6 +225,12 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        $user->login = $request->login;
+        $user->role_id = $request->role;
+
+        $user->save();
+
         return redirect('users');
     }
 }
