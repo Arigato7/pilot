@@ -7,6 +7,7 @@ use DateTime;
 use Validator;
 use Pilot\User;
 use Pilot\Course;
+use Pilot\CourseType;
 use Pilot\CourseRecord;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -29,7 +30,8 @@ class CourseController extends Controller
         date_default_timezone_set("Europe/Samara");
 
         return view('course.list', [
-            'courses' => Course::all()->sortByDesc('date')
+            'courses' => Course::all()->sortByDesc('date'),
+            'types' => CourseType::all()->sortByDesc('name')
         ]);
     }
     /**

@@ -100,6 +100,11 @@ Route::post('/course/{course}/comment', 'CourseCommentController@store')->name('
  */
 Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('courses.enroll');
 /**
+ * Маршруты для типов курсов
+ */
+Route::get('/course-types', 'CourseTypeController@list')->name('courses.types');
+Route::post('/course-type/store', 'CourseTypeController@store')->name('courses.types.store');
+/**
  * Маршруты для дистанционного обучения
  */
 Route::get('/practical-works', 'PracticalWorkController@list')->name('practicals');
