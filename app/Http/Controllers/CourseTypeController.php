@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Validator;
 use Pilot\CourseType;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class CourseTypeController extends Controller
 
         $type->name = $request->name;
 
-        $type-save();
+        $type->save();
         
         return redirect()->route('courses.types');
     }

@@ -11,6 +11,7 @@
             <div class="list-group list-group-flush">
                 <div class="list-group-item">
                     <form action="{{ route('courses.types.store') }}" method="post">
+                        @csrf
                         <div class="d-flex">
                             <input type="text" name="name" class="form-control">
                             <button type="submit" class="btn btn-primary ml-2">
