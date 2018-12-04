@@ -8,14 +8,14 @@
             <form action="{{ route('courses.store') }}" method="post">
                 @csrf
                 <label for="courseName" class="col-form-label text-secondary">Название курса</label>
-                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="courseName" placeholder="Введите название курса">
+                <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="courseName" placeholder="Введите название курса" value="{{ old('name') }}">
                 @if ($errors->has('name'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('name') }}</strong>
                     </span>
                 @endif
                 <label for="courseDuration" class="col-form-label text-secondary">Количество часов</label>
-                <input type="number" class="form-control{{ $errors->has('duration') ? ' is-invalid' : '' }}" name="duration" id="courseDuration" placeholder="Количество часов">
+                <input type="number" class="form-control{{ $errors->has('duration') ? ' is-invalid' : '' }}" name="duration" id="courseDuration" placeholder="Количество часов" value="{{ old('duration') }}">
                 @if ($errors->has('duration'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('duration') }}</strong>
@@ -38,14 +38,14 @@
                 <div class="form-row">
                     <div class="col-form-label col-4">
                         <label for="courseStartDate" class="col-form-label text-secondary">Дата начала</label>
-                        <input type="date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" name="start_date" id="courseStartDate" placeholder="С">
+                        <input type="date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" name="start_date" id="courseStartDate" placeholder="С" value="{{ old('start_date') }}">
                         @if ($errors->has('start_date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('start_date') }}</strong>
                             </span>
                         @endif
                         <label for="courseStartTime" class="col-form-label text-secondary">Время начала</label>
-                        <input type="time" class="form-control{{ $errors->has('start_time') ? ' is-invalid' : '' }}" name="start_time" id="courseStartTime" placeholder="С">
+                        <input type="time" class="form-control{{ $errors->has('start_time') ? ' is-invalid' : '' }}" name="start_time" id="courseStartTime" placeholder="С" value="{{ old('start_time') }}">
                         @if ($errors->has('start_time'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('start_time') }}</strong>
@@ -54,14 +54,14 @@
                     </div>
                     <div class="col-form-label col-4">
                         <label for="courseEndDate" class="col-form-label text-secondary">Дата завершения</label>
-                        <input type="date" class="form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}" name="end_date" id="courseEndDate" placeholder="По">
+                        <input type="date" class="form-control{{ $errors->has('end_date') ? ' is-invalid' : '' }}" name="end_date" id="courseEndDate" placeholder="По" value="{{ old('end_date') }}">
                         @if ($errors->has('end_date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('end_date') }}</strong>
                             </span>
                         @endif
                         <label for="courseEndTime" class="col-form-label text-secondary">Время завершения</label>
-                        <input type="time" class="form-control{{ $errors->has('end_time') ? ' is-invalid' : '' }}" name="end_time" id="courseEndTime" placeholder="С">
+                        <input type="time" class="form-control{{ $errors->has('end_time') ? ' is-invalid' : '' }}" name="end_time" id="courseEndTime" placeholder="С" value="{{ old('end_time') }}">
                         @if ($errors->has('end_time'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('end_time') }}</strong>
@@ -70,14 +70,14 @@
                     </div>
                     <div class="col-form-label col-4">
                         <label for="courseEndEntryDate" class="col-form-label text-secondary">Дата завершения записи</label>
-                        <input type="date" class="form-control{{ $errors->has('end_entry_date') ? ' is-invalid' : '' }}" name="end_entry_date" id="courseEndEntryDate" placeholder="По">
+                        <input type="date" class="form-control{{ $errors->has('end_entry_date') ? ' is-invalid' : '' }}" name="end_entry_date" id="courseEndEntryDate" placeholder="По" value="{{ old('end_entry_date') }}">
                         @if ($errors->has('end_entry_date'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('end_entry_date') }}</strong>
                             </span>
                         @endif
                         <label for="courseEndEntryTime" class="col-form-label text-secondary">Время завершения записи</label>
-                        <input type="time" class="form-control{{ $errors->has('end_entry_time') ? ' is-invalid' : '' }}" name="end_entry_time" id="courseEndEntryTime" placeholder="С">
+                        <input type="time" class="form-control{{ $errors->has('end_entry_time') ? ' is-invalid' : '' }}" name="end_entry_time" id="courseEndEntryTime" placeholder="С" value="{{ old('end_entry_time') }}">
                         @if ($errors->has('end_entry_time'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('end_entry_time') }}</strong>
@@ -86,14 +86,14 @@
                     </div>
                 </div>
                 <label for="coursePlace" class="col-form-label text-secondary">Место проведения</label>
-                <input type="text" class="form-control{{ $errors->has('place') ? ' is-invalid' : '' }}" name="place" id="coursePlace" placeholder="Введите место проведения курса">
+                <input type="text" class="form-control{{ $errors->has('place') ? ' is-invalid' : '' }}" name="place" id="coursePlace" placeholder="Введите место проведения курса" value="{{ old('place') }}">
                 @if ($errors->has('place'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('place') }}</strong>
                     </span>
                 @endif
                 <label for="courseDescription" class="col-form-label text-secondary">Описание</label>
-                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="courseDescription" placeholder="Введите описание курса" cols="30" rows="10"></textarea>
+                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="courseDescription" placeholder="Введите описание курса" cols="30" rows="10">{{ old('description') }}</textarea>
                 @if ($errors->has('description'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('description') }}</strong>
