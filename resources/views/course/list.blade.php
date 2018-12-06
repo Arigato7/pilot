@@ -61,7 +61,7 @@
                                         <div class="btn btn-lg btn-success">Вы записаны</div>
                                     @endcan
                                     @can ('administrate', Auth::user())
-                                        <button type="button" class="btn btn-danger" onclick="if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
+                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
                                             <i class="fa fa-2x fa-close"></i>
                                         </button>
                                         <button type="button" class="btn btn-light">

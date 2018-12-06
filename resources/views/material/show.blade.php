@@ -24,7 +24,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#" 
                                 onclick="event.preventDefault();
-                                              document.getElementById('del-material-forever').submit();">
+                                              if (confirm('Вы уверены?')) { document.getElementById('del-material-forever').submit(); alert('Материал удален навсегда!'); }">
                                 Удалить полностью
                                 <form id="del-material-forever" action="{{ route('materials.delete.forever', ['id'=>$material->id]) }}" method="POST" style="display: none;">
                                     @csrf
@@ -32,7 +32,7 @@
                              </a>
                              <a class="dropdown-item" href="#" 
                                 onclick="event.preventDefault();
-                                              document.getElementById('del-material-temp').submit();">
+                                              if (confirm('Вы уверены?')) { document.getElementById('del-material-temp').submit(); alert('Материал временно удален!'); }">
                                 Удалить временно
                                 <form id="del-material-temp" action="{{ route('materials.delete.temp', ['id'=>$material->id]) }}" method="POST" style="display: none;">
                                     @csrf

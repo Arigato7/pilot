@@ -10,7 +10,9 @@
             <div class="d-flex justify-content-between">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Редактировать профиль</a>
+                    @can('moderate', Auth::user())
                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Удаленные материалы</a>
+                    @endcan
                 </div>
                 <div class="tab-content col-9 pr-0" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -83,6 +85,7 @@
                             </div>
                         </div>
                     </div>
+                    @can('moderate', Auth::user())
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         @forelse ($materials as $material)
                         <div class="material">
@@ -112,6 +115,7 @@
                         <div class="text-secondary text-center py-4">Пусто</div>
                         @endforelse
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>

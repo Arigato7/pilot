@@ -25,7 +25,7 @@
                     <div class="d-flex justify-content-between">
                         {{ $type->name }}
                         <div>
-                            <span class="fa fa-2x fa-close text-danger mr-2" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="document.getElementById('delete-course-type-{{ $type->id }}').submit()"></span>
+                            <span class="fa fa-2x fa-close text-danger mr-2" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="event.preventDefault(); document.getElementById('delete-course-type-{{ $type->id }}').submit()"></span>
                             <span class="fa fa-2x fa-edit text-primary" data-toggle="tooltip" data-placement="right" title="Изменить"></span>
                             <form action="{{ route('courses.types.delete', ['id'=>$type->id]) }}" id="delete-course-type-{{ $type->id }}" method="post" style="display: none;">
                                 @csrf
