@@ -21,5 +21,11 @@ class CourseTypeSeeder extends Seeder
         CourseType::create([
             'name' => 'Очно-заочный'
         ]);
+        CourseType::create([
+            'name' => 'Стажировка'
+        ]);
+        CourseType::create([
+            'name' => 'Очный с применением технологий дистанционного обучения'
+        ]);
     }
 }

@@ -213,6 +213,7 @@ class CourseController extends Controller
      * @return void
      */
     public function delete($id) {
-        
+        Course::findOrFail($id)->delete();
+        return redirect()->route('courses');
     }
 }

@@ -91,6 +91,7 @@ Route::get('/courses', 'CourseController@list')->name('courses');
 Route::get('/course/create', 'CourseController@create')->name('courses.create');
 Route::get('/course/{course}', 'CourseController@show')->name('courses.show');
 Route::post('/course/save', 'CourseController@store')->name('courses.store');
+Route::post('/course/{course}/delete', 'CourseController@delete')->name('courses.delete');
 /**
  * Маршруты для комментариев к курсам
  */
@@ -104,6 +105,7 @@ Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('cour
  */
 Route::get('/course-types', 'CourseTypeController@list')->name('courses.types');
 Route::post('/course-type/store', 'CourseTypeController@store')->name('courses.types.store');
+Route::post('/course-type/{type}/delete', 'CourseTypeController@delete')->name('courses.types.delete');
 /**
  * Маршруты для дистанционного обучения
  */

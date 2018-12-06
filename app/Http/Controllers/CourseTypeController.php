@@ -44,6 +44,7 @@ class CourseTypeController extends Controller
     }
 
     public function delete($id) {
-
+        CourseType::findOrFail($id)->delete();
+        return redirect()->route('courses.types');
     }
 }

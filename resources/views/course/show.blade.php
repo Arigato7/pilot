@@ -88,7 +88,12 @@
         <div class="list-group list-group-flush">
             @forelse ($comments as $comment)
             <div class="list-group-item course-comment">
-                {{ $comment->description }}
+                <div class="d-flex">
+                    <div class="text-secondary">author</div>
+                    <div class="ml-4">
+                        {{ $comment->description }}
+                    </div>
+                </div>
             </div>
             @empty
             <div class="list-group-item course-comment">

@@ -50,15 +50,28 @@
                                 <h3 class="h3 mb-2">
                                     <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
                                 </h3>
-                                @can('course-entry', $course)
-                                    @if (date_create("now") <= date_create($course->end_entry_date))
-                                    <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                                <div>
+                                    @can('course-entry', $course)
+                                        @if (date_create("now") <= date_create($course->end_entry_date))
+                                        <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                                        @else
+                                            <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                                        @endif
                                     @else
-                                        <div class="btn btn-lg btn-danger">Запись закрыта</div>
-                                    @endif
-                                @else
-                                    <div class="btn btn-lg btn-success">Вы записаны</div>
-                                @endcan
+                                        <div class="btn btn-lg btn-success">Вы записаны</div>
+                                    @endcan
+                                    @can ('administrate', Auth::user())
+                                        <button type="button" class="btn btn-danger" onclick="if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
+                                            <i class="fa fa-2x fa-close"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-light">
+                                            <i class="fa fa-2x fa-edit"></i>
+                                        </button>
+                                        <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course-{{ $course->id }}" method="post" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endcan
+                                </div>
                             </div>
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-6">
