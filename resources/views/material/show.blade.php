@@ -13,53 +13,57 @@
                     {{ $material->name }}
                 </h1>
                 <div class="material__panel">
-                    @can('update-material', $material)
-                    <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
-                    @else
-                    <a href="{{ route('materials.complaint.create') }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
-                    @endcan
-                    @can('moderate', Auth::user())
-                    <div class="dropdown d-inline-block">
-                        <a href="#" class="btn btn-danger dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-close mr-2"></i>Удалить</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#" 
-                                onclick="event.preventDefault();
-                                              if (confirm('Вы уверены?')) { document.getElementById('del-material-forever').submit(); alert('Материал удален навсегда!'); }">
-                                Удалить полностью
-                                <form id="del-material-forever" action="{{ route('materials.delete.forever', ['id'=>$material->id]) }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                             </a>
-                             <a class="dropdown-item" href="#" 
-                                onclick="event.preventDefault();
-                                              if (confirm('Вы уверены?')) { document.getElementById('del-material-temp').submit(); alert('Материал временно удален!'); }">
-                                Удалить временно
-                                <form id="del-material-temp" action="{{ route('materials.delete.temp', ['id'=>$material->id]) }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                             </a>
+                    <div class="btn-group">
+                        @can('update-material', $material)
+                        <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
+                        @else
+                        <a href="{{ route('materials.complaint.create') }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
+                        @endcan
+                        @can('moderate', Auth::user())
+                        <div class="dropdown d-inline-block">
+                            <button class="btn btn-danger dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-close mr-2"></i>Удалить</button>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#" 
+                                    onclick="event.preventDefault();
+                                                if (confirm('Вы уверены?')) { document.getElementById('del-material-forever').submit(); alert('Материал удален навсегда!'); }">
+                                    Удалить полностью
+                                    <form id="del-material-forever" action="{{ route('materials.delete.forever', ['id'=>$material->id]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </a>
+                                <a class="dropdown-item" href="#" 
+                                    onclick="event.preventDefault();
+                                                if (confirm('Вы уверены?')) { document.getElementById('del-material-temp').submit(); alert('Материал временно удален!'); }">
+                                    Удалить временно
+                                    <form id="del-material-temp" action="{{ route('materials.delete.temp', ['id'=>$material->id]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </a>
+                            </div>
                         </div>
+                        @endcan
                     </div>
-                    @endcan
                 </div>
             </div>
-            <p class="material__tags">
-                <a href="/material/filter/specialty/{{ $specialty->id }}" class="badge badge-primary p-2" data-toggle="tooltip" data-placement="bottom" title="Специальность">{{ $specialty->name }}</a>
-                <a href="/material/filter/subject/{{ $subject->id }}" class="badge badge-primary p-2" data-toggle="tooltip" data-placement="bottom" title="Дисциплина">{{ $subject->name }}</a>
-                <a href="/material/filter/type/{{ $type->id }}" class="badge badge-info p-2" data-toggle="tooltip" data-placement="bottom" title="Тип материала">{{ $type->name }}</a>
-                <span class="ml-1 badge p-2 {{ $material->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                    @if ($material->status == 'new')
-                    Новый
-                    @elseif ($material->status == 'updated')
-                    Обновлен
-                    @else
-                    Восстановлен
-                    @endif
-                </span>
-            </p>
-            <p class="material__desc pt-4 pb-2">
+            <div class="material__tags">
+                <div class="btn-group">
+                    <a href="/material/filter/specialty/{{ $specialty->id }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Специальность">{{ $specialty->name }}</a>
+                    <a href="/material/filter/subject/{{ $subject->id }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Дисциплина">{{ $subject->name }}</a>
+                    <a href="/material/filter/type/{{ $type->id }}" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom" title="Тип материала">{{ $type->name }}</a>
+                    <span class="btn btn-primary btn-sm {{ $material->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
+                        @if ($material->status == 'new')
+                        Новый
+                        @elseif ($material->status == 'updated')
+                        Обновлен
+                        @else
+                        Восстановлен
+                        @endif
+                    </span>
+                </div>
+            </div>
+            <div class="material__desc pt-4 pb-2">
                 {{ $material->description }}
-            </p>
+            </div>
             <div class="material__content">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="w-25">

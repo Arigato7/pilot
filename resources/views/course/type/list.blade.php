@@ -12,10 +12,10 @@
                 <div class="list-group-item">
                     <form action="{{ route('courses.types.store') }}" method="post">
                         @csrf
-                        <div class="d-flex">
+                        <div class="input-group">
                             <input type="text" name="name" class="form-control">
-                            <button type="submit" class="btn btn-primary ml-2">
-                                <i class="fa fa-plus"></i>
+                            <button type="submit" class="btn btn-light">
+                                <i class="fa fa-2x fa-plus"></i>
                             </button>
                         </div>
                     </form>
@@ -24,9 +24,13 @@
                 <div class="list-group-item subject">
                     <div class="d-flex justify-content-between">
                         {{ $type->name }}
-                        <div>
-                            <span class="fa fa-2x fa-close text-danger mr-2" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="event.preventDefault(); document.getElementById('delete-course-type-{{ $type->id }}').submit()"></span>
-                            <span class="fa fa-2x fa-edit text-primary" data-toggle="tooltip" data-placement="right" title="Изменить"></span>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="event.preventDefault(); document.getElementById('delete-course-type-{{ $type->id }}').submit()">
+                                <span class="fa fa-2x fa-close"></span>
+                            </button>
+                            <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Изменить">
+                                <span class="fa fa-2x fa-edit"></span>
+                            </button>
                             <form action="{{ route('courses.types.delete', ['id'=>$type->id]) }}" id="delete-course-type-{{ $type->id }}" method="post" style="display: none;">
                                 @csrf
                             </form>

@@ -54,9 +54,14 @@
                     </div>
                 </div>
                 <label for="practicalResourse" class="col-form-label text-secondary">Ссылка на ресурс</label>
-                <input type="text" class="form-control{{ $errors->has('resource') ? ' is-invalid' : '' }}" name="resource" id="practicalResourse" placeholder="Введите ссылку на ресурс" aria-describedby="practicalResourseHelpBlock">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">URL</span>
+                    </div>
+                    <input type="text" class="form-control{{ $errors->has('resource') ? ' is-invalid' : '' }}" name="resource" id="practicalResourse" placeholder="Введите ссылку на ресурс" aria-describedby="practicalResourseHelpBlock">
+                </div>
                 <small id="practicalResourseHelpBlock" class="form-text text-muted">
-                    Ссылка должна быть URL-адресом
+                    Ссылка должна быть URL-адресом, например http://mdl.pilot-ipek.ru/course/view.php?id=00
                 </small>
                 @if ($errors->has('resource'))
                     <span class="invalid-feedback">
