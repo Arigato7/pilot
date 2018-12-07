@@ -39,6 +39,10 @@ class EventServiceProvider extends ServiceProvider
         'Pilot\Events\OrganizationRated' => [
             'Pilot\Listeners\ChangeOrganizationRate',
         ],
+        'Pilot\Events\CourseCreated' => [
+            'Pilot\Listeners\CreateCourseFolder',
+            'Pilot\Listeners\CreateCourseCreatedNotification'
+        ],
         'Pilot\Events\CourseSubscribed' => [
             'Pilot\Listeners\NotifyByEmail',
             'Pilot\Listeners\CreateCourseSubscribedNotification'

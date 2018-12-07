@@ -97,9 +97,10 @@ Route::post('/course/{course}/delete', 'CourseController@delete')->name('courses
  */
 Route::post('/course/{course}/comment', 'CourseCommentController@store')->name('courses.comment.store');
 /**
- * Маршрут для записи на курс
+ * Маршруты для подписки/отписки на/от курс
  */
 Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('courses.enroll');
+Route::post('/course/{course}/cancel', 'CourseController@cancellation')->name('courses.cancel');
 /**
  * Маршруты для типов курсов
  */

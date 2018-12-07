@@ -51,17 +51,28 @@
                                     <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
                                 </h3>
                                 <div>
+                                    <div class="btn-group">
                                     @can('course-entry', $course)
                                         @if (date_create("now") <= date_create($course->end_entry_date))
-                                        <a href="#" class="btn btn-lg btn-primary">Записаться</a>
+                                        <a href="#" class="btn btn-lg btn-primary" onclick="event.preventDefault();
+                                        document.getElementById('entry-course-{{ $course->id }}').submit();">Записаться</a>
+                                        <form id="entry-course-{{ $course->id }}" action="{{ route('courses.enroll', ['id'=>$course->id]) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
+                                        </form>
                                         @else
                                             <div class="btn btn-lg btn-danger">Запись закрыта</div>
                                         @endif
                                     @else
-                                        <div class="btn btn-lg btn-success">Вы записаны</div>
+                                        <button class="btn btn-lg btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course-{{ $course->id }}').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
+                                        <form action="{{ route('courses.cancel', ['id'=>$course->id]) }}" id="cancel-course-{{ $course->id }}" method="post" style="display: none;">
+                                            @csrf
+                                        </form>
                                     @endcan
                                     @can ('administrate', Auth::user())
-                                        <button type="button" class="btn btn-danger" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
+                                        <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
                                             <i class="fa fa-2x fa-close"></i>
                                         </button>
                                         <button type="button" class="btn btn-light">
@@ -71,6 +82,7 @@
                                             @csrf
                                         </form>
                                     @endcan
+                                    </div>
                                 </div>
                             </div>
                             <div class="row justify-content-between align-items-center">

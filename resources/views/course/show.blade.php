@@ -15,7 +15,10 @@
                     <h2 class="h2">
                         {{ $course->name }}
                     </h2>
-                    <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
+                    <div class="text-secondary">
+                        Количество часов: {{ $course->duration }} ч. <br>
+                        Количество участников: {{ $members_count }}
+                    </div>
                 </div>
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -30,6 +33,7 @@
                             </div>
                         </div>
                         <div class="ml-5">
+                            <div class="btn-group">
                             @can('course-entry', $course)
                                 @if ($date_diff)
                                 <a href="#" class="btn btn-lg btn-primary"  
@@ -45,8 +49,23 @@
                                     <div class="btn btn-lg btn-danger">Запись закрыта</div>
                                 @endif
                             @else
-                                <div class="btn btn-lg btn-success">Вы записаны</div>
+                                <button class="btn btn-lg btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
+                                <form action="{{ route('courses.cancel', ['id'=>$course->id]) }}" id="cancel-course" method="post" style="display: none;">
+                                    @csrf
+                                </form>
                             @endcan
+                            @can ('administrate', Auth::user())
+                                <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course').submit(); alert('Курс удален!'); }">
+                                    <i class="fa fa-2x fa-close"></i>
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <i class="fa fa-2x fa-edit"></i>
+                                </button>
+                                <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course" method="post" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endcan
+                            </div>
                         </div>
                     </div>
                     @if ($date_diff)

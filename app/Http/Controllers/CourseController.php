@@ -66,10 +66,16 @@ class CourseController extends Controller
                             ->orderBy('date', 'desc')
                             ->get();
 
+        $participants = DB::table('course_records')
+                            ->select('user_id')
+                            ->distinct()
+                            ->get();
+
         return view('course.show', [
             'course' => $course,
             'date_diff' => $diffDateBool,
-            'comments' => $comments
+            'comments' => $comments,
+            'members_count' => $participants->count()
         ]);
     }
     /**
@@ -194,7 +200,16 @@ class CourseController extends Controller
      * @return boolean
      */
     public function cancellation($id) {
+        $course = Course::findOrFail($id);
+        
+        DB::table('course_records')
+            ->where('user_id', Auth::user()->id)
+            ->where('course_id', $course->id)
+            ->delete();
 
+        return redirect()->route('courses.show', [
+            'id' => $course->id
+        ]);
     }
     /**
      * Обновление данных курса в БД
