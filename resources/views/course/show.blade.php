@@ -85,35 +85,38 @@
             Файлы курса
         </div>
         <div class="card-body p-0">
+            <form action="#" method="post" id="course-file-form">
+                <input type="hidden" id="course_id" value="{{ $course->id }}" style="display: none;">
+                <div class="dropzone p-5 text-center text-secondary" id="course-file-dropzone">
+                    Для загрузки файла, перетащите его сюда
+                </div>
+            </form>
             <table class="table table-sm  table-borderless table-hover mb-0">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                    <tr class="text-center">
+                        <th class="w-75" scope="col">Файл</th>
+                        <th scope="col">Тип</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mdo</td>
+                    @forelse ($files as $file)
+                    <tr class="text-center">
+                        <td class="w-75">{{ $file->alias }}</td>
+                        <td>{{ $file->type }}</td>
+                        <td>
+                            <button type="button" class="btn btn-light w-100">
+                                Скачать
+                            </button>
+                        </td>
                     </tr>
+                    @empty
                     <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>fat</td>
+                        <td colspan="3" class="text-secondary">Пусто</td>
                     </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>twitter</td>
-                    </tr>
+                    @endforelse
                 </tbody>
-                </table>
+            </table>
         </div>
     </div>
     @can('create-course-comment', $course)

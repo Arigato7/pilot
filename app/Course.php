@@ -49,4 +49,12 @@ class Course extends Model
     public function comments() {
         return $this->hasMany('Pilot\CourseComment');
     }
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function files() {
+        return $this->hasMany('Pilot\CourseFile');
+    }
 }

@@ -8,6 +8,22 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~font-awesome/scss/font-awesome";
 
+.dropzone {
+  border: 4px dashed #f8f9fa;
+  &__hover {
+    background-color: #f8f9fa;
+    border-color: #d8dadb;
+  }
+  &__error {
+    background-color: #faa;
+    border-color: #f00;
+  }
+  &__drop {
+    background-color: #afa;
+    border-color: #0f0;
+  }
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -19,33 +35,35 @@
 }
 
 // Material
-.material__author {
-  position: relative;
-  z-index: 1000;
-}
-.material__author img {
-  border-radius: 50%;
-}
-.material__user-mark {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  bottom: 3rem;
-  right: 1.5rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  z-index: 1200;
-}
-.material__rate {
-  background-color: #ddd;
-}
-.material__rate-positive {
-  height: 3px;
+.material {
+  &__author {
+    position: relative;
+    z-index: 1000;
+  }
+  &__author img {
+    border-radius: 50%;
+  }
+  &__user-mark {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 3rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    z-index: 1200;
+  }
+  &__rate {
+    background-color: #ddd;
+  }
+  &__rate-positive {
+    height: 3px;
+  }
 }

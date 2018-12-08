@@ -6,8 +6,8 @@
 
 require("./bootstrap");
 require("jquery");
-window.axios = require('axios');
-window.Vue = require('vue');
+window.axios = require("axios");
+window.Vue = require("vue");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,37 +15,59 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('material-types', require('./components/MaterialTypes.vue'));
+Vue.component("material-types", require("./components/MaterialTypes.vue"));
 
 var materialTypesViewModel = new Vue({
-    el: '#materialTypes'
+  el: "#materialTypes"
 });
 
-/* const materialSearchViewModel = new Vue({
-    el: '#materials',
-    data: {
-        materials: [],
-        loading: false,
-        error: false,
-        query: ''
-    },
-    methods: {
-	    search: function() {
-	        // Clear the error message.
-	        this.error = '';
-	        // Empty the products array so we can fill it with the new products.
-	        this.materials = [];
-	        // Set the loading property to true, this will display the "Searching..." button.
-	        this.loading = true;
-
-	        // Making a get request to our API and passing the query to it.
-	        axios.get('/api/s?' + this.query)
-                .then(response => this.materials = reponse.data)
-                .catch(error => {});
-	    }
-	}
-}); 
-*/
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).ready(function() {
+  var dropZone = $("#course-file-dropzone");
+  var maxFileSize = 30000000;
+
+  if (typeof window.FileReader == "undefined") {
+    dropZone.text("Не поддерживается браузером!");
+    dropZone.addClass("dropzone__error");
+  }
+
+  dropZone[0].ondragover = function() {
+    dropZone.addClass("dropzone__hover");
+    return false;
+  };
+  dropZone[0].ondragleave = function() {
+    dropZone.removeClass("dropzone__hover");
+    return false;
+  };
+  dropZone[0].ondrop = function(event) {
+    event.preventDefault();
+    dropZone.removeClass("dropzone__hover");
+    dropZone.addClass("dropzone__drop");
+
+    var file = event.dataTransfer.files[0];
+
+    if (file.size > maxFileSize) {
+      dropZone.text("Файл слишком большой!");
+      dropZone.addClass("dropzone__error");
+      return false;
+    }
+
+    var formData = new FormData();
+    formData.append("course_id", document.head.querySelector('meta[name="csrf-token"]').content);
+    formData.append("course_id", $('#course_id').val());
+    formData.append("course_file", file);
+
+    axios
+      .post("/course-file/upload", formData)
+      .then(function(response) {
+        dropZone.text('Загрузка успешно завершена!');
+      })
+      .catch(function(error) {
+        dropZone.text('Произошла ошибка!');
+        dropZone.addClass('dropzone__error');
+      });
+  };
 });

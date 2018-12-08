@@ -110,6 +110,11 @@ Route::get('/course-types', 'CourseTypeController@list')->name('courses.types');
 Route::post('/course-type/store', 'CourseTypeController@store')->name('courses.types.store');
 Route::post('/course-type/{type}/delete', 'CourseTypeController@delete')->name('courses.types.delete');
 /**
+ * Маршруты фалов курсов
+ */
+Route::get('/course-file/{file}/download', 'CourseFileController@download')->name('corses.files.download');
+Route::post('/course-file/upload', 'CourseFileController@upload');
+/**
  * Маршруты для дистанционного обучения
  */
 Route::get('/practical-works', 'PracticalWorkController@list')->name('practicals');

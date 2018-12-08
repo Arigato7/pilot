@@ -8,6 +8,7 @@ use Validator;
 use Pilot\User;
 use Pilot\Course;
 use Pilot\CourseType;
+use Pilot\CourseFile;
 use Pilot\CourseRecord;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -129,7 +130,8 @@ class CourseController extends Controller
             'course' => $course,
             'date_diff' => $diffDateBool,
             'comments' => $comments,
-            'members_count' => $participants->count()
+            'members_count' => $participants->count(),
+            'files' => CourseFile::all()->sortByDesc('name')
         ]);
     }
     /**
