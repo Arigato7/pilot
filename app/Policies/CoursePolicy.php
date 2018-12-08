@@ -46,4 +46,19 @@ class CoursePolicy
     public function createCourseComment(User $user, Course $course) {
         return $course->comments->whereIn('user_id', [$user->id])->count() === 0;
     }
+    /**
+     * Возможность редактировать курс
+     *
+     * @param User $user
+     * @param Course $course
+     * @return void
+     */
+    public function editCourse(User $user, Course $course) {
+        $role = DB::table('roles')
+                    ->select('name')
+                    ->where('id', $user->role_id)
+                    ->first();
+        return $user->id === $course->user_id
+                || $role->name === 'administrator';
+    }
 }

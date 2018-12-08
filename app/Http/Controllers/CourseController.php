@@ -45,6 +45,60 @@ class CourseController extends Controller
         return new DateTime(date($format, strtotime($date)));
     }
     /**
+     * Валидация данных
+     *
+     * @param Request $request
+     * @param [type] $rules
+     * @param [type] $messages
+     * @param [type] $redirect
+     * @return void
+     */
+    protected function validateRequest(Request $request, $rules, $messages, $redirect) {
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect($redirect)
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+    }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    protected function validateUpdatedCourse(Request $request, $id) {
+        $this->validateRequest($request, [
+            'name' => 'required|max:255',
+            'type' => 'required',
+            'start_date' => 'required_with:start_time|required|date',
+            'start_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
+            'end_date' => 'required_with:end_time|required|date',
+            'end_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
+            'end_entry_date' => 'required_with:end_entry_time|required|date',
+            'end_entry_time' => 'required|regex:[[0-9]{2}:[0-9]{2}]',
+            'duration' => 'required|numeric',
+            'place' => 'required|max:255',
+            'description' => 'required'
+        ], [
+            'name.required' => 'Укажите название курса',
+            'type.required' => 'Укажите тип курса',
+            'start_date.required_with' => 'Теперь укажите дату начала',
+            'start_time.required' => 'Укажите время начала',
+            'start_date.required' => 'Укажите дату начала',
+            'end_date.required_with' => 'Теперь укажите дату завершения',
+            'end_time.required' => 'Укажите время завершения',
+            'end_date.required' => 'Укажите дату завершения',
+            'end_entry_date.required_with' => 'Теперь укажите дату завершения записи',
+            'end_entry_time.required' => 'Укажите время завершения записи',
+            'end_entry_date.required' => 'Укажите дату завершения записи',
+            'place.required' => 'Укажите место проведения',
+            'duration.required' => 'Укажите количество часов',
+            'duration.numeric' => 'Сдесь должно быть число',
+            'description.required' => 'Укажите описание'
+        ], route('courses.edit', ['id' => $id]));
+    }
+    /**
      * Страница с курсом
      *
      * @param int $id
@@ -92,6 +146,25 @@ class CourseController extends Controller
 
         return view('course.create', [
             'types' => $types
+        ]);
+    }
+    /**
+     * Форма редактирования курса
+     *
+     * @param int $id
+     * @return void
+     */
+    public function edit($id) {
+        $course = Course::findOrFail($id);
+        return view('course.edit', [
+            'course' => $course,
+            'types' => CourseType::all()->sortByDesc('name'),
+            'start_date' => date('Y-m-d', strtotime(explode(' ', $course->start_date)[0])),
+            'start_time' => explode(' ', $course->start_date)[1],
+            'end_date' => date('Y-m-d', strtotime(explode(' ', $course->end_date)[0])),
+            'end_time' => explode(' ', $course->end_date)[1],
+            'end_entry_date' => date('Y-m-d', strtotime(explode(' ', $course->end_entry_date)[0])),
+            'end_entry_time' => explode(' ', $course->end_entry_date)[1],
         ]);
     }
     /**
@@ -218,8 +291,28 @@ class CourseController extends Controller
      * @param Request $request
      * @return void
      */
-    public function update($id, Request $request) {
+    public function update(Request $request, $id) {
 
+        $course = Course::findOrFail($id);
+
+        $this->validateUpdatedCourse($request, $course->id);
+
+        $startDate = $request->start_date . ' ' . $request->start_time;
+        $endDate = $request->end_date . ' ' . $request->end_time;
+        $endEntryDate = $request->end_entry_date . ' ' . $request->end_entry_time;
+
+        $course->name = $request->name;
+        $course->course_type_id = $request->type;
+        $course->start_date = $startDate;
+        $course->end_date = $endDate;
+        $course->end_entry_date = $endEntryDate;
+        $course->duration = $request->duration;
+        $course->place = $request->place;
+        $course->description = $request->description;
+
+        $course->save();
+
+        return redirect()->route('courses.show', ['id' => $course->id]);
     }
     /**
      * Удаление курса

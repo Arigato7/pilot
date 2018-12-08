@@ -97,41 +97,10 @@
             @yield('content')
         </main>
 
-        <footer class="bg-white border-top">
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                <div class="container">
-                    <ul class="navbar-nav mx-auto">
-                        @guest
-                        <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
-                        </li>
-                        @else
-                        @can ('teach', Auth::user())
-                        <li class="nav-item">
-                            <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Депозиторий материалов">Депозитарий</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>
-                        </li>
-                        @endcan
-                        <li class="nav-item">
-                            <a href="{{ route('practicals') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Образовательные организации">Образовательные организации</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
-                        </li>
-                        @can ('administrate', Auth::user())
-                        <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Администрирование">Пользователи</a>
-                        </li>
-                        @endcan
-                        @endguest
-                    </ul>
-                </div>
-            </nav>
+        <footer class="py-5">
+            <div class="text-secondary text-center">
+                АПОУ "ИПЭК" 2018 год
+            </div>
         </footer>
     </div>
 

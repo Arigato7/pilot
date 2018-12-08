@@ -83,21 +83,23 @@ Route::post('/complaint/{complaint}/delete', 'MaterialComplaintController@delete
 Route::get('/news', 'NewsController@index')->name('news');
 Route::get('/news/create', 'NewsController@create')->name('news.create')->middleware('check.admin');
 Route::post('/news/store', 'NewsController@store')->name('news.store')->middleware('check.admin');
-Route::get('/news/{news}', 'NewsController@show');
+Route::get('/news/{news}', 'NewsController@show')->name('news.show');
 /**
  * Маршруты для курсов
  */
 Route::get('/courses', 'CourseController@list')->name('courses');
 Route::get('/course/create', 'CourseController@create')->name('courses.create');
-Route::get('/course/{course}', 'CourseController@show')->name('courses.show');
 Route::post('/course/save', 'CourseController@store')->name('courses.store');
+Route::get('/course/{course}', 'CourseController@show')->name('courses.show');
+Route::get('/course/{course}/edit', 'CourseController@edit')->name('courses.edit');
+Route::post('/course/{course}/update', 'CourseController@update')->name('courses.update');
 Route::post('/course/{course}/delete', 'CourseController@delete')->name('courses.delete');
 /**
  * Маршруты для комментариев к курсам
  */
 Route::post('/course/{course}/comment', 'CourseCommentController@store')->name('courses.comment.store');
 /**
- * Маршруты для подписки/отписки на/от курс
+ * Маршруты для подписки/отписки на/от курс(а)
  */
 Route::post('/course/{course}/entry', 'CourseController@enrollment')->name('courses.enroll');
 Route::post('/course/{course}/cancel', 'CourseController@cancellation')->name('courses.cancel');

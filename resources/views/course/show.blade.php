@@ -58,9 +58,9 @@
                                 <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course').submit(); alert('Курс удален!'); }">
                                     <i class="fa fa-2x fa-close"></i>
                                 </button>
-                                <button type="button" class="btn btn-light">
+                                <a href="{{ route('courses.edit', ['id'=>$course->id]) }}" class="btn btn-light">
                                     <i class="fa fa-2x fa-edit"></i>
-                                </button>
+                                </a>
                                 <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course" method="post" style="display: none;">
                                     @csrf
                                 </form>
@@ -78,6 +78,42 @@
             <div class="py-3">
                 {{ $course->description }}
             </div>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            Файлы курса
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-sm  table-borderless table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>twitter</td>
+                    </tr>
+                </tbody>
+                </table>
         </div>
     </div>
     @can('create-course-comment', $course)

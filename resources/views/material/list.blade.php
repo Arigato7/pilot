@@ -8,13 +8,13 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h1 mb-4 col">Депозиторий</h1>
                 <div class="col-8">
-                    <form id="search-material" action="/material/find" method="post">
+                    {{-- <form id="search-material" action="/material/find" method="post">
                         @csrf
                         <div class="d-flex justify-content-between btn-group">
                             <input type="text" id="materialSearch" name="materialName" class="form-control" placeholder="Название материала" required>
                             <button type="submit" class="btn btn-primary" style="margin-left: -2px;">Искать</button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="d-flex justify-content-between">

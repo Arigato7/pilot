@@ -9,6 +9,9 @@
                 @csrf
                 <label for="courseName" class="col-form-label text-secondary">Название курса</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="courseName" placeholder="Введите название курса" value="{{ old('name') }}">
+                <small id="courseNameHelpBlock" class="form-text text-muted">
+                    Название не должно быть длиннее 255 символов
+                </small>
                 @if ($errors->has('name'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('name') }}</strong>
@@ -87,6 +90,9 @@
                 </div>
                 <label for="coursePlace" class="col-form-label text-secondary">Место проведения</label>
                 <input type="text" class="form-control{{ $errors->has('place') ? ' is-invalid' : '' }}" name="place" id="coursePlace" placeholder="Введите место проведения курса" value="{{ old('place') }}">
+                <small id="coursePlaceHelpBlock" class="form-text text-muted">
+                    Название маста проведения не должно быть длиннее 255 символов
+                </small>
                 @if ($errors->has('place'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('place') }}</strong>
