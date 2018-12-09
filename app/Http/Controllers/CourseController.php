@@ -126,12 +126,29 @@ class CourseController extends Controller
                             ->distinct()
                             ->get();
 
+        $fileTypes = [
+            'txt' => 'file-text-o',
+            'pdf' => 'file-pdf-o',
+            'xls' => 'file-excel-o',
+            'xlsx' => 'file-excel-o',
+            'doc' => 'file-word-o',
+            'docx' => 'file-word-o',
+            'ppt' => 'file-powerpoint-o',
+            'pptx' => 'file-powerpoint-o',
+            'zip' => 'file-zip-o',
+            'rar' => 'file-zip-o',
+            '7z' => 'file-zip-o',
+            'png' => 'file-picture-o',
+            'jpg' => 'file-picture-o',
+        ];
+
         return view('course.show', [
             'course' => $course,
             'date_diff' => $diffDateBool,
             'comments' => $comments,
             'members_count' => $participants->count(),
-            'files' => CourseFile::all()->sortByDesc('name')
+            'files' => CourseFile::all()->sortByDesc('name'),
+            'fileTypes' => $fileTypes
         ]);
     }
     /**

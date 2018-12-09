@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Validator;
 use Pilot\Course;
 use Pilot\CourseFile;
 use Illuminate\Http\Request;
@@ -42,6 +43,29 @@ class CourseFileController extends Controller
     /**
      * Undocumented function
      *
+     * @param [type] $path
+     * @return void
+     */
+    protected function deleteFile($path) {
+        app(Illuminate\Filesystem\Filesystem::class)->delete(storage_path($path));
+    }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    protected function validateFile(Request $request) {
+        $validator = new Validator($request->all(), [
+            'course_file' => 'requared|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,rar,7z,png,jpg'
+        ]);
+        if ($validator->fails()) {
+            return false;
+        }
+    }
+    /**
+     * Undocumented function
+     *
      * @param Request $request
      * @return void
      */
@@ -61,12 +85,20 @@ class CourseFileController extends Controller
             $courseFile->type = pathinfo($fileName, PATHINFO_EXTENSION);
 
             $courseFile->save();
-            return true;
+
+            return $courseFile;
         }
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function delete($id) {
-
+        $file = CourseFile::findOrFail($id);
+        $this->deleteFile('public/courses/' . $file->course_id . '/' . $file->fullname);
+        $file->delete();
     }
     /**
      * Undocumented function

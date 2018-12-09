@@ -85,12 +85,14 @@
             Файлы курса
         </div>
         <div class="card-body p-0">
+            @can('edit-course', $course)
             <form action="#" method="post" id="course-file-form">
                 <input type="hidden" id="course_id" value="{{ $course->id }}" style="display: none;">
                 <div class="dropzone p-5 text-center text-secondary" id="course-file-dropzone">
-                    Для загрузки файла, перетащите его сюда
+                    <i class="fa fa-file mr-2"></i> Для загрузки файла, перетащите его сюда
                 </div>
             </form>
+            @endcan
             <table class="table table-sm  table-borderless table-hover mb-0">
                 <thead>
                     <tr class="text-center">
@@ -99,15 +101,27 @@
                         <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="course-files">
                     @forelse ($files as $file)
-                    <tr class="text-center">
-                        <td class="w-75">{{ $file->alias }}</td>
+                    <tr class="text-center" id="file-{{ $file->id }}">
+                        <td class="w-75">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <i class="fa fa-{{ $fileTypes[$file->type] }} mr-2"></i>
+                                {{ $file->alias }}
+                            </div>
+                        </td>
                         <td>{{ $file->type }}</td>
-                        <td>
-                            <button type="button" class="btn btn-light w-100">
-                                Скачать
-                            </button>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a href="{{ route('corses.files.download', ['id'=>$file->id]) }}" class="btn btn-light">
+                                    Скачать
+                                </a>
+                                @can('edit-course', $course)
+                                <button type="button" class="btn btn-light js-delete-file-btn" id="file-delete-btn-{{ $file->id }}">
+                                    Удалить
+                                </button>
+                                @endcan
+                            </div>
                         </td>
                     </tr>
                     @empty

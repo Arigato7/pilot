@@ -56,18 +56,54 @@ $(document).ready(function() {
     }
 
     var formData = new FormData();
-    formData.append("course_id", document.head.querySelector('meta[name="csrf-token"]').content);
-    formData.append("course_id", $('#course_id').val());
+    formData.append(
+      "course_id",
+      document.head.querySelector('meta[name="csrf-token"]').content
+    );
+    formData.append("course_id", $("#course_id").val());
     formData.append("course_file", file);
 
     axios
       .post("/course-file/upload", formData)
       .then(function(response) {
-        dropZone.text('Загрузка успешно завершена!');
+        dropZone.html(
+          '<i class="fa fa-check mr-2"></i> Загрузка успешно завершена!'
+        );
       })
       .catch(function(error) {
-        dropZone.text('Произошла ошибка!');
-        dropZone.addClass('dropzone__error');
+        dropZone.html('<i class="fa fa-close mr-2"></i> Произошла ошибка!');
+        if (dropZone.hasClass("dropzone__drop")) {
+          dropZone.removeClass("dropzone__drop");
+        }
+        dropZone.addClass("dropzone__error");
+      })
+      .finally(() => {
+        location.reload();
       });
   };
+
+  deleteFileButtons = $(".js-delete-file-btn");
+  deleteFileButtons.on("click", function() {
+    var buttonId = $(this).attr("id");
+    var fileId = parseInt(
+      buttonId.split("-")[buttonId.split("-").length - 1],
+      10
+    );
+
+    var formData = new FormData();
+    formData.append(
+      "course_id",
+      document.head.querySelector('meta[name="csrf-token"]').content
+    );
+
+    axios
+      .post("/course-file/" + fileId + "/delete", formData)
+      .then(function(response) {
+        $("#file-" + fileId).remove();
+        alert("Файл удален!");
+      })
+      .catch(function(error) {
+        alert("Упс! Что явно пошло не так");
+      });
+  });
 });
