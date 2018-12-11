@@ -7,7 +7,7 @@
             Добавление образовательной организации
         </div>
         <div class="card-body">
-            @can ('create-organization')
+            @can ('administrate', Auth::user())
             <form action="{{ route('organizations.store') }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                 @csrf
                 <label for="organizationName" class="col-form-label text-secondary">Название образовательной организации</label>

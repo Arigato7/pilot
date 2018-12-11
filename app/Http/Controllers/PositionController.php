@@ -2,6 +2,8 @@
 
 namespace Pilot\Http\Controllers;
 
+use Validator;
+use Pilot\Position;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -16,15 +18,9 @@ class PositionController extends Controller
      * @return void
      */
     public function list() {
-
-    }
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function create() {
-
+        return view('organizations.position.list', [
+            'positions' => Position::all()->sortByDesc('name')
+        ]);
     }
     /**
      * Undocumented function
@@ -33,7 +29,23 @@ class PositionController extends Controller
      * @return void
      */
     public function store(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('positions')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
+        $position = new Position;
+
+        $position->name = $request->name;
+
+        $position->save();
+
+        return redirect()->route('positions');
     }
     /**
      * Undocumented function
@@ -52,6 +64,7 @@ class PositionController extends Controller
      * @return void
      */
     public function delete($id) {
-        
+        Position::findOrFail($id)->delete();
+        return redirect()->route('positions');
     }
 }

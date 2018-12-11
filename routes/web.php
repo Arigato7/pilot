@@ -28,6 +28,12 @@ Route::get('/organization/{organization}/edit', 'EducationOrganizationController
 Route::post('/organization/{organization}/save', 'EducationOrganizationController@update')->name('organizations.update');
 Route::post('/organization/{organization}/del', 'EducationOrganizationController@delete')->name('organizations.delete');
 /**
+ * Маршруты для должностей
+ */
+Route::get('/positions', 'PositionController@list')->name('positions');
+Route::post('/position/store', 'PositionController@store')->name('positions.store');
+Route::post('/position/{position}/delete', 'PositionController@delete')->name('positions.delete');
+/**
  * Маршруты специальностей
  */
 Route::get('/specialties', 'SpecialtyController@list')->name('specialties');
