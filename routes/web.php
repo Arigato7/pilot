@@ -35,6 +35,8 @@ Route::get('/specialties', 'SpecialtyController@list')->name('specialties');
  * Маршруты для дисциплин
  */
 Route::get('/subjects', 'SubjectController@list')->name('subjects');
+Route::post('/subject/store', 'SubjectController@store')->name('subjects.store');
+Route::post('/subject/{subject}/delete', 'SubjectController@delete')->name('subjects.delete');
 /**
  * Маршруты материалов
  */

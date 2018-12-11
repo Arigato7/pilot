@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Validator;
 use Pilot\Subject;
 use Illuminate\Http\Request;
 
@@ -22,14 +23,6 @@ class SubjectController extends Controller
         ]);
     }
     /**
-     * Форма создания дисциплины
-     *
-     * @return void
-     */
-    public function create() {
-
-    }
-    /**
      * Форма редактирования дисциплины
      *
      * @param int $id
@@ -45,7 +38,23 @@ class SubjectController extends Controller
      * @return void
      */
     public function store(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('subjects')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
+        $subject = new Subject;
+
+        $subject->name = $request->name;
+
+        $subject->save();
+
+        return redirect()->route('subjects');
     }
     /**
      * Обновление данных дисциплины в БД
@@ -64,6 +73,7 @@ class SubjectController extends Controller
      * @return void
      */
     public function delete($id) {
-
+        Subject::findOrFail($id)->delete();
+        return redirect()->route('subjects');
     }
 }
