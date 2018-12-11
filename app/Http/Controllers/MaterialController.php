@@ -397,9 +397,7 @@ class MaterialController extends Controller
      * @return void
      */
     protected function deleteMaterialFile($path) {
-        if (Storage::exists(storage_path($path))) {
-            Storage::delete(storage_path($path));
-        }
+        Storage::disk('public')->delete($path);
     }
     /**
      * Undocumented function
@@ -428,9 +426,9 @@ class MaterialController extends Controller
         $material->who_deleted = Auth::user()->login;
         $material->save();
 
-        $this->deleteMaterialFile('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+        $this->deleteMaterialFile('app/public/materials/' . $user->login . '/deleted/' . $material->deleted);
         $this->moveMaterialFile('/public/materials/' . $user->login . '/actual/' . $material->content,
-                                    '/public/materials/' . $user->login . '/deleted/' . $material->content);
+                                '/public/materials/' . $user->login . '/deleted/' . $material->content);
 
         $material->deleted = $material->content;
 
@@ -449,11 +447,17 @@ class MaterialController extends Controller
         $material = Material::findOrFail($id);
         $user = User::findOrFail($material->user_id);
 
-        $this->deleteMaterialFile('/public/materials/' . $user->login . '/actual/' . $material->content);
-        $this->deleteMaterialFile('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+        if (Storage::exists('/public/materials/' . $user->login . '/actual/' . $material->content)) {
+            $this->deleteMaterialFile('/public/materials/' . $user->login . '/actual/' . $material->content);
+            if (Storage::exists('/public/materials/' . $user->login . '/deleted/' . $material->deleted)) {
+                $this->deleteMaterialFile('/public/materials/' . $user->login . '/deleted/' . $material->deleted);
+            }
+            $material->forceDelete();
+
+            return redirect('materials');
+        }
         
-        $material->forceDelete();
-        return redirect('materials');
+        return redirect()->route('materials.show', ['id' => $material->id]);
     }
     /**
      * Восстановление временно удаленного материала

@@ -40,14 +40,14 @@
                         <div class="list-group-item organization">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="organization__name col-lg-6">
-                                    <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">{{ $organization->name }}</a>
+                                    <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">{{ $organization->shortname }}</a>
                                 </div>
                                 <div class="organization__peoples text-right col-lg-3">
                                     {{ $organization->users->count() }}
                                 </div>
                                 <div class="organization__panel text-right col-lg-3">
                                     @can ('update-organization', $organization)
-                                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать"><i class="fa fa-2x fa-edit text-primary mr-2"></i></a>
+                                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать" class="btn btn-primary"><i class="fa fa-edit mr-2"></i>Редактировать</a>
                                     @endcan
                                     @can ('delete-organization', $organization)
                                     <a href="#" title="Удалить">

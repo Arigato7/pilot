@@ -12,7 +12,7 @@
                     <form action="{{ route('positions.store') }}" method="post">
                         @csrf
                         <div class="input-group">
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control" placeholder="Название должности">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-light">
                                     <i class="fa fa-2x fa-plus"></i>

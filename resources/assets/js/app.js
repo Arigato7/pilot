@@ -15,11 +15,11 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component("material-types", require("./components/MaterialTypes.vue"));
+/* Vue.component("material-types", require("./components/MaterialTypes.vue"));
 
-var materialTypesViewModel = new Vue({
-  el: "#materialTypes"
-});
+var appViewModel = new Vue({
+  el: "#app"
+}); */
 
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
@@ -47,8 +47,9 @@ $(document).ready(function() {
     dropZone.removeClass("dropzone__hover");
     dropZone.addClass("dropzone__drop");
 
-    var file = event.dataTransfer.files[0];
+    dropZone.html('<div class="d-flex align-items-center justify-content-center"><div class="dropzone__progress-bar"><div class="dropzone__progress-bar-color" id="progress_color"></div></div></div>');
 
+    var file = event.dataTransfer.files[0];
     if (file.size > maxFileSize) {
       dropZone.text("Файл слишком большой!");
       dropZone.addClass("dropzone__error");
@@ -63,12 +64,22 @@ $(document).ready(function() {
     formData.append("course_id", $("#course_id").val());
     formData.append("course_file", file);
 
+    var uploadConfig = {
+      onUploadProgress: progressEvent => {
+        var percentCompleted = Math.floor(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        $('#progress_color').css('width', percentCompleted);
+      }
+    };
+
     axios
-      .post("/course-file/upload", formData)
+      .post("/course-file/upload", formData, uploadConfig)
       .then(function(response) {
         dropZone.html(
           '<i class="fa fa-check mr-2"></i> Загрузка успешно завершена!'
         );
+        location.reload();
       })
       .catch(function(error) {
         dropZone.html('<i class="fa fa-close mr-2"></i> Произошла ошибка!');
@@ -76,9 +87,6 @@ $(document).ready(function() {
           dropZone.removeClass("dropzone__drop");
         }
         dropZone.addClass("dropzone__error");
-      })
-      .finally(() => {
-        location.reload();
       });
   };
 

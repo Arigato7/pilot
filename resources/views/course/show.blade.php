@@ -105,12 +105,12 @@
                     @forelse ($files as $file)
                     <tr class="text-center" id="file-{{ $file->id }}">
                         <td class="w-75">
-                            <div class="d-flex align-items-center justify-content-center">
+                            <div class="d-flex align-items-center justify-content-start">
                                 <i class="fa fa-{{ $fileTypes[$file->type] }} mr-2"></i>
                                 {{ $file->alias }}
                             </div>
                         </td>
-                        <td>{{ $file->type }}</td>
+                        <td class="text-right">{{ $file->type }}</td>
                         <td class="text-center">
                             <div class="btn-group">
                                 <a href="{{ route('corses.files.download', ['id'=>$file->id]) }}" class="btn btn-light">

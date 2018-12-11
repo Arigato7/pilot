@@ -47,21 +47,7 @@ class CourseFileController extends Controller
      * @return void
      */
     protected function deleteFile($path) {
-        app(Illuminate\Filesystem\Filesystem::class)->delete(storage_path($path));
-    }
-    /**
-     * Undocumented function
-     *
-     * @param Request $request
-     * @return void
-     */
-    protected function validateFile(Request $request) {
-        $validator = new Validator($request->all(), [
-            'course_file' => 'requared|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,rar,7z,png,jpg'
-        ]);
-        if ($validator->fails()) {
-            return false;
-        }
+        return Storage::disk('local')->delete($path);
     }
     /**
      * Undocumented function
@@ -71,23 +57,31 @@ class CourseFileController extends Controller
      */
     public function upload(Request $request) {
         $this->createCourseDirectory("/public/courses/" . $request->course_id);
+
         if ($request->hasFile('course_file')) {
             $file = $request->file('course_file');
             $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/courses/' 
-                        . $request->course_id, $this->courseFileName($fileName));
-
-            $courseFile = new CourseFile;
-
-            $courseFile->course_id = $request->course_id;
-            $courseFile->alias = $fileName;
-            $courseFile->fullname = $this->courseFileName($fileName);
-            $courseFile->type = pathinfo($fileName, PATHINFO_EXTENSION);
-
-            $courseFile->save();
-
-            return $courseFile;
+            $extensions = [
+                'doc','docx','xls','xlsx','ppt','pptx','pdf','txt','zip','rar','7z','png','jpg'
+            ];
+            if (in_array(pathinfo($fileName, PATHINFO_EXTENSION), $extensions)) {
+                
+                $path = $file->storeAs('/public/courses/' 
+                            . $request->course_id, $this->courseFileName($fileName));
+    
+                $courseFile = new CourseFile;
+    
+                $courseFile->course_id = $request->course_id;
+                $courseFile->alias = $fileName;
+                $courseFile->fullname = $this->courseFileName($fileName);
+                $courseFile->type = pathinfo($fileName, PATHINFO_EXTENSION);
+    
+                $courseFile->save();
+    
+                return $courseFile;
+            }
         }
+        return false;
     }
     /**
      * Undocumented function
@@ -97,8 +91,9 @@ class CourseFileController extends Controller
      */
     public function delete($id) {
         $file = CourseFile::findOrFail($id);
-        $this->deleteFile('public/courses/' . $file->course_id . '/' . $file->fullname);
-        $file->delete();
+        if ($this->deleteFile('public/courses/' . $file->course_id . '/' . $file->fullname)) {
+            $file->delete();
+        }
     }
     /**
      * Undocumented function

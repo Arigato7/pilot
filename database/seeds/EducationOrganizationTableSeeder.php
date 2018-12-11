@@ -13,9 +13,10 @@ class EducationOrganizationTableSeeder extends Seeder
     public function run()
     {
         EducationOrganization::create([
-            'name' => 'ИПЭК', 
+            'shortname' => 'ИПЭК',
+            'name' => 'Ижевский промышленно-экономический колледж', 
             'phone' => '88005553535', 
-            'address' => 'ул Пушкина д Колотушкина', 
+            'address' => 'ул Ленина 68', 
             'cite' => 'ipek.cuir.ru', 
             'email' => 'ipek@izh.ru'
         ]);

@@ -8,12 +8,13 @@
                 Образовательная организация {{ $organization->name }}
                 <div class="organization__panel text-right">
                     @can ('update-organization', $organization)
-                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать"><i class="fa fa-2x fa-edit text-primary mr-2"></i></a>
+                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" class="btn btn-primary" title="Редактировать"><i class="fa fa-edit mr-1"></i>Редактировать</a>
                     @endcan
                 </div>
             </div>
         </div>
         <div class="card-body">
+            <h2 class="h2">{{ $organization->name }}</h2>
             <div class="organization__info px-3 w-75">
                 <div class="row justify-content-between align-items-center py-3">
                     <div class="font-weight-bold">Название организации</div>
@@ -40,7 +41,7 @@
     </div>
     <div class="card mt-3">
         <div class="organization__users">
-            <h3 class="h3 p-4">Пользователи</h3>
+            <h3 class="h3 p-4">Пользователи - {{ $users->count() }}</h3>
             <table class="table table-borderless table-hover">
                 <thead>
                     <tr>

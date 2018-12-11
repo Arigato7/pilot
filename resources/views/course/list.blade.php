@@ -38,7 +38,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Список курсов повышения квалификации
                         @can ('administrate', Auth::user())
-                        <a href="{{ route('courses.create') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus"></i></a>
+                        <a href="{{ route('courses.create') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-1"></i> Создать</a>
                         @endcan
                     </div>
                 </div>

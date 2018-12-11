@@ -13,7 +13,7 @@
                     <form action="{{ route('courses.types.store') }}" method="post">
                         @csrf
                         <div class="input-group">
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control" placeholder="Название типа курса">
                             <button type="submit" class="btn btn-light">
                                 <i class="fa fa-2x fa-plus"></i>
                             </button>

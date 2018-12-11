@@ -2,6 +2,7 @@
 
 namespace Pilot\Http\Controllers;
 
+use Validator;
 use Pilot\MaterialType;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,23 @@ class MaterialTypeController extends Controller
      * @return void
      */
     public function store(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('materials.types')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
+        $type = new MaterialType;
+
+        $type->name = $request->name;
+
+        $type->save();
+
+        return redirect()->route('materials.types');
     }
     /**
      * Обновление данных типа материала в БД
@@ -47,6 +64,7 @@ class MaterialTypeController extends Controller
      * @return void
      */
     public function delete($id) {
-
+        MaterialType::findOrFail($id)->delete();
+        return redirect()->route('materials.types');
     }
 }

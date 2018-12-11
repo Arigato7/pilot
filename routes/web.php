@@ -78,6 +78,8 @@ Route::get('/material/{material}/comment/delete', 'MaterialCommentController@del
  * Маршруты для типов материалов
  */
 Route::get('/material-types', 'MaterialTypeController@list')->name('materials.types');
+Route::post('/material-type/store', 'MaterialTypeController@store')->name('materials.types.store');
+Route::post('/material-type/{type}/delete', 'MaterialTypeController@delete')->name('materials.types.delete');
 /**
  * Маршруты для жалоб к материалам
  */

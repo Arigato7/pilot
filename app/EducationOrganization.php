@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class EducationOrganization extends Model
 {
     protected $fillable = [
+        'shortname',
         'name',
         'phone',
         'address',
         'cite',
-        'email',
-        'rate'
+        'rate',
+        'photo',
+        'description'
     ];
     /**
      * Пользователи с подобной образовательной организацией

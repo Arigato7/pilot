@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/s', [
+/* Route::get('/s', [
     'as' => 'api.search',
     'uses' => 'Api\SearchController@materialSearch'
 ]);
@@ -30,4 +30,4 @@ Route::get('/material-types', [
 Route::post('/material-type/{id}/delete', [
     'as' => 'api.materialTypeDelete',
     'uses' => 'Api\MaterialTypeController@deleteMaterialType'
-]);
+]); */
