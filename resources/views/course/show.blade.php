@@ -95,9 +95,10 @@
             @endcan
             <table class="table table-sm  table-borderless table-hover mb-0">
                 <thead>
-                    <tr class="text-center">
-                        <th class="w-75" scope="col">Файл</th>
+                    <tr class="text-left">
+                        <th class="w-75" scope="col">Название</th>
                         <th scope="col">Тип</th>
+                        <th scope="col">Размер</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -110,8 +111,9 @@
                                 {{ $file->alias }}
                             </div>
                         </td>
-                        <td class="text-right">{{ $file->type }}</td>
-                        <td class="text-center">
+                        <td class="text-left">{{ $file->type }}</td>
+                        <td class="text-right">{{ $fileSizes[$file->fullname] }} мб</td>
+                        <td class="text-right">
                             <div class="btn-group">
                                 <a href="{{ route('corses.files.download', ['id'=>$file->id]) }}" class="btn btn-light">
                                     Скачать

@@ -52,6 +52,15 @@ class CourseFileController extends Controller
     /**
      * Undocumented function
      *
+     * @param [type] $file
+     * @return void
+     */
+    public static function getFileSize($path) {
+        return Storage::size($path);
+    }
+    /**
+     * Undocumented function
+     *
      * @param Request $request
      * @return void
      */

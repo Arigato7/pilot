@@ -15,6 +15,7 @@ use Illuminate\Validation\Rule;
 use Pilot\Events\CourseSubscribed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -126,6 +127,7 @@ class CourseController extends Controller
                             ->distinct()
                             ->get();
 
+        $files = CourseFile::all()->sortByDesc('name');
         $fileTypes = [
             'txt' => 'file-text-o',
             'pdf' => 'file-pdf-o',
@@ -141,14 +143,20 @@ class CourseController extends Controller
             'png' => 'file-picture-o',
             'jpg' => 'file-picture-o',
         ];
+        $fileSizes = [];
+
+        foreach ($files as $file) {
+            $fileSizes[$file->fullname] = round((Storage::size('public/courses/' . $file->course_id . '/' . $file->fullname) / 1024) / 1024, 1, PHP_ROUND_HALF_EVEN);
+        }
 
         return view('course.show', [
             'course' => $course,
             'date_diff' => $diffDateBool,
             'comments' => $comments,
             'members_count' => $participants->count(),
-            'files' => CourseFile::all()->sortByDesc('name'),
-            'fileTypes' => $fileTypes
+            'files' => $files,
+            'fileTypes' => $fileTypes,
+            'fileSizes' => $fileSizes,
         ]);
     }
     /**
