@@ -33,25 +33,54 @@
                         </li>
                         @else
                         @can ('teach', Auth::user())
-                        <li class="nav-item">
-                            <a href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Популярные и новые материалы">Депозиторий</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Повышение квалификации">Курсы повышения квалификации</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Депозиторий <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список материалов">Главная</a>
+                                <a class="dropdown-item" href="{{ route('materials.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание материала">Создать материал</a>
+                            </div>
                         </li>
                         @endcan
-                        <li class="nav-item">
-                            <a href="{{ route('practicals') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Дистанционное обучение">Дистанционное обучение</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Обучение <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @can ('teach', Auth::user())
+                                <a class="dropdown-item" href="{{ route('courses') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Повышение квалификации">Курсы повышения квалификации</a>
+                                @endcan
+                                <a class="dropdown-item" href="{{ route('practicals') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Дистанционное обучение">Дистанционное обучение</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Новости <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Новости">Все новости</a>
+                                @can ('administrate', Auth::user())
+                                <a class="dropdown-item" href="{{ route('news.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание новости">Создать новость</a>
+                                @endcan
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Новости">Новости</a>
-                        </li>
                         @can ('administrate', Auth::user())
-                        <li class="nav-item">
-                            <a href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список пользователей">Пользователи</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Администрирование <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">Пользователи</a>
+                                <a class="dropdown-item" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">Должности</a>
+                                <a class="dropdown-item" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">Типы материалов</a>
+                                <a class="dropdown-item" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">Типы курсов</a>
+                                <a class="dropdown-item" href="{{ route('specialties') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование специальностей">Специальности</a>
+                                <a class="dropdown-item" href="{{ route('subjects') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование дисциплин">Дисциплины</a>
+                            </div>
                         </li>
                         @endcan
                         @endguest
