@@ -42,16 +42,16 @@
                                 <div class="organization__name col-lg-6">
                                     <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">{{ $organization->shortname }}</a>
                                 </div>
-                                <div class="organization__peoples text-right col-lg-3">
+                                <div class="organization__peoples text-right col">
                                     {{ $organization->users->count() }}
                                 </div>
-                                <div class="organization__panel text-right col-lg-3">
+                                <div class="btn-group organization__panel text-right col-lg-4">
                                     @can ('update-organization', $organization)
                                     <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать" class="btn btn-primary"><i class="fa fa-edit mr-2"></i>Редактировать</a>
                                     @endcan
                                     @can ('delete-organization', $organization)
-                                    <a href="#" title="Удалить">
-                                        <i class="fa fa-2x fa-close text-danger"></i>
+                                    <a href="#" class="btn btn-light" title="Удалить">
+                                        <i class="fa fa-close"></i>
                                         <form action="{{ route('organizations.delete', ['id'=>$organization->id]) }}" method="post" style="display: none;">
                                             @csrf
                                         </form>

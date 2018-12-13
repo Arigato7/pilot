@@ -119,11 +119,12 @@ class EducationOrganizationController extends Controller
      */
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
+            'shortname' => 'max:255|nullable',
             'name' => 'required|max:255',
             'cite' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|max:12',
-            'address' => 'required|max:255'
+            'address' => 'required|max:255',
         ]);
         if ($validator->fails()) {
             return redirect('organization/create')
@@ -131,15 +132,19 @@ class EducationOrganizationController extends Controller
                         ->withInput();
         }
 
-        EducationOrganization::create([
-            'name' => $request->name,
-            'cite' => $request->cite,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address
-        ]);
+        $organization = new EducationOrganization;
 
-        return redirect('organizations');
+        $organization->shortname = $request->shortname != null ? $request->shortname : null;
+        $organization->name = $request->name;
+        $organization->cite = $request->cite;
+        $organization->email = $request->email;
+        $organization->phone = $request->phone;
+        $organization->address = $request->address;
+        $organization->description = $request->description != null ? $request->description : null;
+
+        $organization->save();
+
+        return redirect()->route('organizations');
     }
     /**
      * Удаление организации из БД

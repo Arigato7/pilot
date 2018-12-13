@@ -82,7 +82,12 @@
     </div>
     <div class="card mt-3">
         <div class="card-header">
-            Файлы курса
+            <div class="d-flex justify-content-between">
+                Файлы курса
+                @can('edit-course', $course)
+                <button class="btn btn-light">Удалить все</button>
+                @endcan
+            </div>
         </div>
         <div class="card-body p-0">
             @can('edit-course', $course)
@@ -104,8 +109,8 @@
                 </thead>
                 <tbody id="course-files">
                     @forelse ($files as $file)
-                    <tr class="text-center" id="file-{{ $file->id }}">
-                        <td class="w-75">
+                    <tr class="text-center align-middle" id="file-{{ $file->id }}">
+                        <td class="w-75 h-100">
                             <div class="d-flex align-items-center justify-content-start">
                                 <i class="fa fa-{{ $fileTypes[$file->type] }} mr-2"></i>
                                 {{ $file->alias }}
