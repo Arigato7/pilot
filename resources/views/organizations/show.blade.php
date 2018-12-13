@@ -3,9 +3,12 @@
 @section('content')
 <div class="container">
     <div class="card organization">
-        <div class="card-header">
+        @if (! $organization->photo)
+        <img src="{{ asset('storage/organization.jpg') }}" alt="photo" class="w-100">
+        @endif
+        <div class="card-img-overlay">
             <div class="row justify-content-between align-items-center px-3">
-                Образовательная организация {{ $organization->name }}
+                <div class="btn btn-primary">Образовательная организация {{ $organization->name }}</div>
                 <div class="organization__panel text-right">
                     @can ('update-organization', $organization)
                     <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" class="btn btn-primary" title="Редактировать"><i class="fa fa-edit mr-1"></i>Редактировать</a>

@@ -52,6 +52,7 @@ class EducationOrganizationController extends Controller
                         ->join('user_infos', 'users.id', '=', 'user_infos.user_id')
                         ->join('positions', 'positions.id', '=', 'user_infos.position_id')
                         ->select('users.login', 'user_infos.name', 'positions.name as position')
+                        ->where('user_infos.education_organization_id', $organization->id)
                         ->get();
 
         return view('organizations.show', [
@@ -94,22 +95,21 @@ class EducationOrganizationController extends Controller
             'address' => 'required|max:255'
         ]);
         if ($validator->fails()) {
-            return redirect('organization/' . $organization->id . '/edit')
+            return redirect()
+                        ->route('organizations.edit', ['id' => $organization->id])
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        DB::table('education_organizations')
-                    ->where('id', $organization->id)
-                    ->update([
-                        'name' => $request->name,
-                        'cite' => $request->cite,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'address' => $request->address
-                    ]);
+        $organization->name = $request->name;
+        $organization->cite = $request->cite;
+        $organization->email = $request->email;
+        $organization->phone = $request->phone;
+        $organization->address = $request->address;
 
-        return redirect('organization/' . $organization->id);
+        $organization->save();
+
+        return redirect()->route('organizations.show', ['id' => $organization->id]);
     }
     /**
      * Запись данных организации в БД
@@ -127,7 +127,8 @@ class EducationOrganizationController extends Controller
             'address' => 'required|max:255',
         ]);
         if ($validator->fails()) {
-            return redirect('organization/create')
+            return redirect()
+                        ->route('organizations.create')
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -155,11 +156,10 @@ class EducationOrganizationController extends Controller
     public function delete($id) {
         $organization = EducationOrganization::findOrFail($id);
         if (Gate::denies('delete-organization', Auth::user(), $organization)) {
-            return redirect('organizations');
+            return redirect()->route('organizations');
         }
-        DB::table('education_organizations')
-                ->where('id', $organization->id)
-                ->delete();
-        return redirect('organizations');
+
+        $organization->delete();
+        return redirect()->route('organizations');
     }
 }

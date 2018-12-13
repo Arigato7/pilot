@@ -122,12 +122,10 @@
                             <div class="btn-group">
                                 <a href="{{ route('corses.files.download', ['id'=>$file->id]) }}" class="btn btn-light">
                                     <i class="fa fa-download mr-1"></i>
-                                    Скачать
                                 </a>
                                 @can('edit-course', $course)
                                 <button type="button" class="btn btn-light js-delete-file-btn" id="file-delete-btn-{{ $file->id }}">
                                     <i class="fa fa-close mr-1"></i>
-                                    Удалить
                                 </button>
                                 @endcan
                             </div>
