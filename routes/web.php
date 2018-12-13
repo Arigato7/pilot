@@ -147,3 +147,11 @@ Route::get('/user/{user}/props', 'UserController@editProps')->name('users.props.
 Route::post('/user/{user}/change', 'UserController@update')->name('users.update');
 Route::post('/user/{user}/save-props', 'UserController@saveProps')->name('users.props.update');
 Route::get('/users', 'UserController@index')->name('users')->middleware('check.admin');
+/**
+ * Маршруты информации о системе
+ */
+Route::get('/info', function () {
+    return view('info.main');
+})->name('info');
+
+

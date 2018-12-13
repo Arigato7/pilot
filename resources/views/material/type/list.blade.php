@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Редактирование типов материалов</h1>
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">

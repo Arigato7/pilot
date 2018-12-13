@@ -68,13 +68,32 @@
                         <li class="nav-item">
                             <a href="{{ route('organizations') }}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Список образовательных организаций">Образовательные организации</a>
                         </li>
+                        @can ('teach', Auth::user())
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                О системе <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('info') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Основная информация о системе">Главная</a>
+                                <a class="dropdown-item" href="#" class="nav-link" data-toggle="tooltip" data-placement="left" title="Основная информация о системе">Основы</a>
+                                @can ('moderate', Auth::user())
+                                <a class="dropdown-item" href="#" class="nav-link" data-toggle="tooltip" data-placement="left" title="Основная информация о системе">Модерация</a>
+                                @endcan
+                                @can ('administrate', Auth::user())
+                                <a class="dropdown-item" href="#" class="nav-link" data-toggle="tooltip" data-placement="left" title="Основная информация о системе">Администрирование</a>
+                                @endcan
+                            </div>
+                        </li>
+                        @endcan
                         @can ('administrate', Auth::user())
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Администрирование <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">Пользователи</a>
+                                <a class="dropdown-item" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">
+                                    Пользователи
+                                </a>
                                 <a class="dropdown-item" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">Должности</a>
                                 <a class="dropdown-item" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">Типы материалов</a>
                                 <a class="dropdown-item" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">Типы курсов</a>
@@ -100,14 +119,17 @@
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/user/{{ Auth::user()->login }}">
+                                        <i class="fa fa-address-card mr-1"></i>
                                         Профиль
                                      </a>
                                      <a class="dropdown-item" href="/user/{{ Auth::user()->login }}/settings">
+                                        <i class="fa fa-cog mr-1"></i>
                                         Настройки
                                      </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out mr-1"></i>            
                                         Выход
                                     </a>
 

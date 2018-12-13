@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="h1">Типы курсов повышения квалификации</h1>
+    <h1 class="h1 mb-4">Редактирование типов курсов повышения квалификации</h1>
     <div class="card course-types">
         <div class="card-header">
             Список типов курсов

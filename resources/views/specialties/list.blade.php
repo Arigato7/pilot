@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Редактирование специальностей</h1>
     <div class="card">
         <div class="card-header">
             Специальности
