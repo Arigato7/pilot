@@ -4,7 +4,7 @@
 <div class="container">
     <h1 class="h1 mb-4">Образовательные организации</h1>
     <div class="d-flex justify-content-between">
-        <div class="col-4 pl-0">
+        <div class="col-3 pl-0">
             <div class="card positions">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
@@ -25,7 +25,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-8 pr-0">
+        <div class="col-9 pr-0">
             <div class="card organizations">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">

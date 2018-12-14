@@ -22,12 +22,12 @@
                 </div>
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex justify-content-between">
-                            <div class="col-7 text-right">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="col-7">
                                 <div><b>Дата начала</b></div>
                                 <div><b>Дата окончания</b></div>
                             </div>
-                            <div class="col-7 text-left">
+                            <div class="col-7 text-right">
                                 <div class="text-secondary">{{ date( "d.m.Y с H:i", strtotime($course->start_date)) }}</div>
                                 <div class="text-secondary">{{ date( "d.m.Y до H:i", strtotime($course->end_date)) }}</div>
                             </div>
@@ -69,9 +69,13 @@
                         </div>
                     </div>
                     @if ($date_diff)
-                        <div class="text-right py-2">Записаться можно до {{ date( "d.m.Y до H:i", strtotime($course->end_entry_date)) }}</div>
+                        <div class="alert alert-info mt-2" role="alert">
+                            Записаться можно до {{ date( "d.m.Y до H:i", strtotime($course->end_entry_date)) }}
+                        </div>
                     @else
-                        <div class="text-right">Запись на курс завершена</div>
+                        <div class="alert alert-warning mt-2" role="alert">
+                            Запись на курс завершена
+                        </div>
                     @endif
                 </div>
             </div>

@@ -77,10 +77,13 @@
             </div>
         </div>
         <div class="col-8 pr-0">
+            <div class="alert alert-info" role="alert">
+                В дальнейшем, сюда планируется добавить разделы с информацией об информационной системе "Пилот"
+            </div>
             <div class="card">
                 <div class="card-header">Главная</div>
                 <div class="card-body">
-                    text
+                    Также, сдесь будут размещены руководства для пользователя, модератора и администратора.
                 </div>
             </div>
         </div>
