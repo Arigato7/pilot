@@ -59,6 +59,13 @@
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
                 @endif
+                <label for="organizationPhoto" class="col-form-label text-secondary">Фото</label>
+                <input class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" type="file" name="photo" id="organizationPhoto">
+                @if ($errors->has('photo'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('photo') }}</strong>
+                    </span>
+                @endif
                 <button type="submit" class="btn btn-primary my-2">Добавить</button>
             </form>
             @else

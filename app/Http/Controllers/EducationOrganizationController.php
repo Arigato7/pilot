@@ -9,11 +9,27 @@ use Pilot\EducationOrganization;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class EducationOrganizationController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+    }
+    
+    protected function createDirectory($directory) {
+        if (! Storage::exists($directory)) {
+            Storage::makeDirectory($directory);
+        }
+    }
+
+    protected function imageName($fileName) {
+        return Hash::make(date("d_m_Y_His", strtotime("now")) 
+                . '_' 
+                . pathinfo($fileName, PATHINFO_FILENAME)) 
+                . '.' 
+                . pathinfo($fileName, PATHINFO_EXTENSION);
     }
     /**
      * Список образовательных организаций
@@ -125,6 +141,7 @@ class EducationOrganizationController extends Controller
             'email' => 'required|email',
             'phone' => 'required|max:12',
             'address' => 'required|max:255',
+            'photo' => 'file|image|nullable'
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -142,6 +159,18 @@ class EducationOrganizationController extends Controller
         $organization->phone = $request->phone;
         $organization->address = $request->address;
         $organization->description = $request->description != null ? $request->description : null;
+
+        $this->createDirectory("/public/organization");
+        $path = '';
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $path = $file->store('/public/organization/');
+            $organization->photo = $request->photo != null ? explode('/', $path)[3] : null;
+        }
+
+        $organization->photo = $request->photo != null ? explode('/', $path)[3] : null;
 
         $organization->save();
 
