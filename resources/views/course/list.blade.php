@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="h1">Курсы повышения квалификации</h1>
+    <h1 class="h1 mb-4">Курсы повышения квалификации</h1>
     <div class="d-flex justify-content-between">
         <div class="col-lg-4 pl-0">
             <div class="card subjects">
@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         Типы курсов
                         @can ('administrate', Auth::user())
-                        <a href="{{ route('courses.types') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                        <a href="{{ route('courses.types') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
                         @endcan
                     </div>
                 </div>

@@ -38,8 +38,12 @@
                                 Депозиторий <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список материалов">Главная</a>
-                                <a class="dropdown-item" href="{{ route('materials.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание материала">Создать материал</a>
+                                <a class="dropdown-item px-3" href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список материалов">
+                                    <i class="fa fa-home mr-2"></i>Главная
+                                </a>
+                                <a class="dropdown-item px-3" href="{{ route('materials.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание материала">
+                                    <i class="fa fa-plus mr-2"></i>Создать материал
+                                </a>
                             </div>
                         </li>
                         @endcan
@@ -91,14 +95,24 @@
                                 Администрирование <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">
-                                    Пользователи
+                                <a class="dropdown-item px-3" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">
+                                    <i class="fa fa-user-circle mr-2"></i>Пользователи
                                 </a>
-                                <a class="dropdown-item" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">Должности</a>
-                                <a class="dropdown-item" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">Типы материалов</a>
-                                <a class="dropdown-item" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">Типы курсов</a>
-                                <a class="dropdown-item" href="{{ route('specialties') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование специальностей">Специальности</a>
-                                <a class="dropdown-item" href="{{ route('subjects') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование дисциплин">Дисциплины</a>
+                                <a class="dropdown-item px-3" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">
+                                    <i class="fa fa-wrench mr-2"></i>Должности
+                                </a>
+                                <a class="dropdown-item px-3" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">
+                                    <i class="fa fa-book mr-2"></i>Типы материалов
+                                </a>
+                                <a class="dropdown-item px-3" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">
+                                    <i class="fa fa-book mr-2"></i>Типы курсов
+                                </a>
+                                <a class="dropdown-item px-3" href="{{ route('specialties') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование специальностей">
+                                    <i class="fa fa-book mr-2"></i>Специальности
+                                </a>
+                                <a class="dropdown-item px-3" href="{{ route('subjects') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование дисциплин">
+                                    <i class="fa fa-book mr-2"></i>Дисциплины
+                                </a>
                             </div>
                         </li>
                         @endcan

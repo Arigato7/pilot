@@ -24,12 +24,8 @@ class EducationOrganizationController extends Controller
         }
     }
 
-    protected function imageName($fileName) {
-        return Hash::make(date("d_m_Y_His", strtotime("now")) 
-                . '_' 
-                . pathinfo($fileName, PATHINFO_FILENAME)) 
-                . '.' 
-                . pathinfo($fileName, PATHINFO_EXTENSION);
+    protected function deleteFile($path) {
+        return Storage::disk('local')->delete($path);
     }
     /**
      * Список образовательных организаций
@@ -104,11 +100,13 @@ class EducationOrganizationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'shortname' => 'max:255|nullable',
             'name' => 'required|max:255',
             'cite' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required|max:12',
-            'address' => 'required|max:255'
+            'address' => 'required|max:255',
+            'photo' => 'file|image|nullable'
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -117,11 +115,25 @@ class EducationOrganizationController extends Controller
                         ->withInput();
         }
 
+        $organization->shortname = $request->shortname != null ? $request->shortname : null;
         $organization->name = $request->name;
         $organization->cite = $request->cite;
         $organization->email = $request->email;
         $organization->phone = $request->phone;
         $organization->address = $request->address;
+        $organization->description = $request->description != null ? $request->description : null;
+
+        $path = '';
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            if ($organization->photo != null) {
+                $this->deleteFile('/public/organization/' . $organization->photo);
+            }
+            $path = $file->store('/public/organization/');
+        }
+        $organization->photo = $request->photo != null ? explode('/', $path)[3] : null;
 
         $organization->save();
 

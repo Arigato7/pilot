@@ -10,7 +10,14 @@
             @can ('update-organization', $organization)
             <form action="{{ route('organizations.update', ['id'=>$organization->id]) }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                 @csrf
-                <label for="organizationName" class="col-form-label text-secondary">Название образовательной организации</label>
+                <label for="organizationShortName" class="col-form-label text-secondary">Сокращенное название образовательной организации</label>
+                <input type="text" class="form-control{{ $errors->has('shortname') ? ' is-invalid' : '' }}" name="shortname" id="organizationShortName" placeholder="Введите сокращенное название организации" value="{{ $organization->shortname }}">
+                @if ($errors->has('shortname'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('shortname') }}</strong>
+                    </span>
+                @endif
+                <label for="organizationName" class="col-form-label text-secondary">Полное название образовательной организации</label>
                 <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="organizationName" placeholder="Введите название организации" value="{{ $organization->name }}">
                 @if ($errors->has('name'))
                     <span class="invalid-feedback">
@@ -43,6 +50,20 @@
                 @if ($errors->has('address'))
                     <span class="invalid-feedback">
                         <strong>{{ $errors->first('address') }}</strong>
+                    </span>
+                @endif
+                <label for="organizationDescription" class="col-form-label text-secondary">Описание</label>
+                <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" id="organizationDescription" cols="30" rows="10" placeholder="Введите описание образовательной организации">{{ $organization->description }}</textarea>
+                @if ($errors->has('description'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                @endif
+                <label for="organizationPhoto" class="col-form-label text-secondary">Фото</label>
+                <input class="form-control{{ $errors->has('photo') ? ' is-invalid' : '' }}" type="file" name="photo" id="organizationPhoto" value="{{ $organization->photo }}">
+                @if ($errors->has('photo'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('photo') }}</strong>
                     </span>
                 @endif
                 <button type="submit" class="btn btn-success my-2">Сохранить</button>

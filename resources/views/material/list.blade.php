@@ -24,7 +24,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 Типы материалов
                                 @can ('administrate', Auth::user())
-                                <a href="{{ route('materials.types') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('materials.types') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
                                 @endcan
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 Специальности
                                 @can ('administrate', Auth::user())
-                                <a href="{{ route('specialties') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('specialties') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
                                 @endcan
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 Дисциплины
                                 @can ('administrate', Auth::user())
-                                <a href="{{ route('subjects') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('subjects') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
                                 @endcan
                             </div>
                         </div>

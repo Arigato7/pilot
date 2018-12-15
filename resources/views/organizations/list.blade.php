@@ -9,7 +9,9 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         Должности
-                        <a href="{{ route('positions') }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                        @can('administrate', Auth::user())
+                        <a href="{{ route('positions') }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        @endcan
                     </div>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -26,7 +28,7 @@
             </div>
         </div>
         <div class="col-9 pr-0">
-            <div class="card organizations">
+            <div class="card mb-4">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
                         Образовательные организации
@@ -35,40 +37,60 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        @forelse ($organizations as $organization)
-                        <div class="list-group-item organization">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="organization__name col-lg-6">
-                                    <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">{{ $organization->shortname }}</a>
+            </div>
+            @forelse ($organizations as $organization)
+            <div class="card mb-3">
+                <div class="position-relative">
+                    @if (! $organization->photo)
+                    <img src="{{ asset('storage/organization.jpg') }}" alt="photo" class="card-img-bottom">
+                    @else
+                    <img src="{{ asset('storage/organization/' . $organization->photo) }}" alt="photo" class="card-img-bottom">
+                    @endif
+                    <div class="card-img-overlay row align-items-end justify-content-between">
+                        <div class="col">
+                            <div class="btn-group">
+                                @can('administrate', Auth::user())
+                                <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" class="btn btn-light"><i class="fa fa-pencil"></i></a>
+                                @endcan
+                            </div>
+                        </div>
+                        <div class="col text-right">
+                            <div class="btn-group">
+                                <div class="btn btn-light">
+                                    <i class="fa fa-at mr-1"></i>
+                                    {{ $organization->email }}
                                 </div>
-                                <div class="organization__peoples text-right col">
-                                    {{ $organization->users->count() }}
+                                <div class="btn btn-light">
+                                    <i class="fa fa-phone mr-1"></i>
+                                    {{ $organization->phone }}
                                 </div>
-                                <div class="btn-group organization__panel text-right col-lg-4">
-                                    @can ('update-organization', $organization)
-                                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" title="Редактировать" class="btn btn-primary"><i class="fa fa-edit mr-2"></i>Редактировать</a>
-                                    @endcan
-                                    @can ('delete-organization', $organization)
-                                    <a href="#" class="btn btn-light" title="Удалить">
-                                        <i class="fa fa-close"></i>
-                                        <form action="{{ route('organizations.delete', ['id'=>$organization->id]) }}" method="post" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </a>
-                                    @endcan
+                                <div class="btn btn-light">
+                                    <i class="fa fa-external-link mr-1"></i>
+                                    {{ $organization->cite }}
                                 </div>
                             </div>
                         </div>
-                        @empty
-                        <div class="text-center text-secondary py-5">
-                            <p class="h3">Пусто</p>
-                        </div>
-                        @endforelse
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">
+                            {{ $organization->shortname != null ? $organization->shortname : $organization->name }}
+                        </a>
+                    </h5>
+                    <div class="card-text">
+                        {{ $organization->description != null ? $organization->description : '' }}
+                    </div>
+                    <div class="card-text">
+                        <small class="text-muted">{{ $organization->address }}</small>
                     </div>
                 </div>
             </div>
+            @empty
+            <div class="text-center text-secondary py-5">
+                <p class="h3">Пусто</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </div>

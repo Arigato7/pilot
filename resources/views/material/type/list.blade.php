@@ -34,7 +34,7 @@
                                     <span class="fa fa-2x fa-close"></span>
                                 </button>
                                 <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Изменить">
-                                    <span class="fa fa-2x fa-edit"></span>
+                                    <span class="fa fa-2x fa-pencil"></span>
                                 </button>
                                 <form action="{{ route('materials.types.delete', ['id'=>$type->id]) }}" id="delete-type-{{ $type->id }}" method="post" style="display: none;">
                                     @csrf

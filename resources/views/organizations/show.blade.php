@@ -13,33 +13,42 @@
                 <div></div>
                 <div class="organization__panel text-right">
                     @can ('update-organization', $organization)
-                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" class="btn btn-primary" title="Редактировать"><i class="fa fa-edit mr-1"></i>Редактировать</a>
+                    <a href="{{ route('organizations.edit', ['id'=>$organization->id]) }}" class="btn btn-light" title="Редактировать"><i class="fa fa-pencil"></i></a>
                     @endcan
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body pb-0">
             <h2 class="h2">{{ $organization->name }}</h2>
-            <div class="organization__info px-3 w-75">
-                <div class="row justify-content-between align-items-center py-3">
-                    <div class="font-weight-bold">Название организации</div>
-                    <div class="text-left col-6">{{ $organization->name }}</div>
+            <div class="card-text">
+                <p class="text-muted">{{ $organization->address }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+        <div class="col-3 pl-0">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <i class="fa fa-at mr-2"></i>{{ $organization->email }}
+                        </div>
+                        <div class="list-group-item">
+                            <i class="fa fa-phone mr-2"></i>{{ $organization->phone }}
+                        </div>
+                        <div class="list-group-item">
+                            <i class="fa fa-external-link mr-2"></i>{{ $organization->cite }}
+                        </div>
+                    </div>
                 </div>
-                <div class="row justify-content-between align-items-center py-3">
-                    <div class="font-weight-bold">Сайт</div>
-                    <div class="text-left col-6">{{ $organization->cite }}</div>
-                </div>
-                <div class="row justify-content-between align-items-center py-3">
-                    <div class="font-weight-bold">Email</div>
-                    <div class="text-left col-6">{{ $organization->email }}</div>
-                </div>
-                <div class="row justify-content-between align-items-center py-3">
-                    <div class="font-weight-bold">Телефон</div>
-                    <div class="text-left col-6">{{ $organization->phone }}</div>
-                </div>
-                <div class="row justify-content-between align-items-center py-3">
-                    <div class="font-weight-bold">Адрес</div>
-                    <div class="text-left col-6">{{ $organization->address }}</div>
+            </div>
+        </div>
+        <div class="col-9 pr-0">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-text">
+                        {{ $organization->description != null ? $organization->description : '' }}
+                    </div>
                 </div>
             </div>
         </div>
