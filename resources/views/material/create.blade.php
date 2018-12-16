@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
+    <div class="h1 mb-4">Создание материала</div>
     <div class="card create-material">
-        <div class="card-header">Добавить материал</div>
         <div class="card-body">
             <form action="{{ route('materials.store') }}" method="POST" name="createMaterial" enctype="multipart/form-data">
                 @csrf

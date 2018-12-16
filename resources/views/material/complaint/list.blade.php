@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Список жалоб на материалы</h1>
     <div class="card">
-        <div class="card-header">Жалобы на материалы</div>
         <div class="card-body p-0">
             <table class="table table-borderless table-hover">
                 <thead>

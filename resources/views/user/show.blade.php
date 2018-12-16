@@ -28,24 +28,31 @@
                         </p>
                         <p class="profile__desc text-secondary">{{ $user->userInfo->about }}</p>
                         <p class="profile__organization">
-                            Образовательная организация: {{ $user->userInfo->educationOrganization->name }}
+                            Образовательная организация:
+                            <a href="{{ route('organizations.show', ['id'=>$user->userInfo->educationOrganization->id]) }}">
+                                {{ $user->userInfo->educationOrganization->shortname != null ? $user->userInfo->educationOrganization->shortname : $user->userInfo->educationOrganization->name }}
+                            </a>
                         </p>
                         <p class="profile__post">
                             Должность: {{ $user->userInfo->position->name }}
                         </p>
+                        @if ($user->userInfo->email != null)
                         <p class="profile__email">
-                            @if ($user->userInfo->email != null)
                             Электронная почта: {{ $user->userInfo->email }}
-                            @endif
                         </p>
+                        @endif
+                        @if ($user->userInfo->phone != null)
                         <p class="profile__phone">
-                            @if ($user->userInfo->phone != null)
                             Телефон: {{ $user->userInfo->phone }}
-                            @endif
                         </p>
+                        @endif
                         <p class="profile__rate">Рейтинг пользователя: {{ $user->userInfo->rate }}</p>
                         @can ('edit', $user, Auth::user())
-                        <p class="profile__edit"><a href="/user/{{ Auth::user()->login }}/settings">Настройки</a></p>
+                        <div class="profile__edit">
+                            <a href="{{ route('users.edit', ['login'=>Auth::user()->login]) }}" class="btn btn-primary">
+                                <i class="fa fa-cog mr-2"></i> Настройки
+                            </a>
+                        </div>
                         @endcan
                     </div>
                 </div>
@@ -104,7 +111,6 @@
                             <div class="d-flex justify-content-between">
                                 <div class="col-7 pl-0">
                                     <a href="#" class="news__link">{{ $item->header }}</a>
-                                    <div class="news__theme text-secondary">{{ $item->theme }}</div>
                                 </div>
                                 <p class="news__date text-secondary">{{ $item->date }}</p>
                             </div>

@@ -9,9 +9,8 @@ class News extends Model
     protected $fillable = [
         'user_id',
         'header',
-        'theme',
-        'description',
-        'content'
+        'image',
+        'description'
     ];
     public function author() {
         return $this->belongsTo('Pilot\User');

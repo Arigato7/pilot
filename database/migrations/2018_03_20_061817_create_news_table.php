@@ -18,9 +18,10 @@ class CreateNewsTable extends Migration
 			$table->integer('user_id')->length(10)->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->string('header');
-            $table->string('theme');
+            //$table->string('theme');
+            $table->string('image')->nullable();
 			$table->text('description');
-			$table->string('content');
+			//$table->string('content');
 			$table->timestamp('date');
             $table->timestamps();
         });

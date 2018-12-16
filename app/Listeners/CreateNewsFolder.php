@@ -28,11 +28,7 @@ class CreateNewsFolder
      */
     public function handle(NewsCreated $event)
     {
-        $user = DB::table('users')
-                        ->select('login')
-                        ->where('id', $event->news->user_id)
-                        ->first();
-        $directory = "/public/news/{$user->login}";
+        $directory = "/public/news";
         if (! Storage::exists($directory)) {
             Storage::makeDirectory($directory);
         }

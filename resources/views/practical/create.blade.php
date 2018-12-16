@@ -2,10 +2,8 @@
 
 @section('content')
 <div class="container">
+    <div class="h1 mb-4">Добавление практической работы</div>
     <div class="card">
-        <div class="card-header">
-            Добавление практической работы
-        </div>
         <div class="card-body">
             <form action="{{ route('practicals.store') }}" method="post">
                 @csrf

@@ -2,10 +2,8 @@
 
 @section('content')
 <div class="container">
+    <div class="h1 mb-4">Добавление образовательной организации</div>
     <div class="card create-organization">
-        <div class="card-header">
-            Добавление образовательной организации
-        </div>
         <div class="card-body">
             @can ('administrate', Auth::user())
             <form action="{{ route('organizations.store') }}" method="POST" name="createMaterial" enctype="multipart/form-data">

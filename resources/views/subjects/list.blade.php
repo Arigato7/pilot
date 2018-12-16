@@ -4,11 +4,6 @@
 <div class="container">
     <h1 class="h1 mb-4">Редактирование дисциплин</h1>
     <div class="card">
-        <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center">
-                Дисциплины
-            </div>
-        </div>
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
                 <div class="list-group-item">

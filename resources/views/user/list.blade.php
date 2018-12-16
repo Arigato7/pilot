@@ -2,12 +2,10 @@
 
 @section('content')
 <div class="container">
+    <div class="h1 mb-4">Список пользователей</div>
     <div class="card mb-4">
-        <div class="card-header">
-            Список пользователей
-        </div>
         <div class="card-body p-0">
-            <table class="table table-borderless table-hover">
+            <table class="table table-borderless table-hover mb-0">
                 <thead>
                     <tr>
                         <th scope="col">ИД</th>
@@ -48,12 +46,10 @@
             </table>
         </div>
     </div>
+    <div class="h1 mb-4">Заявки на регистрацию</div>
     <div class="card">
-        <div class="card-header">
-            Заявки на регистрацию
-        </div>
         <div class="card-body p-0">
-            <table class="table table-borderless table-hover">
+            <table class="table table-borderless table-hover mb-0">
                 <thead>
                     <tr>
                         <th scope="col">ИД</th>
@@ -106,7 +102,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6">Пусто</td>
+                        <td colspan="7" class="text-center">Пусто</td>
                     </tr>
                     @endforelse
                 </tbody>

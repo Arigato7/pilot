@@ -2,14 +2,11 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">
+        {{ $title }}
+    </h1>
     <div class="card">
-        <div class="card-header">
-            Фильтр
-        </div>
         <div class="card-body p-0">
-            <h1 class="h1 p-4">
-                {{ $title }}
-            </h1>
             <div class="list-group list-group-flush">
                 @forelse($materials as $material)
                 <div class="list-group-item material">

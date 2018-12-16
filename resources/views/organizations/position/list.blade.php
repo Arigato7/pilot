@@ -4,9 +4,6 @@
 <div class="container">
     <h1 class="h1 mb-4">Редактирование должностей</h1>
     <div class="card">
-        <div class="card-header">
-            Должность
-        </div>
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
                 <div class="list-group-item">

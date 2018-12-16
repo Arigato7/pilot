@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Подача жалобы на материал</h1>
     <div class="card complaint">
         <div class="card-header">Подача жалобы на материал  - {{ $material->name }}</div>
         <div class="card-body">

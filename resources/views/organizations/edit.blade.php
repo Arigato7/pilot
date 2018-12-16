@@ -2,10 +2,8 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Изменение образовательной организации</h1>
     <div class="card create-organization">
-        <div class="card-header">
-            Изменение образовательной организации
-        </div>
         <div class="card-body">
             @can ('update-organization', $organization)
             <form action="{{ route('organizations.update', ['id'=>$organization->id]) }}" method="POST" name="createMaterial" enctype="multipart/form-data">

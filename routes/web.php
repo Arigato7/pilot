@@ -94,6 +94,8 @@ Route::get('/news', 'NewsController@index')->name('news');
 Route::get('/news/create', 'NewsController@create')->name('news.create')->middleware('check.admin');
 Route::post('/news/store', 'NewsController@store')->name('news.store')->middleware('check.admin');
 Route::get('/news/{news}', 'NewsController@show')->name('news.show');
+Route::get('/news/{news}/edit', 'NewsController@edit')->name('news.edit')->middleware('check.admin');
+Route::get('/news/{news}/update', 'NewsController@update')->name('news.update')->middleware('check.admin');
 /**
  * Маршруты для курсов
  */

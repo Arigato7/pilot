@@ -72,17 +72,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body pb-0">
                     <h5 class="card-title">
                         <a href="{{ route('organizations.show', ['id'=>$organization->id]) }}">
                             {{ $organization->shortname != null ? $organization->shortname : $organization->name }}
                         </a>
                     </h5>
                     <div class="card-text">
-                        {{ $organization->description != null ? $organization->description : '' }}
-                    </div>
-                    <div class="card-text">
-                        <small class="text-muted">{{ $organization->address }}</small>
+                        <p class="text-muted">{{ $organization->address }}</p>
                     </div>
                 </div>
             </div>

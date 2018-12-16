@@ -63,9 +63,13 @@
                                 Новости <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Новости">Все новости</a>
+                                <a class="dropdown-item px-3" href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Новости">
+                                    <i class="fa fa-home mr-2"></i>Главная
+                                </a>
                                 @can ('administrate', Auth::user())
-                                <a class="dropdown-item" href="{{ route('news.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание новости">Создать новость</a>
+                                <a class="dropdown-item px-3" href="{{ route('news.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание новости">
+                                    <i class="fa fa-plus mr-2"></i>Создать новость
+                                </a>
                                 @endcan
                             </div>
                         </li>
@@ -132,18 +136,18 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/user/{{ Auth::user()->login }}">
-                                        <i class="fa fa-address-card mr-1"></i>
+                                    <a class="dropdown-item px-3" href="/user/{{ Auth::user()->login }}">
+                                        <i class="fa fa-address-card mr-2"></i>
                                         Профиль
                                      </a>
-                                     <a class="dropdown-item" href="/user/{{ Auth::user()->login }}/settings">
-                                        <i class="fa fa-cog mr-1"></i>
+                                     <a class="dropdown-item px-3" href="/user/{{ Auth::user()->login }}/settings">
+                                        <i class="fa fa-cog mr-2"></i>
                                         Настройки
                                      </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item px-3" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        <i class="fa fa-sign-out mr-1"></i>            
+                                        <i class="fa fa-sign-out mr-2"></i>            
                                         Выход
                                     </a>
 

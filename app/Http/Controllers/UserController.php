@@ -58,7 +58,7 @@ class UserController extends Controller
                         ->get();
 
         $news = DB::table('news')
-                        ->select('id', 'header', 'theme', 'date')
+                        ->select('id', 'header', 'date')
                         ->where('user_id', $user->id)
                         ->take(5)
                         ->get();

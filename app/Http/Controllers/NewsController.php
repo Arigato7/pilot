@@ -4,13 +4,24 @@ namespace Pilot\Http\Controllers;
 
 use Validator;
 use Pilot\News;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
+
+    protected function createDirectory($directory) {
+        if (! Storage::exists($directory)) {
+            Storage::makeDirectory($directory);
+        }
+    }
+
+    protected function deleteFile($path) {
+        return Storage::disk('local')->delete($path);
+    }
     /**
      * Список новостей
      *
@@ -18,16 +29,15 @@ class NewsController extends Controller
      */
     public function index() {
                         
-        $newNews = DB::table('news')
-                        ->join('users', 'news.user_id', '=', 'users.id')
-                        ->join('user_infos', 'news.user_id', '=', 'user_infos.user_id')
-                        ->select('news.header', 'news.theme', 'news.description', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name')
-                        ->orderBy('news.date', 'desc')
-                        ->take(5)
-                        ->get();
+        $news = DB::table('news')
+                ->join('users', 'news.user_id', '=', 'users.id')
+                ->join('user_infos', 'news.user_id', '=', 'user_infos.user_id')
+                ->select('news.header', 'news.image', 'news.description', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname')
+                ->orderBy('news.date', 'desc')
+                ->get();
 
         return view('news.list', [
-            'newNews' => $newNews
+            'news' => $news
         ]);
     }
     /**
@@ -37,7 +47,15 @@ class NewsController extends Controller
      * @return void
      */
     public function show($id) {
-        $news = News::findOrFail($id);
+
+        $news = DB::table('news')
+                ->join('users', 'news.user_id', '=', 'users.id')
+                ->join('user_infos', 'news.user_id', '=', 'user_infos.user_id')
+                ->select('news.header', 'news.image', 'news.description', 'news.date', 'news.id', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname')
+                ->where('news.id', $id)
+                ->orderBy('news.date', 'desc')
+                ->first();
+
         return view('news.show', [
             'news' => $news
         ]);
@@ -57,7 +75,9 @@ class NewsController extends Controller
      * @return void
      */
     public function edit($id) {
-
+        return view('news.edit', [
+            'news' => News::findOrFail($id)
+        ]);
     }
     /**
      * Запись новости в БД
@@ -67,16 +87,14 @@ class NewsController extends Controller
      */
     public function store(Request $request) {
         $messages = [
-            'theme.required' => 'Укажите тему новости',
             'header.required' => 'Укажите заголовок новости',
-            'description.required' => 'Укажите краткое описание новости',
-            'content.required' => 'Укажите содержимое новости',
+            'image.image' => 'Загруженный файл должен быть изображением',
+            'description.required' => 'Укажите содержимое новости',
         ];
         $validator = Validator::make($request->all(), [
-            'theme' => 'required|max:255',
             'header' => 'required|max:255',
-            'description' => 'required|max:2000',
-            'content' => 'required',
+            'image' => 'file|image|nullable',
+            'description' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()
@@ -88,10 +106,20 @@ class NewsController extends Controller
         $news = new News;
 
         $news->user_id = Auth::user()->id;
+
         $news->header = $request->header;
-        $news->theme = $request->theme;
         $news->description = $request->description;
-        $news->content = $request->content;
+
+        $this->createDirectory("/public/news");
+        $path = '';
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $path = $file->store('/public/news/');
+        }
+
+        $news->image = $request->image != null ? explode('/', $path)[3] : null;
 
         $news->save();
 
@@ -105,7 +133,22 @@ class NewsController extends Controller
      * @return void
      */
     public function update(Request $request, $id) {
-
+        $messages = [
+            'header.required' => 'Укажите заголовок новости',
+            'image.image' => 'Загруженный файл должен быть изображением',
+            'description.required' => 'Укажите содержимое новости',
+        ];
+        $validator = Validator::make($request->all(), [
+            'header' => 'required|max:255',
+            'image' => 'file|image|nullable',
+            'description' => 'required',
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect()
+                        ->route('news.edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
     }
     /**
      * Удаление данных новости из БД
@@ -114,6 +157,11 @@ class NewsController extends Controller
      * @return void
      */
     public function delete($id) {
-
+        $news = News::findOrFail($id);
+        if ($news->image != null) {
+            $this->deleteFile('/public/news/' . $news->image);
+        }
+        $news->delete();
+        return redirect()->route('news');
     }
 }

@@ -2,41 +2,35 @@
 
 @section('content')
 <div class="container">
+    <div class="h1 mb-4">Создание новости</div>
     <div class="card">
-        <div class="card-header">
-            Создание новости
-        </div>
         <div class="card-body">
             <form id="create-news" action="{{ route('news.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group row align-items-center">
-                    <label for="newsTheme" class="col-sm-3 col-form-label col-form-label-lg">Тема</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="theme" class="form-control form-control-lg" id="newsTheme" placeholder="Тема новости">
-                    </div>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="newsHeader" class="col-sm-3 col-form-label col-form-label-lg">Заголовок</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="header" class="form-control form-control-lg" id="newsHeader" placeholder="Заголовок новости">
-                    </div>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="newsDescription" class="col-sm-3 col-form-label col-form-label-lg">Краткое описание</label>
-                    <div class="col-sm-9">
-                        <textarea name="description" id="newsDescription" class="form-control form-control-lg" cols="30" rows="5" placeholder="Краткое описание новости"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="newsContent" class="col-sm-3 col-form-label col-form-label-lg">Содержимое</label>
-                    <div class="col-sm-9">
-                        <textarea name="content" id="newsContent" class="form-control form-control-lg" cols="30" rows="15" placeholder="Содержимое новости"></textarea>
-                    </div>
-                </div>
-                {{-- <div class="mt-2 custom-file">
-                    <input type="file" name="image" class="custom-file-input" id="validatedCustomFile" required>
+                <label for="newsHeader" class="col-form-label text-secondary">Заголовок</label>
+                <input type="text" name="header" class="form-control form-control-lg{{ $errors->has('header') ? ' is-invalid' : '' }}" id="newsHeader" placeholder="Заголовок новости" value="{{ old('header') }}">
+                @if ($errors->has('header'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('header') }}</strong>
+                    </span>
+                @endif
+                <label for="validatedCustomFile" class="col-form-label text-secondary">Изображение к новости</label>
+                <div class="custom-file{{ $errors->has('image') ? ' is-invalid' : '' }}">
+                    <input type="file" name="image" class="custom-file-input" id="validatedCustomFile" value="{{ old('image') }}">
                     <label class="custom-file-label" for="validatedCustomFile">Выберите файл</label>
-                </div> --}}
+                </div>
+                @if ($errors->has('image'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('image') }}</strong>
+                    </span>
+                @endif
+                <label for="newsDescription" class="col-form-label text-secondary">Содержимое</label>
+                <textarea name="description" id="newsDescription" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" cols="30" rows="20" placeholder="Содержимое новости">{{ old('description') }}</textarea>
+                @if ($errors->has('description'))
+                    <span class="invalid-feedback">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </span>
+                @endif
                 <button class="btn btn-primary my-2" type="submit">Создать</button>
             </form>
         </div>

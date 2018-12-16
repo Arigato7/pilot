@@ -200,6 +200,10 @@ class EducationOrganizationController extends Controller
             return redirect()->route('organizations');
         }
 
+        if ($organization->photo != null) {
+            $this->deleteFile('/public/organization/' . $organization->photo);
+        }
+
         $organization->delete();
         return redirect()->route('organizations');
     }

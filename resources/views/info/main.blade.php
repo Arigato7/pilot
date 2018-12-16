@@ -6,7 +6,6 @@
     <div class="d-flex justify-content-between">
         <div class="col-4 pl-0">
             <div class="card">
-                <div class="card-header">Содержание</div>
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
                         <div class="list-group-item">
@@ -81,7 +80,6 @@
                 В дальнейшем, сюда планируется добавить разделы с информацией об информационной системе "Пилот"
             </div>
             <div class="card">
-                <div class="card-header">Главная</div>
                 <div class="card-body">
                     Также, сдесь будут размещены руководства для пользователя, модератора и администратора.
                 </div>
