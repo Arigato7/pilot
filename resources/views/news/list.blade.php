@@ -12,7 +12,7 @@
         </div>
         <div class="col-9 pr-0">
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         Список новостей
                         @auth
@@ -27,7 +27,7 @@
             <div class="card mb-3">
                 <div class="position-relative">
                     @if ($item->image)
-                    <img src="{{ asset('storage/news/' . $item->image) }}" alt="photo" class="card-img-bottom">
+                    <img src="{{ route('photos.news.show', ['name'=>$item->image]) }}" alt="photo" class="card-img-bottom">
                     @endif
                     <div class="card-img-overlay row align-items-end justify-content-between">
                         <div class="col">

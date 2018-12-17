@@ -5,7 +5,7 @@
     <div class="card mb-3">
         <div class="position-relative">
             @if ($news->image)
-            <img src="{{ asset('storage/news/' . $news->image) }}" alt="photo" class="card-img-bottom">
+            <img src="{{ route('photos.news.show', ['name'=>$news->image]) }}" alt="photo" class="card-img-bottom">
             @endif
             <div class="card-img-overlay text-right">
                 <div class="btn-group">

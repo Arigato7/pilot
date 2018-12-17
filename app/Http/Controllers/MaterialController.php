@@ -48,7 +48,7 @@ class MaterialController extends Controller
                             ->join('users', 'materials.user_id', '=', 'users.id')
                             ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
                             ->where('materials.deleted_at', null)
-                            ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
+                            ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                             ->orderBy('materials.date', 'desc')
                             ->take(5)
                             ->get();

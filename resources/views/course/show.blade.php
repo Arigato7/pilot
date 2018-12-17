@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="card course">
+    <div class="card mb-4">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 {{ $course->name }}
@@ -59,7 +59,7 @@
                                     <i class="fa fa-2x fa-close"></i>
                                 </button>
                                 <a href="{{ route('courses.edit', ['id'=>$course->id]) }}" class="btn btn-light">
-                                    <i class="fa fa-2x fa-edit"></i>
+                                    <i class="fa fa-2x fa-pencil"></i>
                                 </a>
                                 <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course" method="post" style="display: none;">
                                     @csrf
@@ -79,12 +79,14 @@
                     @endif
                 </div>
             </div>
-            <div class="py-3">
-                {{ $course->description }}
-            </div>
         </div>
     </div>
-    <div class="card mt-3">
+    <div class="card mb-4">
+        <div class="card-body">
+            {{ $course->description }}
+        </div>
+    </div>
+    <div class="card mb-4">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
                 Файлы курса
@@ -107,8 +109,8 @@
                     <tr class="text-left">
                         <th class="w-75" scope="col">Название</th>
                         <th scope="col">Тип</th>
-                        <th scope="col">Размер</th>
-                        <th scope="col"></th>
+                        <th class="text-right" scope="col">Размер</th>
+                        <th class="text-right" scope="col">Действия</th>
                     </tr>
                 </thead>
                 <tbody id="course-files">
@@ -137,7 +139,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-secondary">Пусто</td>
+                        <td colspan="4" class="text-secondary text-center">Файлы курса не найдены!</td>
                     </tr>
                     @endforelse
                 </tbody>
@@ -145,7 +147,7 @@
         </div>
     </div>
     @can('create-course-comment', $course)
-    <div class="card mt-3">
+    <div class="card">
         <div class="list-group list-group-flush">
             <div class="list-group-item">
                 <div class="d-flex justify-content-between align-items-center">
@@ -166,6 +168,10 @@
             </form>
         </div>
     </div>
+    @else
+    <div class="alert alert-info mb-4" role="alert">
+        Вы уже оставили свой комментарий!
+    </div>
     @endcan
     <div class="card mt-3">
         <div class="list-group list-group-flush">
@@ -179,8 +185,17 @@
                 </div>
             </div>
             @empty
-            <div class="list-group-item course-comment">
-                Пусто
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="text-secondary text-center py-3">
+                        <div class="h4">
+                            <i class="fa fa-2x fa-info"></i>
+                        </div>
+                        <div class="h5">
+                            Комментариев не найдено!
+                        </div>
+                    </div>
+                </div>
             </div>
             @endforelse
         </div>

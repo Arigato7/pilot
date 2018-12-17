@@ -150,6 +150,12 @@ Route::post('/user/{user}/change', 'UserController@update')->name('users.update'
 Route::post('/user/{user}/save-props', 'UserController@saveProps')->name('users.props.update');
 Route::get('/users', 'UserController@index')->name('users')->middleware('check.admin');
 /**
+ * Маршруты изображений
+ */
+Route::get('/storage/userdata/{user}/{photo}', 'PhotoController@showUser')->name('photos.users.show');
+Route::get('/storage/news/{photo}', 'PhotoController@showNews')->name('photos.news.show');
+Route::get('/storage/organization/{photo}', 'PhotoController@showOrganization')->name('photos.organizations.show');
+/**
  * Маршруты информации о системе
  */
 Route::get('/info', function () {

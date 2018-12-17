@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Создание курса</h1>
     <div class="card">
-        <div class="card-header">Добавление курса</div>
         <div class="card-body">
             <form action="{{ route('courses.store') }}" method="post">
                 @csrf

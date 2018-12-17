@@ -44,7 +44,7 @@
                     @if (! $organization->photo)
                     <img src="{{ asset('storage/organization.jpg') }}" alt="photo" class="card-img-bottom">
                     @else
-                    <img src="{{ asset('storage/organization/' . $organization->photo) }}" alt="photo" class="card-img-bottom">
+                    <img src="{{ route('photos.organizations.show', ['name'=>$organization->photo]) }}" alt="photo" class="card-img-bottom">
                     @endif
                     <div class="card-img-overlay row align-items-end justify-content-between">
                         <div class="col">

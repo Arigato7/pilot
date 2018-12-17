@@ -33,8 +33,8 @@
             </div>
         </div>
         <div class="col-lg-8 pr-0">
-            <div class="card courses">
-                <div class="card-header">
+            <div class="card mb-4">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         Список курсов повышения квалификации
                         @can ('administrate', Auth::user())
@@ -42,67 +42,79 @@
                         @endcan
                     </div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
-                        @forelse($courses as $course)
-                        <div class="list-group-item course">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="h3 mb-2">
-                                    <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
-                                </h3>
-                                <div>
-                                    <div class="btn-group">
-                                    @can('course-entry', $course)
-                                        @if (date_create("now") <= date_create($course->end_entry_date))
-                                        <a href="#" class="btn btn-lg btn-primary" onclick="event.preventDefault();
-                                        document.getElementById('entry-course-{{ $course->id }}').submit();">Записаться</a>
-                                        <form id="entry-course-{{ $course->id }}" action="{{ route('courses.enroll', ['id'=>$course->id]) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            <input type="hidden" name="course_id" value="{{ $course->id }}">
-                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                            <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
-                                        </form>
-                                        @else
-                                            <div class="btn btn-lg btn-danger">Запись закрыта</div>
-                                        @endif
-                                    @else
-                                        <button class="btn btn-lg btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course-{{ $course->id }}').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
-                                        <form action="{{ route('courses.cancel', ['id'=>$course->id]) }}" id="cancel-course-{{ $course->id }}" method="post" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                    @can ('administrate', Auth::user())
-                                        <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
-                                            <i class="fa fa-2x fa-close"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-light">
-                                            <i class="fa fa-2x fa-edit"></i>
-                                        </button>
-                                        <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course-{{ $course->id }}" method="post" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-between align-items-center">
-                                <div class="col-6">
-                                    <div class="text-secondary">{{ $course->place }}</div>
-                                    <div class="text-secondary">Дата начала: {{ date( "d.m.Y в H:i", strtotime($course->start_date)) }}</div>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
-                                </div>
+            </div>
+            @forelse($courses as $course)
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="h3 mb-2">
+                            <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
+                        </h3>
+                        <div>
+                            <div class="btn-group">
+                            @can('course-entry', $course)
+                                @if (date_create("now") <= date_create($course->end_entry_date))
+                                <a href="#" class="btn btn-lg btn-primary" onclick="event.preventDefault();
+                                document.getElementById('entry-course-{{ $course->id }}').submit();">Записаться</a>
+                                <form id="entry-course-{{ $course->id }}" action="{{ route('courses.enroll', ['id'=>$course->id]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
+                                </form>
+                                @else
+                                    <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                                @endif
+                            @else
+                                <button class="btn btn-lg btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course-{{ $course->id }}').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
+                                <form action="{{ route('courses.cancel', ['id'=>$course->id]) }}" id="cancel-course-{{ $course->id }}" method="post" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endcan
+                            @can ('administrate', Auth::user())
+                                <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course-{{ $course->id }}').submit(); alert('Курс удален!'); }">
+                                    <i class="fa fa-2x fa-close"></i>
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <i class="fa fa-2x fa-pencil"></i>
+                                </button>
+                                <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course-{{ $course->id }}" method="post" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endcan
                             </div>
                         </div>
-                        @empty
-                        <div class="text-center text-secondary py-5">
-                            <p class="h3">Пусто</p>
+                    </div>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-6">
+                            <div class="text-secondary">{{ $course->place }}</div>
+                            <div class="text-secondary">Дата начала: {{ date( "d.m.Y в H:i", strtotime($course->start_date)) }}</div>
                         </div>
-                        @endforelse
+                        <div class="col-6 text-right">
+                            <div class="text-secondary">Количество часов: {{ $course->duration }} ч.</div>
+                        </div>
                     </div>
                 </div>
             </div>
+            @empty
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="text-center text-secondary py-5">
+                        <div class="h3">
+                            <i class="fa fa-2x fa-info"></i>
+                        </div>
+                        <div class="h4 mb-3">
+                            Курсов не найдено!
+                        </div>
+                        @can ('administrate', Auth::user())
+                        <a href="{{ route('courses.create') }}" class="btn btn-primary">
+                            <i class="fa fa-plus mr-2"></i>Создать
+                        </a>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+            @endforelse
         </div>
     </div>
 </div>

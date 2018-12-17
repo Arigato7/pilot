@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
+    <h1 class="h1 mb-4">Редактирование курса</h1>
     <div class="card">
-        <div class="card-header">Редактирование курса</div>
         <div class="card-body">
             <form action="{{ route('courses.update', ['id'=>$course->id]) }}" method="post">
                 @csrf

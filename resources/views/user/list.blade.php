@@ -99,7 +99,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center">Пусто</td>
+                        <td colspan="8" class="text-center">Заявки не найдены!</td>
                     </tr>
                     @endforelse
                 </tbody>

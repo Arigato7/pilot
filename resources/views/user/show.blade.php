@@ -16,7 +16,7 @@
                         @if (! $user->userInfo->photo)
                         <img src="{{ asset('storage/default.png') }}" alt="photo" class="w-100">
                         @else
-                        <img src="{{ asset('storage/userdata/' . $user->login . '/' . $user->userInfo->photo) }}" alt="user photo" class="w-100">
+                        <img src="{{ route('photos.users.show', ['user'=>$user->login,'photo'=>$user->userInfo->photo]) }}" alt="user photo" class="w-100">
                         @endif
                     </div>
                 </div>

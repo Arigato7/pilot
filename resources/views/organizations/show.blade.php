@@ -6,7 +6,7 @@
         @if (! $organization->photo)
         <img src="{{ asset('storage/organization.jpg') }}" alt="photo" class="w-100">
         @else
-        <img src="{{ asset('storage/organization/' . $organization->photo) }}" alt="photo" class="w-100">
+        <img src="{{ route('photos.organizations.show', ['name'=>$organization->photo]) }}" alt="photo" class="w-100">
         @endif
         <div class="card-img-overlay">
             <div class="row justify-content-between align-items-center px-3">
@@ -47,19 +47,30 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-text">
-                        {{ $organization->description != null ? $organization->description : '' }}
+                        @if ($organization->description != null)
+                            {{ $organization->description }}
+                        @else
+                        <div class="text-center text-secondary">
+                            <div class="h3">
+                                <i class="fa fa-2x fa-info"></i>
+                            </div>
+                            <div class="h4 mb-3">
+                                Описание отсутствует!
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card mt-3">
-        <div class="organization__users">
+        <div class="card-body p-0">
             <h3 class="h3 p-4">Пользователи - {{ $users->count() }}</h3>
-            <table class="table table-borderless table-hover">
+            <table class="table table-borderless table-hover mb-0">
                 <thead>
                     <tr>
-                        <th scope="col">Имя</th>
+                        <th scope="col">Пользователь</th>
                         <th scope="col">Должность</th>
                     </tr>
                 </thead>
