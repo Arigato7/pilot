@@ -29,7 +29,7 @@
         </div>
         <div class="col-9 pr-0">
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         Образовательные организации
                         @can('administrate', Auth::user())

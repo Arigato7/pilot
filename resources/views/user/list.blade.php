@@ -25,13 +25,11 @@
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('users.props.edit', ['id'=>$user->id]) }}" class="btn btn-primary">
-                                    <i class="fa fa-edit mr-1"></i>
-                                    Изменить
+                                    <i class="fa fa-pencil"></i>
                                 </a>
                                 @if (Auth::user()->id !== $user->id)
                                     <a href="#" class="btn btn-danger disabled" disabled>
-                                        <i class="fa fa-user-times mr-1"></i>
-                                        Удалить
+                                        <i class="fa fa-user-times"></i>
                                     </a>
                                 @endif
                             </div>
@@ -59,6 +57,7 @@
                         <th scope="col">Фамилия</th>
                         <th scope="col">Email</th>
                         <th scope="col">Телефон</th>
+                        <th scope="col">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,16 +82,14 @@
                         <td>
                             <div class="btn-group">
                                 <a href="#" class="btn btn-success" onclick="document.getElementById('application-pass').value = document.getElementById('app_pass').value; document.getElementById('accept-application-{{ $application->id }}').submit()">
-                                    <i class="fa fa-check mr-1"></i>
-                                    Принять
+                                    <i class="fa fa-check"></i>
                                     <form id="accept-application-{{ $application->id }}" action="{{ route('application.accept', ['id'=>$application->id]) }}" method="post" style="display: none;">
                                         @csrf
                                         <input id="application-pass" type="text" name="password" style="display: none;">
                                     </form>
                                 </a>
                                 <a href="#" class="btn btn-danger" onclick="document.getElementById('delete-application-{{ $application->id }}').submit()">
-                                    <i class="fa fa-close mr-1"></i>
-                                    Удалить
+                                    <i class="fa fa-close"></i>
                                     <form id="delete-application-{{ $application->id }}" action="{{ route('application.delete', ['id'=>$application->id]) }}" method="post" style="display: none;">
                                         @csrf
                                     </form>

@@ -2,16 +2,12 @@
 
 @section('content')
 <div class="container">
-    <div class="card mb-4">
-        <div class="card-body">
-            <h3 class="h3">Редактирование данных пользователя  <span class="badge badge-primary">BETA</span></h3>
-        </div>
-    </div>
+    <h1 class="h1 mb-4">Редактирование данных пользователя</h1>
     <form action="{{ route('users.props.update', ['id'=>$userData->id]) }}" method="post">
         @csrf
         <div class="d-flex justify-align-between mb-4">
             <div class="col-lg-6 pl-0">
-                <h4 class="h4">Учетные данные</h4>
+                <h4 class="h4 mb-4">Учетные данные</h4>
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group row align-items-center">
@@ -30,7 +26,7 @@
                 </div>
             </div>
             <div class="col-lg-6 pr-0">
-                <h4 class="h4">Образовательная организация</h4>
+                <h4 class="h4 mb-4">Образовательная организация</h4>
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group row align-items-center">
@@ -63,7 +59,7 @@
         </div>
         <div class="d-flex justify-align-between mb-4">
             <div class="col-lg-6 pl-0">
-                <h4 class="h4">Контактные данные</h4>
+                <h4 class="h4 mb-4">Контактные данные</h4>
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group row align-items-center">
@@ -82,7 +78,7 @@
                 </div>
             </div>
             <div class="col-lg-6 pr-0">
-                <h4 class="h4">Системные данные</h4>
+                <h4 class="h4 mb-4">Системные данные</h4>
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -102,7 +98,7 @@
             </div>
         </div>
         <div class="mb-4">
-            <h4 class="h4">Данные пользователя</h4>
+            <h4 class="h4 mb-4">Данные пользователя</h4>
             <div class="card">
                 <div class="card-body">
                     <div class="form-group row align-items-center">
@@ -135,7 +131,7 @@
         <div class="card">
             <div class="card-body text-right">
                 <button type="submit" class="btn btn-success btn-lg">Сохранить</button>
-                <a href="#" class="btn btn-lg btn-primary">Отмена</a>
+                <a href="{{ route('users') }}" class="btn btn-lg btn-primary">Отмена</a>
             </div>
         </div>
     </form>

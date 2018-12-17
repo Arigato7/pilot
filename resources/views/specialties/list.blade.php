@@ -4,9 +4,6 @@
 <div class="container">
     <h1 class="h1 mb-4">Редактирование специальностей</h1>
     <div class="card">
-        <div class="card-header">
-            Специальности
-        </div>
         <div class="card-body">
             На данный момент добавлены следующие специальности:
             <ul class="w-50 mx-auto my-4 list-group list-group-flush">

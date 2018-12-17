@@ -3,23 +3,20 @@
 @section('content')
 <div class="container">
     <h1 class="h1 mb-4">Редактирование типов курсов повышения квалификации</h1>
+    <div class="mb-4">
+        <form action="{{ route('courses.types.store') }}" method="post">
+            @csrf
+            <div class="input-group">
+                <input type="text" name="name" class="form-control" placeholder="Название типа курса">
+                <button type="submit" class="btn btn-light">
+                    <i class="fa fa-2x fa-plus"></i>
+                </button>
+            </div>
+        </form>
+    </div>
     <div class="card course-types">
-        <div class="card-header">
-            Список типов курсов
-        </div>
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
-                <div class="list-group-item">
-                    <form action="{{ route('courses.types.store') }}" method="post">
-                        @csrf
-                        <div class="input-group">
-                            <input type="text" name="name" class="form-control" placeholder="Название типа курса">
-                            <button type="submit" class="btn btn-light">
-                                <i class="fa fa-2x fa-plus"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
                 @forelse($types as $type)
                 <div class="list-group-item subject">
                     <div class="d-flex justify-content-between">

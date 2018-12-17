@@ -5,7 +5,7 @@
     <h1 class="h1 mb-4">Редактирование новости</h1>
     <div class="card">
         <div class="card-body">
-            <form id="create-news" action="{{ route('news.store') }}" method="post" enctype="multipart/form-data">
+            <form id="create-news" action="{{ route('news.edit', ['id'=>$news->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <label for="newsHeader" class="col-form-label text-secondary">Заголовок</label>
                 <input type="text" name="header" class="form-control form-control-lg{{ $errors->has('header') ? ' is-invalid' : '' }}" id="newsHeader" placeholder="Заголовок новости" value="{{ $news->header }}">
@@ -31,7 +31,7 @@
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
                 @endif
-                <button class="btn btn-primary my-2" type="submit">Создать</button>
+                <button class="btn btn-success my-2" type="submit">Сохранить</button>
             </form>
         </div>
     </div>

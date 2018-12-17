@@ -3,22 +3,22 @@
 @section('content')
 <div class="container">
     <h1 class="h1 mb-4">Редактирование дисциплин</h1>
+    <div class="mb-4">
+        <form action="{{ route('subjects.store') }}" method="post">
+            @csrf
+            <div class="input-group">
+                <input type="text" name="name" class="form-control" placeholder="Название дисциплины">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-light">
+                        <i class="fa fa-2x fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="card">
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
-                <div class="list-group-item">
-                    <form action="{{ route('subjects.store') }}" method="post">
-                        @csrf
-                        <div class="input-group">
-                            <input type="text" name="name" class="form-control" placeholder="Название дисциплины">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-light">
-                                    <i class="fa fa-2x fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
                 @forelse ($subjects as $subject)
                     <div class="list-group-item">
                         <div class="d-flex align-items-center justify-content-between">
