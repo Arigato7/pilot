@@ -29,7 +29,7 @@
                     @if ($item->image)
                     <img src="{{ route('photos.news.show', ['name'=>$item->image]) }}" alt="photo" class="card-img-bottom">
                     @endif
-                    <div class="card-img-overlay row align-items-end justify-content-between">
+                    <div class="card-img-overlay row justify-content-between">
                         <div class="col">
                             <div class="btn-group">
                                 @can('administrate', Auth::user())

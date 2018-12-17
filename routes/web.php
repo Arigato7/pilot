@@ -154,7 +154,9 @@ Route::get('/users', 'UserController@index')->name('users')->middleware('check.a
  */
 Route::get('/storage/userdata/{user}/{photo}', 'PhotoController@showUser')->name('photos.users.show');
 Route::get('/storage/news/{photo}', 'PhotoController@showNews')->name('photos.news.show');
-Route::get('/storage/organization/{photo}', 'PhotoController@showOrganization')->name('photos.organizations.show');
+Route::get('/photo/organization/{photo}', function ($photo) {
+    return redirect('/storage/organization/' . $photo);
+})->name('photos.organizations.show');
 /**
  * Маршруты информации о системе
  */
