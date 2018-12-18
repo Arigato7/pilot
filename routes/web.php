@@ -127,6 +127,7 @@ Route::post('/course-type/{type}/delete', 'CourseTypeController@delete')->name('
 Route::post('/course-file/upload', 'CourseFileController@upload');
 Route::get('/course-file/{file}/download', 'CourseFileController@download')->name('corses.files.download');
 Route::post('/course-file/{file}/delete', 'CourseFileController@delete');
+Route::post('/course-file/{course}/clear', 'CourseFileController@deleteAll')->name('courses.files.clear');
 /**
  * Маршруты для дистанционного обучения
  */

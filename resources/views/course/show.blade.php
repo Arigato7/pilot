@@ -36,7 +36,7 @@
                             <div class="btn-group">
                             @can('course-entry', $course)
                                 @if ($date_diff)
-                                <a href="#" class="btn btn-lg btn-primary"  
+                                <a href="#" class="btn btn-primary"  
                                 onclick="event.preventDefault();
                                             document.getElementById('entry-course').submit();">Записаться</a>
                                 <form id="entry-course" action="{{ route('courses.enroll', ['id'=>$course->id]) }}" method="POST" style="display: none;">
@@ -46,20 +46,20 @@
                                     <input type="hidden" name="date" value="{{ date( "Y-m-d H:i:s", strtotime("now")) }}">
                                 </form>
                                 @else
-                                    <div class="btn btn-lg btn-danger">Запись закрыта</div>
+                                    <div class="btn btn-danger">Запись закрыта</div>
                                 @endif
                             @else
-                                <button class="btn btn-lg btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
+                                <button class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('cancel-course').submit(); alert('Вы отписались от курса {{ $course->name }}!'); }">Отписаться</button>
                                 <form action="{{ route('courses.cancel', ['id'=>$course->id]) }}" id="cancel-course" method="post" style="display: none;">
                                     @csrf
                                 </form>
                             @endcan
                             @can ('administrate', Auth::user())
                                 <button type="button" class="btn btn-light" onclick="event.preventDefault(); if (confirm('Вы уверены?')) { document.getElementById('delete-course').submit(); alert('Курс удален!'); }">
-                                    <i class="fa fa-2x fa-close"></i>
+                                    <i class="fa fa-close"></i>
                                 </button>
                                 <a href="{{ route('courses.edit', ['id'=>$course->id]) }}" class="btn btn-light">
-                                    <i class="fa fa-2x fa-pencil"></i>
+                                    <i class="fa fa-pencil"></i>
                                 </a>
                                 <form action="{{ route('courses.delete', ['id'=>$course->id]) }}" id="delete-course" method="post" style="display: none;">
                                     @csrf
@@ -92,6 +92,9 @@
                 Файлы курса
                 @can('edit-course', $course)
                 <button class="btn btn-light"><i class="fa fa-close mr-1"></i>Удалить все</button>
+                {{-- <form id="delete-all-course-files" action="{{ route('courses.files.clear', ['id'=>$course->id]) }}" method="post" style="display: none;">
+                    @csrf
+                </form> --}}
                 @endcan
             </div>
         </div>
@@ -178,7 +181,11 @@
             @forelse ($comments as $comment)
             <div class="list-group-item course-comment">
                 <div class="d-flex">
-                    <div class="text-secondary">author</div>
+                    <div class="text-secondary">
+                        <a href="{{ route('users.show', ['login'=>$comment->user_login]) }}">
+                            {{ $comment->user_name . ' ' . $comment->user_lastname }}
+                        </a>
+                    </div>
                     <div class="ml-4">
                         {{ $comment->description }}
                     </div>

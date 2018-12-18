@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="position-relative">
                     @if (! $user->userInfo->photo)
-                    <div class="card-img-top display-3 text-center">
+                    <div class="card-img-top display-3 text-center py-4">
                         <i class="fa fa-3x fa-user-circle"></i>
                     </div>
                     @else
@@ -54,16 +54,18 @@
                     </div>
                 </div>
             </div>
+            @if ($user->userInfo->middlename != null)
             <div class="d-flex justify-content-between align-content-center">
                 <div class="col pl-0 border-right py-2">
                     <h5 class="h5 text-secondary">Отчество</h5>
                 </div>
                 <div class="col-8 py-2">
                     <div class="h5">
-                        {{ $user->userInfo->middlename != null ? $user->userInfo->middlename : 'Отсутствует' }}
+                        {{ $user->userInfo->middlename }}
                     </div>
                 </div>
             </div>
+            @endif
             <hr class="hr">
             <h2 class="h2">Контакты</h2>
             <hr class="hr">
@@ -115,12 +117,14 @@
         </div>
     </div>
     <hr class="hr">
+    @if ($user->userInfo->about != null)
     <h2 class="h2">О себе</h2>
     <hr class="hr">
     <div class="h5 text-secondar">
         {{ $user->userInfo->about }}
     </div>
     <hr class="hr">
+    @endif
     @can('teach', Auth::user())
     <div class="d-flex my-4">
         <div class="col-lg-6 pl-0">

@@ -117,7 +117,7 @@ class CourseController extends Controller
         $comments = DB::table('course_comments')
                             ->join('users', 'course_comments.user_id', '=', 'users.id')
                             ->join('user_infos', 'course_comments.user_id', '=', 'user_infos.user_id')
-                            ->select('course_comments.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo', 'user_infos.rate as user_rate')
+                            ->select('course_comments.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.rate as user_rate')
                             ->where('course_comments.course_id', $course->id)
                             ->orderBy('date', 'desc')
                             ->get();
@@ -283,15 +283,20 @@ class CourseController extends Controller
         $record = null;
 
         if (! $validator->fails()) {
-            $record = CourseRecord::create([
-                'course_id' => $course->id,
-                'user_id' => Auth::user()->id,
-                'date' => $request->date
-            ]);
+            $record = new CourseRecord;
+
+            $record->course_id = $course->id;
+            $record->user_id = Auth::user()->id;
+            $record->date = $request->date;
+
+            $record->save();
+
             event(new CourseSubscribed($record));
         }
         
-        return redirect('course/' . $course->id);
+        return redirect()->route('courses.show', [
+            'id' => $course->id
+        ]);
     }
     /**
      * Отписка от курса

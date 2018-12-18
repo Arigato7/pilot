@@ -5,7 +5,7 @@
     <div class="h1 mb-4">Список пользователей</div>
     <div class="card mb-4">
         <div class="card-body p-0">
-            <table class="table table-borderless table-hover mb-0">
+            <table class="table table-borderless table-hover table-sm mb-0">
                 <thead>
                     <tr>
                         <th scope="col">ИД</th>

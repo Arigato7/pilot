@@ -168,7 +168,7 @@
 
         <footer class="py-5">
             <div class="text-secondary text-center">
-                АПОУ "ИПЭК" 2018 год
+                АПОУ УР "ИПЭК" 2018 год
             </div>
         </footer>
     </div>

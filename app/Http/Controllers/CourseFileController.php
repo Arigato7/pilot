@@ -49,6 +49,10 @@ class CourseFileController extends Controller
     protected function deleteFile($path) {
         return Storage::disk('local')->delete($path);
     }
+
+    protected function deleteAllFiles($directory) {
+        return Storage::disk('local')->deleteDirectory($directory);
+    }
     /**
      * Undocumented function
      *
@@ -103,6 +107,14 @@ class CourseFileController extends Controller
         if ($this->deleteFile('public/courses/' . $file->course_id . '/' . $file->fullname)) {
             $file->delete();
         }
+    }
+
+    public function deleteAll($course_id) {
+        $course = Course::findOrFail($course_id);
+        $this->deleteAllFiles('public/courses/' . $course->id);
+        return redirect()->route('courses.show', [
+            'id' => $course->id
+        ]);
     }
     /**
      * Undocumented function
