@@ -158,6 +158,25 @@ class UserController extends Controller
         return redirect('user/' . Auth::user()->login . '/settings');
     }
     /**
+     * Undocumented function
+     *
+     * @param [type] $password
+     * @return void
+     */
+    protected function checkPassword($password) {
+        
+    }
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param [type] $user_id
+     * @return void
+     */
+    public function updatePassword(Request $request, $user_id) {
+
+    }
+    /**
      * Удаление пользователя
      *
      * @param int $id

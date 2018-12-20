@@ -63,7 +63,7 @@ class EducationOrganizationController extends Controller
         $users = DB::table('users')
                         ->join('user_infos', 'users.id', '=', 'user_infos.user_id')
                         ->join('positions', 'positions.id', '=', 'user_infos.position_id')
-                        ->select('users.login', 'user_infos.name', 'positions.name as position')
+                        ->select('users.login', 'user_infos.name', 'user_infos.lastname', 'positions.name as position')
                         ->where('user_infos.education_organization_id', $organization->id)
                         ->get();
 

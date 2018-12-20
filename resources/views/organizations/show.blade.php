@@ -67,7 +67,7 @@
     <div class="card mt-3">
         <div class="card-body p-0">
             <h3 class="h3 p-4">Пользователи - {{ $users->count() }}</h3>
-            <table class="table table-borderless table-hover mb-0">
+            <table class="table table-sm table-borderless table-hover mb-0">
                 <thead>
                     <tr>
                         <th scope="col">Пользователь</th>
@@ -78,7 +78,7 @@
                     @forelse($users as $user)
                     <tr>
                         <td>
-                            <a href="{{ route('users.show', ['login'=>$user->login]) }}">{{ $user->name }}</a>
+                            <a href="{{ route('users.show', ['login'=>$user->login]) }}">{{ $user->name . ' ' . $user->lastname }}</a>
                         </td>
                         <td>{{ $user->position }}</td>
                     </tr>

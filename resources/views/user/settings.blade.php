@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Редактировать профиль</a>
+                        <a class="nav-link" id="v-pills-password-tab" data-toggle="pill" href="#v-pills-password" role="tab" aria-controls="v-pills-profile" aria-selected="false">Смена пароля</a>
                         @can('moderate', Auth::user())
                         <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Удаленные материалы</a>
                         @endcan
@@ -84,6 +85,24 @@
                             <label for="userAbout" class="col-form-label text-secondary">О себе</label>
                             <textarea name="about" id="userAbout" cols="30" rows="5" class="form-control">{{ Auth::user()->userInfo->about }}</textarea>
                             <button class="btn btn-primary my-2" type="submit">Сохранить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="v-pills-password" role="tabpanel" aria-labelledby="v-pills-password-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" method="post">
+                                @csrf
+                                <label for="oldPassword" class="col-form-label text-secondary">Старый пароль</label>
+                                <input class="form-control" type="text" id="oldPassword" placeholder="Введите старый пароль">
+                                <label for="newPassword" class="col-form-label text-secondary">Новый пароль</label>
+                                <input class="form-control" type="text" id="newPassword" placeholder="Введите новый пароль">
+                                <label for="confirmPassword" class="col-form-label text-secondary">Повторите пароль</label>
+                                <input class="form-control" type="text" id="confirmPassword" placeholder="Введите повторно новый пароль">
+                                <button class="btn btn-light mt-2" type="button">
+                                    <i class="fa fa-pencil mr-2"></i> Изменить
+                                </button>
                             </form>
                         </div>
                     </div>
