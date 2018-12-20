@@ -17,9 +17,9 @@
                             </div>
                         </div>
                         <div class="row align-items-center">
-                            <label for="userPassword" class="col-sm-3 col-form-label col-form-label-lg">Пароль</label>
+                            <label for="userPassword" class="col-sm-3 col-form-label col-form-label-lg">Новый пароль</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control form-control-lg" id="userPassword" placeholder="Пароль" readonly>
+                                <input type="text" name="password" class="form-control form-control-lg" id="userPassword" placeholder="Пароль">
                             </div>
                         </div>
                     </div>

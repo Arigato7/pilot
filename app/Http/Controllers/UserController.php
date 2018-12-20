@@ -230,6 +230,10 @@ class UserController extends Controller
         $user->login = $request->login;
         $user->role_id = $request->role;
 
+        if ($request->password != null) {
+            $user->password = bcrypt($request->password);
+        }
+
         $info->education_organization_id = $request->organization;
         $info->position_id = $request->position;
         $info->email = $request->email != null ? $request->email : null;
