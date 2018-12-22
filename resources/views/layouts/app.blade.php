@@ -13,12 +13,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="air">
     <div id="app" class="w-100">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-light air__navbar">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Пилот
+                <a class="navbar-brand d-flex justify-content-start align-items-center" href="{{ url('/') }}">
+                    <img src="https://img.icons8.com/color/38/000000/christmas-tree.png">Пилот
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -38,10 +38,10 @@
                                 Депозиторий <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item px-3" href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список материалов">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('materials') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список материалов">
                                     <i class="fa fa-home mr-2"></i>Главная
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('materials.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание материала">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('materials.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание материала">
                                     <i class="fa fa-plus mr-2"></i>Создать материал
                                 </a>
                             </div>
@@ -63,11 +63,11 @@
                                 Новости <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item px-3" href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Новости">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('news') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Новости">
                                     <i class="fa fa-home mr-2"></i>Главная
                                 </a>
                                 @can ('administrate', Auth::user())
-                                <a class="dropdown-item px-3" href="{{ route('news.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание новости">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('news.create') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Создание новости">
                                     <i class="fa fa-plus mr-2"></i>Создать новость
                                 </a>
                                 @endcan
@@ -99,22 +99,22 @@
                                 Администрирование <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item px-3" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('users') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Список пользователей">
                                     <i class="fa fa-user-circle mr-2"></i>Пользователи
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('positions') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование должностей">
                                     <i class="fa fa-wrench mr-2"></i>Должности
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('materials.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов материалов">
                                     <i class="fa fa-book mr-2"></i>Типы материалов
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('courses.types') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование типов курсов">
                                     <i class="fa fa-book mr-2"></i>Типы курсов
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('specialties') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование специальностей">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('specialties') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование специальностей">
                                     <i class="fa fa-book mr-2"></i>Специальности
                                 </a>
-                                <a class="dropdown-item px-3" href="{{ route('subjects') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование дисциплин">
+                                <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('subjects') }}" class="nav-link" data-toggle="tooltip" data-placement="left" title="Редактирование дисциплин">
                                     <i class="fa fa-book mr-2"></i>Дисциплины
                                 </a>
                             </div>
@@ -136,15 +136,15 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item px-3" href="/user/{{ Auth::user()->login }}">
+                                    <a class="dropdown-item d-flex justify-content-start align-items-center" href="/user/{{ Auth::user()->login }}">
                                         <i class="fa fa-address-card mr-2"></i>
                                         Профиль
                                      </a>
-                                     <a class="dropdown-item px-3" href="/user/{{ Auth::user()->login }}/settings">
+                                     <a class="dropdown-item d-flex justify-content-start align-items-center" href="/user/{{ Auth::user()->login }}/settings">
                                         <i class="fa fa-cog mr-2"></i>
                                         Настройки
                                      </a>
-                                    <a class="dropdown-item px-3" href="{{ route('logout') }}"
+                                    <a class="dropdown-item d-flex justify-content-start align-items-center" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         <i class="fa fa-sign-out mr-2"></i>            
@@ -162,7 +162,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-5 mt-5">
             @yield('content')
         </main>
 

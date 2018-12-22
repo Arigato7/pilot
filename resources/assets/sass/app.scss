@@ -84,4 +84,45 @@
   }
 }
 
+/* Air */
+.air {
+  background-color: #fff !important;
+  .card {
+    border-radius: 0;
+    border: none !important;
+  }
+  &__navbar {
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    background-color: #fff;
+    padding: 0 !important;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    width: 100%;
+    .navbar-brand {
+      text-transform: uppercase;
+    }
+    .navbar-toggler {
+      margin: 1rem 0.5rem;
+    }
+    .dropdown-menu {
+      border-radius: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      .dropdown-item {
+        padding: 0.5rem;
+      }
+    }
+    .nav-link {
+      padding: 1rem 0.5rem;
+      background-color: inherit;
+      transition: background-color ease-in-out 0.3s;
+      color: #000 !important;
+      &:hover {
+        background-color: rgb(231, 231, 231);
+      }
+    }
+  }
+}
+
 

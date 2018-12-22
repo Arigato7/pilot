@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="display-3 text-center my-3">
-        <div class="fa fa-2x fa-graduation-cap"></div>
+        <div class="">
+            <img src="https://img.icons8.com/wired/100/000000/snowman.png">
+        </div>
         <div>Пилот</div>
     </div>
     <div class="jumbotron">
