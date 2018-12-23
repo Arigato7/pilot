@@ -5,7 +5,7 @@
     <h1 class="h1 mb-4">Список жалоб на материалы</h1>
     <div class="card">
         <div class="card-body p-0">
-            <table class="table table-borderless table-hover">
+            <table class="table table-sm table-borderless table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Материал</th>
@@ -26,7 +26,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3">Пусто</td>
+                        <td colspan="3" class="text-center">Пусто</td>
                     </tr>
                     @endforelse
                 </tbody>

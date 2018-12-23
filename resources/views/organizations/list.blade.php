@@ -5,16 +5,14 @@
     <h1 class="h1 mb-4">Образовательные организации</h1>
     <div class="d-flex justify-content-between">
         <div class="col-3 pl-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h4">Должности</h4>
+                @can('administrate', Auth::user())
+                <a href="{{ route('positions') }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                @endcan
+            </div>
             <div class="card positions">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Должности
-                        @can('administrate', Auth::user())
-                        <a href="{{ route('positions') }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                        @endcan
-                    </div>
-                </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group">
                 @forelse ($positions as $position)
                     <li class="list-group-item">
                         {{ $position->name }}
@@ -28,15 +26,11 @@
             </div>
         </div>
         <div class="col-9 pr-0">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Образовательные организации
-                        @can('administrate', Auth::user())
-                        <a href="{{ route('organizations.create') }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Создать</a>
-                        @endcan
-                    </div>
-                </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h4">Список организаций</h4>
+                @can('administrate', Auth::user())
+                <a href="{{ route('organizations.create') }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i>Создать</a>
+                @endcan
             </div>
             @forelse ($organizations as $organization)
             <div class="card mb-3">

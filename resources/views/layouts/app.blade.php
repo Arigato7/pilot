@@ -166,7 +166,7 @@
             @yield('content')
         </main>
 
-        <footer class="py-5">
+        <footer class="py-4">
             <div class="text-secondary text-center">
                 АПОУ УР "ИПЭК" 2018 год
             </div>

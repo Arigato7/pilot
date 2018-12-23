@@ -18,9 +18,6 @@
             <a class="btn btn-primary btn-lg" href="{{ route('login') }}" role="button">Войти</a>
             <a class="btn btn-light btn-lg" href="{{ route('register') }}" role="button">Подать заявку</a>   
         </div>
-        @else
-        <p>Для того чтобы описание системы, перейдите по ссылке ниже.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Узнать больше</a>
         @endguest
     </div>
 </div>

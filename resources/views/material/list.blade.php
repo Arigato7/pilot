@@ -6,7 +6,7 @@
         <div class="bg-white"></div>
         <div class="col p-0">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h1 mb-4 col">Депозиторий</h1>
+                <h1 class="h1 mb-4 col pl-0">Депозиторий</h1>
                 <div class="col-8">
                     {{-- <form id="search-material" action="/material/find" method="post">
                         @csrf
@@ -18,21 +18,21 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <div class="col-lg-4">
+                <div class="col-lg-4 pl-0">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="h4">Типы материалов</h4>
+                        @can ('administrate', Auth::user())
+                        <a href="{{ route('materials.types') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
+                        @endcan
+                    </div>
                     <div class="card material-types mb-4">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                Типы материалов
-                                @can ('administrate', Auth::user())
-                                <a href="{{ route('materials.types') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
-                                @endcan
-                            </div>
-                        </div>
                         <div class="card-body p-0">
-                            <div class="list-group list-group-flush">
+                            <div class="list-group">
                                 @forelse($types as $type)
                                 <div class="list-group-item subject">
-                                    <a href="{{ route('materials.filter.type', ['id'=>$type->id]) }}">{{ $type->name }}</a>
+                                    <a href="{{ route('materials.filter.type', ['id'=>$type->id]) }}">
+                                        <i class="fa fa-book"></i> {{ $type->name }}
+                                    </a>
                                 </div>
                                 @empty
                                 <div class="list-group-item text-center text-secondary">
@@ -45,17 +45,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="h4">Специальности</h4>
+                        @can ('administrate', Auth::user())
+                        <a href="{{ route('specialties') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
+                        @endcan
+                    </div>
                     <div class="card specialties mb-4">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                Специальности
-                                @can ('administrate', Auth::user())
-                                <a href="{{ route('specialties') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
-                                @endcan
-                            </div>
-                        </div>
                         <div class="card-body p-0">
-                            <div class="list-group list-group-flush">
+                            <div class="list-group">
                                 @forelse($specialties as $specialty)
                                 <div class="list-group-item specialty">
                                     <div class="d-flex justify-content-between">
@@ -74,20 +72,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="h4">Дисциплины</h4>
+                        @can ('administrate', Auth::user())
+                        <a href="{{ route('subjects') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
+                        @endcan
+                    </div>
                     <div class="card subjects">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                Дисциплины
-                                @can ('administrate', Auth::user())
-                                <a href="{{ route('subjects') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Изменить"><i class="fa fa-pencil"></i></a>
-                                @endcan
-                            </div>
-                        </div>
                         <div class="card-body p-0">
-                            <div class="list-group list-group-flush">
+                            <div class="list-group">
                                 @forelse($subjects as $subject)
                                 <div class="list-group-item subject">
-                                    <a href="{{ route('materials.filter.subject', ['id'=>$subject->id]) }}">{{ $subject->name }}</a>
+                                    <a href="{{ route('materials.filter.subject', ['id'=>$subject->id]) }}">
+                                        <i class="fa fa-book"></i> {{ $subject->name }}
+                                    </a>
                                 </div>
                                 @empty
                                 <div class="list-group-item text-center text-secondary">
@@ -106,14 +104,10 @@
                     </div>
                     @endcan
                 </div>
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                Список материалов
-                                <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
-                            </div>
-                        </div>
+                <div class="col-lg-8 pr-0">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h4 class="h4">Список материалов</h4>
+                        <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
                     @forelse($newMaterials as $newMaterial)
                     <div class="card mb-4">

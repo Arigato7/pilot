@@ -6,22 +6,18 @@
     <div class="d-flex justify-content-between">
         <div class="col-3 pl-0">
             <div class="card">
-                <div class="card-header">test</div>
-                <div class="card-body">test</div>
+                <div class="card-header">Новости</div>
+                <div class="card-body">Для начала, создайте новость</div>
             </div>
         </div>
         <div class="col-9 pr-0">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Список новостей
-                        @auth
-                        <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
-                        @else
-                        <div>Чтобы добавить новости <a href="{{ route('login') }}">войдите</a> или <a href="{{ route('register') }}">зарегистрируйтесь</a></div>
-                        @endauth
-                    </div>
-                </div>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h4">Список новостей</h4>
+                @auth
+                <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
+                @else
+                <div>Чтобы добавить новости <a href="{{ route('login') }}">войдите</a> или <a href="{{ route('register') }}">зарегистрируйтесь</a></div>
+                @endauth
             </div>
             @forelse($news as $item)
             <div class="card mb-3">

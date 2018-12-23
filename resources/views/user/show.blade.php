@@ -128,17 +128,15 @@
     @can('teach', Auth::user())
     <div class="d-flex my-4">
         <div class="col-lg-6 pl-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h4">Материалы пользователя</h4>
+                @can ('edit', $user, Auth::user())
+                <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
+                @endcan
+            </div>
             <div class="card user-materials">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Материалы пользователя
-                        @can ('edit', $user, Auth::user())
-                        <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
-                        @endcan
-                    </div>
-                </div>
                 <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
+                    <div class="list-group">
                         @forelse($materials as $material)
                         <div class="list-group-item material">
                             <div class="d-flex justify-content-between">
@@ -161,17 +159,15 @@
             </div>
         </div>
         <div class="col-lg-6 pr-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="h4">Новости пользователя</h4>
+                @can ('administrate', Auth::user())
+                <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
+                @endcan
+            </div>
             <div class="card user-news">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        Новости пользователя
-                        @can ('administrate', Auth::user())
-                        <a href="{{ route('news.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus mr-2"></i>Создать</a>
-                        @endcan
-                    </div>
-                </div>
                 <div class="card-body p-0">
-                    <div class="list-group list-group-flush">
+                    <div class="list-group">
                         @forelse($news as $item)
                         <div class="list-group-item news">
                             <div class="d-flex justify-content-between">
@@ -194,10 +190,12 @@
         </div>
     </div>
     @endcan
+    <h4 class="h4 mb-4">
+        Действия пользователя
+    </h4>
     <div class="card actions mt-4">
-        <div class="card-header">Действия пользователя</div>
         <div class="card-body p-0">
-            <div class="list-group list-group-flush">
+            <div class="list-group">
                 @forelse($actions as $action)
                 <div class="list-group-item action">
                     <div class="d-flex justify-content-between py-2">
