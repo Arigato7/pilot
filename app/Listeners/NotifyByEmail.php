@@ -30,6 +30,6 @@ class NotifyByEmail
      */
     public function handle(CourseSubscribed $event)
     {
-        Mail::to('plstsale@gmail.com')->send(new CourseSubscribedMail($event->courseRecord));
+        Mail::to('ipek.metod@mail.ru')->send(new CourseSubscribedMail($event->courseRecord));
     }
 }
