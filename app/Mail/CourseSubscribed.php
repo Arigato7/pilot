@@ -3,8 +3,10 @@
 namespace Pilot\Mail;
 
 use Pilot\User;
+use Pilot\Course;
 use Pilot\Position;
 use Pilot\UserInfo;
+use Pilot\CourseRecord;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Pilot\EducationOrganization;
@@ -33,12 +35,12 @@ class CourseSubscribed extends Mailable
      *
      * @return void
      */
-    public function __construct($userId, $courseId)
+    public function __construct(CourseRecord $courseRecord)
     {
-        $userData = User::findOrFail($userId);
+        $userData = User::findOrFail($courseRecord->user_id);
 
         $this->user = $userData->userInfo;
-        $this->course = Course::findOrFail($courseId);
+        $this->course = Course::findOrFail($courseRecord->course_id);
         $this->organization = EducationOrganization::findOrFail($userData->userInfo->education_organization_id);
         $this->position = Position::findOrFail($userData->userInfo->position_id);
     }
@@ -50,7 +52,12 @@ class CourseSubscribed extends Mailable
      */
     public function build()
     {
-        return $this->from('downonrabota@mail.ru')
-                    ->view('emails.test');
+        return $this->from('admin@pilot-ipek.ru')
+                    ->view('emails.test', [
+                        'user' => $this->user,
+                        'course' => $this->course,
+                        'organization' => $this->organization,
+                        'position' => $this->position,
+                    ]);
     }
 }
