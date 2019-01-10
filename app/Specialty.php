@@ -8,7 +8,8 @@ class Specialty extends Model
 {
     protected $fillable = [
         'specialty_type_id',
-        'name'
+        'name',
+        'code'
     ];
     /**
      * Материалы

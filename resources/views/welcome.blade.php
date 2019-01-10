@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="display-3 text-center my-3">
+    <div class="display-3 text-center my-5">
         <div class="">
             <img src="https://img.icons8.com/wired/100/000000/snowman.png">
         </div>

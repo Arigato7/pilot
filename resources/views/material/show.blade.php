@@ -15,13 +15,13 @@
                 <div class="material__panel">
                     <div class="btn-group">
                         @can('update-material', $material)
-                        <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-success"><i class="fa fa-edit mr-2"></i>Редактировать</a>
+                        <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-light"><i class="fa fa-pencil mr-2"></i>Редактировать</a>
                         @else
                         <a href="{{ route('materials.complaint.create') }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
                         @endcan
                         @can('moderate', Auth::user())
                         <div class="dropdown d-inline-block">
-                            <button class="btn btn-danger dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-close mr-2"></i>Удалить</button>
+                            <button class="btn btn-outline-danger dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-close mr-2"></i>Удалить</button>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#" 
                                     onclick="event.preventDefault();
@@ -74,9 +74,9 @@
             </div>
         </div>
     </div>
-    <div class="card mt-4">
-        <div class="material__comments list-group list-group-flush">
-            <div class="d-flex justify-content-between position-relative list-group-item">
+    <div class="card mb-4">
+        <div class="material__comments list-group">
+            <div class="d-flex align-items-center justify-content-between position-relative list-group-item">
                 <h2 class="h2 mb-0">
                     Отзывы <span class="text-secondary ml-2">({{ $comments->count() }})</span>
                     @can ('moderate', Auth::user())
@@ -87,7 +87,7 @@
                 </h2>
                 <div class="text-center">
                     {{ $comments->where('review', 'like')->count() }} положительных / {{ $comments->where('review', 'dislike')->count() }} отрицательных
-                    <div class="material__rate d-flex mt-3" title="{{ $comments->where('review', 'like')->count()}} / {{ $comments->where('review', 'dislike')->count()}}">
+                    <div class="material__rate d-flex mt-1" title="{{ $comments->where('review', 'like')->count()}} / {{ $comments->where('review', 'dislike')->count()}}">
                         @if ($comments->count() > 0)
                         <div class="material__rate-positive bg-primary text-white pl-1 text-center" style="width: {{ ($comments->where('review', 'like')->count() * 100) / $comments->count() }}%"></div>
                         @endif
@@ -104,43 +104,48 @@
                             <strong>{{ $errors->first('description') }}</strong>
                         </span>
                     @endif
-                    <div class="w-100">
-                        <div class="btn-group w-100 btn-group-toggle{{ $errors->has('review') ? ' is-invalid' : '' }}" data-toggle="buttons">
-                            <label class="btn btn-success d-block w-50">
+                    <div class="border-top w-100 p-3 d-flex justify-content-between align-items-center">
+                        <div class="btn-group btn-group-toggle{{ $errors->has('review') ? ' is-invalid' : '' }}" data-toggle="buttons">
+                            <label class="btn btn-outline-success d-block">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <input type="radio" name="review" id="reviewLike" value="like" autocomplete="off">
-                                    <i class="fa fa-2x fa-thumbs-up mr-2"></i>
+                                    @if ($errors->has('review'))
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $errors->first('review') }}</strong>
+                                        </span>
+                                    @endif
+                                    <i class="fa fa-thumbs-up mr-2"></i>
                                     Интересно
                                 </div>
                             </label>
-                            <label class="btn btn-danger d-block w-50">
+                            <label class="btn btn-outline-danger d-block">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <input type="radio" name="review" id="reviewDisike" value="dislike" autocomplete="off">
-                                    <i class="fa fa-2x fa-thumbs-down mr-2"></i>
+                                    @if ($errors->has('review'))
+                                        <span class="invalid-tooltip">
+                                            <strong>{{ $errors->first('review') }}</strong>
+                                        </span>
+                                    @endif
+                                    <i class="fa fa-thumbs-down mr-2"></i>
                                     Не интересно
                                 </div>
                             </label>
                         </div>
-                        @if ($errors->has('review'))
-                            <span class="invalid-feedback">
-                                <strong>{{ $errors->first('review') }}</strong>
-                            </span>
-                        @endif
+                        @can ('create-material-comment', $material)
+                        <button type="button" class="btn btn-outline-primary btn-lg" onclick="event.preventDefault();
+                        document.getElementById('js-review-field').submit();">Оставить отзыв</button>
+                        @endcan
                     </div>
                     <input type="hidden" name="material_id" value="{{ $material->id }}">
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 </form>
                 @endcan
             </div>
-            @can ('create-material-comment', $material)
-            <button type="button" class="list-group-item btn btn-outline-primary btn-lg btn-block" onclick="event.preventDefault();
-            document.getElementById('js-review-field').submit();">Оставить отзыв</button>
-            @endcan
         </div>
     </div>
-    <div class="card mt-4">
+    <div class="card list-group">
         @forelse($comments as $comment)
-        <div class="material-comment border-bottom">
+        <div class="material-comment list-group-item">
             <div class="d-flex justify-content-between py-4 align-items-center">
                 <div class="material__author text-center">
                     @if ($comment->user_photo != null)

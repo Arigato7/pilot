@@ -127,7 +127,7 @@ class CourseController extends Controller
                             ->distinct()
                             ->get();
 
-        $files = CourseFile::all()->sortByDesc('name');
+        $files = CourseFile::where('course_id', $course->id)->sortByDesc('name');
         $fileTypes = [
             'txt' => 'file-text-o',
             'pdf' => 'file-pdf-o',
