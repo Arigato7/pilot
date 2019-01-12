@@ -17,7 +17,7 @@
                         @can('update-material', $material)
                         <a href="{{ route('materials.edit', ['id'=>$material->id]) }}" class="btn btn-light"><i class="fa fa-pencil mr-2"></i>Редактировать</a>
                         @else
-                        <a href="{{ route('materials.complaint.create') }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
+                        <a href="{{ route('materials.complaint.create', ['id'=>$material->id]) }}" class="btn btn-outline-danger"><i class="fa fa-edit mr-2"></i>Пожаловаться</a>
                         @endcan
                         @can('moderate', Auth::user())
                         <div class="dropdown d-inline-block">
@@ -61,17 +61,32 @@
                     </span>
                 </div>
             </div>
-            <div class="material__desc pt-4 pb-2">
-                {{ $material->description }}
-            </div>
             <div class="material__content">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mt-4">
                     <div class="w-25">
-                        <h4>Оценка: <span class="badge badge-pill badge-primary font-weight-bold">{{ $material->rate }}</span></h4>
+                        <div class="d-flex align-items-center text-light position-relative" style="width: 67px;" data-toggle="tooltip" data-placement="top" title="Рейтинг {{ $material->rate }}">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <div class="d-flex align-items-center text-primary position-absolute" style="top: 0; overflow: hidden; width: {{ round(($material->rate / 5) * 100) }}%;">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
                     </div>
                     <a href="{{ route('materials.download', ['id'=>$material->id]) }}" class="btn btn-primary"><i class="fa fa-download mr-2"></i>Скачать</a>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            {{ $material->description }}
         </div>
     </div>
     <div class="card mb-4">

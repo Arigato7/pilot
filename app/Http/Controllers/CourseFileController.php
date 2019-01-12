@@ -34,7 +34,7 @@ class CourseFileController extends Controller
      * @return void
      */
     protected function courseFileName($fileName) {
-        return date('d_m_o_His')
+        return 'C_' . substr(md5(date('d_m_o_His')), 0, 8)
                 . '_'
                 . pathinfo($fileName, PATHINFO_FILENAME)
                 . '.'

@@ -18,7 +18,7 @@
     </div>
     <div class="card">
         <div class="card-body p-0">
-            <div class="list-group list-group-flush">
+            <div class="list-group">
                 @forelse ($subjects as $subject)
                     <div class="list-group-item">
                         <div class="d-flex align-items-center justify-content-between">

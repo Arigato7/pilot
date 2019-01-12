@@ -26,7 +26,7 @@
                             @endforelse
                         </select>
                         @if ($errors->has('type'))
-                            <span class="invalid-feedback">
+                            <span class="invalid-tooltip">
                                 <strong>{{ $errors->first('type') }}</strong>
                             </span>
                         @endif
@@ -42,7 +42,7 @@
                             @endforelse
                         </select>
                         @if ($errors->has('specialty'))
-                            <span class="invalid-feedback">
+                            <span class="invalid-tooltip">
                                 <strong>{{ $errors->first('specialty') }}</strong>
                             </span>
                         @endif
@@ -58,7 +58,7 @@
                             @endforelse
                         </select>
                         @if ($errors->has('subject'))
-                            <span class="invalid-feedback">
+                            <span class="invalid-tooltip">
                                 <strong>{{ $errors->first('subject') }}</strong>
                             </span>
                         @endif
@@ -67,20 +67,35 @@
                 <label for="materialDescription" class="col-form-label text-secondary">Краткое описание</label>
                 <textarea name="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" id="materialDescription" cols="30" rows="10" placeholder="Введите краткое описание">{{ $material->description }}</textarea>
                 @if ($errors->has('description'))
-                    <span class="invalid-feedback">
+                    <span class="invalid-tooltip">
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
                 @endif
+                <div class="my-2">
+                    <div class="text-secondary">Текущий файл</div>
+                    <div class="card">
+                        <div class="card-body border">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-2x fa-{{ $fileTypeIcon }}"></i>
+                                <div class="p-2">
+                                    {{ $material->content }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mt-2 custom-file{{ $errors->has('content') ? ' is-invalid' : '' }}">
-                    <input type="file" name="content" class="custom-file-input" id="validatedCustomFile" required>
+                    <input type="file" name="content" class="custom-file-input" id="validatedCustomFile">
                     <label class="custom-file-label" for="validatedCustomFile">Выберите файл</label>
                     @if ($errors->has('content'))
-                        <span class="invalid-feedback">
+                        <span class="invalid-tooltip">
                             <strong>{{ $errors->first('content') }}</strong>
                         </span>
                     @endif
                 </div>
-                <button class="btn btn-primary my-2" type="submit">Сохранить</button>
+                <button class="btn btn-primary my-2" type="submit">
+                    <i class="fa fa-check mr-1"></i> Сохранить
+                </button>
             </form>
         </div>
     </div>

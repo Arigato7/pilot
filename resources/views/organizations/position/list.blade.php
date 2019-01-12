@@ -18,7 +18,7 @@
     </div>
     <div class="card">
         <div class="card-body p-0">
-            <div class="list-group list-group-flush">
+            <div class="list-group">
                 @forelse ($positions as $position)
                 <div class="list-group-item">
                     <div class="d-flex align-items-center justify-content-between">
@@ -28,7 +28,7 @@
                                 <span class="fa fa-2x fa-close"></span>
                             </button>
                             <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="right" title="Изменить">
-                                <span class="fa fa-2x fa-edit"></span>
+                                <span class="fa fa-2x fa-pencil"></span>
                             </button>
                             <form action="{{ route('positions.delete', ['id'=>$position->id]) }}" id="delete-position-{{ $position->id }}" method="post" style="display: none;">
                                 @csrf

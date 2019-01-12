@@ -109,18 +109,18 @@
                         <h4 class="h4">Список материалов</h4>
                         <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
-                    @forelse($newMaterials as $newMaterial)
-                    <div class="card mb-4">
-                        <div class="card-body">
+                    <div class="list-group">
+                    @forelse($materials as $material)
+                        <div class="list-group-item">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="col-lg-7 pl-0">
+                                <div class="col-lg-9 pl-0">
                                     <h3>
-                                        <a href="{{ route('materials.show', ['id'=>$newMaterial->id]) }}" class="material__link">
-                                            {{ $newMaterial->name }}
-                                            <span class="ml-1 badge {{ $newMaterial->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                                                @if ($newMaterial->status == 'new')
+                                        <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="material__link">
+                                            {{ $material->name }}
+                                            <span class="ml-1 badge {{ $material->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
+                                                @if ($material->status == 'new')
                                                 Новый
-                                                @elseif ($newMaterial->status == 'updated')
+                                                @elseif ($material->status == 'updated')
                                                 Обновлен
                                                 @else
                                                 Восстановлен
@@ -128,24 +128,34 @@
                                             </span>
                                         </a>
                                     </h3>
-                                    <div class="text-secondary">
-                                        Автор: 
-                                        <a href="{{ route('users.show', ['login'=>$newMaterial->user_login]) }}" class="text-secondary"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $newMaterial->user_photo != null ? asset('storage/userdata/' . $newMaterial->user_login . '/' . $newMaterial->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $newMaterial->user_name . ' ' . $newMaterial->user_lastname }}</div></div>">{{ $newMaterial->user_name . ' ' . $newMaterial->user_lastname }}</a> 
-                                        Оценка - {{ $newMaterial->rate }}
+                                    <div class="d-flex align-items-center text-secondary">
+                                        <a href="{{ route('users.show', ['login'=>$material->user_login]) }}" class="text-secondary mr-2"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $material->user_photo != null ? asset('storage/userdata/' . $material->user_login . '/' . $material->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $material->user_name . ' ' . $material->user_lastname }}</div></div>">{{ $material->user_name . ' ' . $material->user_lastname }}</a> 
+                                        <div class="d-flex align-items-center text-light position-relative" style="width: 67px;" data-toggle="tooltip" data-placement="top" title="Рейтинг {{ $material->rate }}">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <div class="d-flex align-items-center text-primary position-absolute" style="top: 0; overflow: hidden; width: {{ round(($material->rate / 5) * 100) }}%;">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="material__date">
-                                    <a href="{{ route('materials.show', ['id'=>$newMaterial->id]) }}" class="btn btn-lg btn-primary w-100">Открыть</a>
+                                <div class="col-3 pr-0 text-center material__date">
+                                    <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="btn btn-lg btn-primary w-100">Открыть</a>
                                     <div class="text-secondary">
-                                        {{ date( "d.m.Y в H:i", strtotime($newMaterial->date)) }}
+                                        {{ date( "d.m.Y в H:i", strtotime($material->date)) }}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @empty
-                    <div class="card">
-                        <div class="card-body pb-0">
+                        <div class="list-group-item">
                             <div class="text-center text-secondary py-5">
                                 <div class="h3">
                                     <i class="fa fa-2x fa-info"></i>
@@ -160,9 +170,9 @@
                                 @endcan
                             </div>
                         </div>
-                    </div>
                     @endforelse
-                    @if ($newMaterials->count() > 5)
+                    </div>
+                    @if ($materials->count() > 5)
                     <a href="#" class="btn btn-primary">Показать все</a>
                     @endif
                 </div>

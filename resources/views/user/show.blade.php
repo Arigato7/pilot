@@ -32,40 +32,12 @@
             </div>
         </div>
         <div class="col-9 pr-0">
-            <h2 class="h2">Информация о пользователе</h2>
-            <hr class="hr">
-            <div class="d-flex justify-content-between align-content-center">
-                <div class="col pl-0 border-right py-2">
-                    <h5 class="h5 text-secondary">Имя</h5>
-                </div>
-                <div class="col-8 py-2">
-                    <div class="h5">
-                        {{ $user->userInfo->name }}
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex justify-content-between align-content-center">
-                <div class="col pl-0 border-right py-2">
-                    <h5 class="h5 text-secondary">Фамилия</h5>
-                </div>
-                <div class="col-8 py-2">
-                    <div class="h5">
-                        {{ $user->userInfo->lastname }}
-                    </div>
-                </div>
-            </div>
-            @if ($user->userInfo->middlename != null)
-            <div class="d-flex justify-content-between align-content-center">
-                <div class="col pl-0 border-right py-2">
-                    <h5 class="h5 text-secondary">Отчество</h5>
-                </div>
-                <div class="col-8 py-2">
-                    <div class="h5">
-                        {{ $user->userInfo->middlename }}
-                    </div>
-                </div>
-            </div>
-            @endif
+            <h4 class="h4">
+                {{ $user->userInfo->name . ' ' . $user->userInfo->lastname }}
+                @if ($user->userInfo->middlename != null)
+                {{ ' ' . $user->userInfo->middlename }}
+                @endif
+            </h4>
             <hr class="hr">
             <h2 class="h2">Контакты</h2>
             <hr class="hr">
@@ -89,30 +61,30 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <hr class="hr">
-    <h2 class="h2">Образовательная организация</h2>
-    <hr class="hr">
-    <div class="d-flex justify-content-between align-content-center">
-        <div class="col pl-0 border-right py-2">
-            <h5 class="h5 text-secondary">Название организации</h5>
-        </div>
-        <div class="col-8 py-2">
-            <div class="h5">
-                <a href="{{ route('organizations.show', ['id'=>$user->userInfo->educationOrganization->id]) }}">
-                    {{ $user->userInfo->educationOrganization->shortname != null ? $user->userInfo->educationOrganization->shortname : $user->userInfo->educationOrganization->name }}
-                </a>
+            <hr class="hr">
+            <h2 class="h2">Образовательная организация</h2>
+            <hr class="hr">
+            <div class="d-flex justify-content-between align-content-center">
+                <div class="col pl-0 border-right py-2">
+                    <h5 class="h5 text-secondary">Название организации</h5>
+                </div>
+                <div class="col-8 py-2">
+                    <div class="h5">
+                        <a href="{{ route('organizations.show', ['id'=>$user->userInfo->educationOrganization->id]) }}">
+                            {{ $user->userInfo->educationOrganization->shortname != null ? $user->userInfo->educationOrganization->shortname : $user->userInfo->educationOrganization->name }}
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between align-content-center">
-        <div class="col pl-0 border-right py-2">
-            <h5 class="h5 text-secondary">Должность</h5>
-        </div>
-        <div class="col-8 py-2">
-            <div class="h5">
-                {{ $user->userInfo->position->name }}
+            <div class="d-flex justify-content-between align-content-center">
+                <div class="col pl-0 border-right py-2">
+                    <h5 class="h5 text-secondary">Должность</h5>
+                </div>
+                <div class="col-8 py-2">
+                    <div class="h5">
+                        {{ $user->userInfo->position->name }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -139,9 +111,9 @@
                     <div class="list-group">
                         @forelse($materials as $material)
                         <div class="list-group-item material">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="material__link">{{ $material->name }}</a>
-                                <p class="material__date text-secondary">{{ $material->date }}</p>
+                                <p class="material__date text-secondary">{{ date( "d.m.Y в H:i", strtotime($material->date)) }}</p>
                             </div>
                         </div>
                         @empty
@@ -170,11 +142,11 @@
                     <div class="list-group">
                         @forelse($news as $item)
                         <div class="list-group-item news">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div class="col-7 pl-0">
                                     <a href="#" class="news__link">{{ $item->header }}</a>
                                 </div>
-                                <p class="news__date text-secondary">{{ $item->date }}</p>
+                                <p class="news__date text-secondary">{{ date( "d.m.Y в H:i", strtotime($item->date)) }}</p>
                             </div>
                         </div>
                         @empty
@@ -201,7 +173,7 @@
                     <div class="d-flex justify-content-between py-2">
                         <div>{{ $action->description }}</div>
                         <div class="text-secodary">
-                            {{ date( "H:i d M Y", strtotime($action->date)) }}
+                            {{ date( "d.m.Y в H:i", strtotime($action->date)) }}
                         </div>
                     </div>
                 </div>

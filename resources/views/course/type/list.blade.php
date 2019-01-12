@@ -16,10 +16,10 @@
     </div>
     <div class="card course-types">
         <div class="card-body p-0">
-            <div class="list-group list-group-flush">
+            <div class="list-group">
                 @forelse($types as $type)
                 <div class="list-group-item subject">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         {{ $type->name }}
                         <div class="btn-group">
                             <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="event.preventDefault(); document.getElementById('delete-course-type-{{ $type->id }}').submit()">

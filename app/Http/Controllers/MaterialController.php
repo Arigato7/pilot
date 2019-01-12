@@ -44,7 +44,7 @@ class MaterialController extends Controller
      */
     public function index() {
 
-        $newMaterials = DB::table('materials')
+        $materials = DB::table('materials')
                             ->join('users', 'materials.user_id', '=', 'users.id')
                             ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
                             ->where('materials.deleted_at', null)
@@ -58,7 +58,7 @@ class MaterialController extends Controller
         $types = DB::table('material_types')->select('id', 'name')->orderBy('name')->take(5)->get();
 
         return view('material.list', [
-            'newMaterials' => $newMaterials,
+            'materials' => $materials,
             'specialties' => $specialties,
             'subjects' => $subjects,
             'types' => $types
@@ -134,7 +134,7 @@ class MaterialController extends Controller
         $materials = DB::table('materials')
                                 ->join('users', 'materials.user_id', '=', 'users.id')
                                 ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
-                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
+                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                                 ->where('materials.deleted_at', null)
                                 ->where('materials.material_type_id', $type->id)
                                 ->orderBy('date', 'desc')
@@ -159,7 +159,7 @@ class MaterialController extends Controller
         $materials = DB::table('materials')
                                 ->join('users', 'materials.user_id', '=', 'users.id')
                                 ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
-                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
+                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                                 ->where('materials.deleted_at', null)
                                 ->where('materials.user_id', $id)
                                 ->orderBy('date', 'desc')
@@ -184,7 +184,7 @@ class MaterialController extends Controller
         $materials = DB::table('materials')
                                 ->join('users', 'materials.user_id', '=', 'users.id')
                                 ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
-                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
+                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                                 ->where('materials.deleted_at', null)
                                 ->where('materials.subject_id', $id)
                                 ->orderBy('date', 'desc')
@@ -208,7 +208,7 @@ class MaterialController extends Controller
         $materials = DB::table('materials')
                                 ->join('users', 'materials.user_id', '=', 'users.id')
                                 ->join('user_infos', 'materials.user_id', '=', 'user_infos.user_id')
-                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.photo as user_photo')
+                                ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                                 ->where('materials.deleted_at', null)
                                 ->where('materials.specialty_id', $id)
                                 ->orderBy('date', 'desc')
@@ -240,7 +240,7 @@ class MaterialController extends Controller
      * @return void
      */
     protected function materialFileName($fileName) {
-        return date('d_m_o_His') 
+        return 'M_' . substr(md5(date('d_m_o_His')), 0, 8)
                 . '_'
                 . pathinfo($fileName, PATHINFO_FILENAME) 
                 . '.'
@@ -331,7 +331,7 @@ class MaterialController extends Controller
             'specialty' => 'required',
             'subject' => 'required|max:255',
             'description' => 'required',
-            'content' => 'required|mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
+            'content' => 'mimes:doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,gzip,rar,7z'
         ], $messages);
         if ($validator->fails()) {
             return redirect('material/' . $material->id . '/edit')
@@ -339,19 +339,21 @@ class MaterialController extends Controller
                         ->withInput();
         }
 
-        if ($request->hasFile('content')) {
-            $file = $request->file('content');
-            
-            if (Storage::exists('/public/materials/' . Auth::user()->login . '/actual/' . $material->content)) {
-                $this->moveMaterialFile('/public/materials/' . Auth::user()->login . '/actual/' . $material->content,
-                                        '/public/materials/' . Auth::user()->login . '/deleted/' . $material->content);
-                $this->deleted = $material->content;
+        if ($request->content != null) {
+            if ($request->hasFile('content')) {
+                $file = $request->file('content');
+                
+                if (Storage::exists('/public/materials/' . Auth::user()->login . '/actual/' . $material->content)) {
+                    $this->moveMaterialFile('/public/materials/' . Auth::user()->login . '/actual/' . $material->content,
+                                            '/public/materials/' . Auth::user()->login . '/deleted/' . $material->content);
+                    $this->deleted = $material->content;
+                }
+                
+                $fileName = $file->getClientOriginalName();
+                $path = $file->storeAs('/public/materials/' 
+                            . Auth::user()->login . '/actual', $this->materialFileName($fileName));
+                $this->content = $this->materialFileName($fileName);
             }
-            
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('/public/materials/' 
-                        . Auth::user()->login . '/actual', $this->materialFileName($fileName));
-            $this->content = $this->materialFileName($fileName);
         }
 
         $material->user_id = Auth::user()->id;
@@ -360,10 +362,12 @@ class MaterialController extends Controller
         $material->subject_id = $request->subject;
         $material->material_type_id = $request->type;
         $material->description = $request->description;
-        $material->content = $this->content;
         $material->status = 'updated';
-        $material->deleted = $this->deleted;
-
+        if ($request->content != null) {
+            $material->content = $this->content;
+            $material->deleted = $this->deleted;
+        }
+        
         $material->save();
 
         return redirect('material/'. $material->id);
@@ -376,18 +380,36 @@ class MaterialController extends Controller
      */
     public function edit($id) {
         $material = Material::findOrFail($id);
+        $user = User::findOrFail($material->user_id);
         
         $specialties = DB::table('specialties')->select('id', 'name')->get();
 
         $subjects = DB::table('subjects')->select('id', 'name')->get();
 
         $types = DB::table('material_types')->select('id', 'name')->get();
+
+        $fileTypeIcons = [
+            'txt' => 'file-text-o',
+            'pdf' => 'file-pdf-o',
+            'xls' => 'file-excel-o',
+            'xlsx' => 'file-excel-o',
+            'doc' => 'file-word-o',
+            'docx' => 'file-word-o',
+            'ppt' => 'file-powerpoint-o',
+            'pptx' => 'file-powerpoint-o',
+            'zip' => 'file-zip-o',
+            'rar' => 'file-zip-o',
+            '7z' => 'file-zip-o',
+        ];
+
+        $fileExtension = pathinfo(storage_path() . '/public/materials/' . $user->login . '/actual/' . $material->content, PATHINFO_EXTENSION);
         
         return view('material.edit', [
             'material' => $material,
             'specialties' => $specialties,
             'subjects' => $subjects,
-            'types' => $types
+            'types' => $types,
+            'fileTypeIcon' => $fileTypeIcons[$fileExtension]
         ]);
     }
     /**

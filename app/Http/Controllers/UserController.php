@@ -81,6 +81,7 @@ class UserController extends Controller
         $userActions = DB::table('user_actions')
                         ->select('description', 'date')
                         ->where('user_id', $user->id)
+                        ->take(5)
                         ->get();
 
         return view('user.show', [
