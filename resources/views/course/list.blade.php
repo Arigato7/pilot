@@ -39,9 +39,9 @@
                 <a href="{{ route('courses.create') }}" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-1"></i> Создать</a>
                 @endcan
             </div>
+            <div class="list-group">
             @forelse($courses as $course)
-            <div class="card mb-4">
-                <div class="card-body">
+                <div class="list-group-item">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="h3 mb-2">
                             <a href="{{ route('courses.show', ['id'=>$course->id]) }}">{{ $course->name }}</a>
@@ -93,10 +93,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
             @empty
-            <div class="card">
-                <div class="card-body pb-0">
+                <div class="list-group-item">
                     <div class="text-center text-secondary py-5">
                         <div class="h3">
                             <i class="fa fa-2x fa-info"></i>
@@ -111,8 +109,8 @@
                         @endcan
                     </div>
                 </div>
-            </div>
             @endforelse
+            </div>
         </div>
     </div>
 </div>

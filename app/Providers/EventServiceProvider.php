@@ -47,6 +47,9 @@ class EventServiceProvider extends ServiceProvider
             'Pilot\Listeners\NotifyByEmail',
             'Pilot\Listeners\CreateCourseSubscribedNotification'
         ],
+        'Pilot\Events\CourseUnsubscribed' => [
+            'Pilot\Listeners\CourseUnsubscribedNotifyByEmail'
+        ],
     ];
 
     /**

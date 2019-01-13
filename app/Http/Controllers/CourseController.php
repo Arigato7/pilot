@@ -15,6 +15,7 @@ use Illuminate\Validation\Rule;
 use Pilot\Events\CourseSubscribed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Pilot\Events\CourseUnsubscribed;
 use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
@@ -306,11 +307,18 @@ class CourseController extends Controller
      */
     public function cancellation($id) {
         $course = Course::findOrFail($id);
-        
-        DB::table('course_records')
-            ->where('user_id', Auth::user()->id)
-            ->where('course_id', $course->id)
-            ->delete();
+
+        $recordId = DB::table('course_records')
+                    ->where('user_id', Auth::user()->id)
+                    ->where('course_id', $course->id)
+                    ->select('id')
+                    ->first();
+
+        $record = CourseRecord::findOrFail($recordId->id);
+
+        event(new CourseUnsubscribed($record));
+
+        $record->delete();
 
         return redirect()->route('courses.show', [
             'id' => $course->id

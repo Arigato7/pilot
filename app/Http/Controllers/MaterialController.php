@@ -50,7 +50,7 @@ class MaterialController extends Controller
                             ->where('materials.deleted_at', null)
                             ->select('materials.*', 'users.login as user_login', 'user_infos.name as user_name', 'user_infos.lastname as user_lastname', 'user_infos.photo as user_photo')
                             ->orderBy('materials.date', 'desc')
-                            ->take(5)
+                            ->take(10)
                             ->get();
                             
         $specialties = DB::table('specialties')->select('id', 'name', 'code')->orderBy('name')->take(5)->get();
