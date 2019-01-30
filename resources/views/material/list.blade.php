@@ -172,9 +172,6 @@
                         </div>
                     @endforelse
                     </div>
-                    @if ($materials->count() > 5)
-                    <a href="#" class="btn btn-primary">Показать все</a>
-                    @endif
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-md navbar-light air__navbar">
             <div class="container">
                 <a class="navbar-brand d-flex justify-content-start align-items-center" href="{{ url('/') }}">
-                    <img src="https://img.icons8.com/color/38/000000/christmas-tree.png">Пилот
+                    Пилот
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
