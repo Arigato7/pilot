@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSystemConfigValuesTable extends Migration
+class CreateSystemConfigValueTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSystemConfigValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('system_config_values', function (Blueprint $table) {
+        Schema::create('system_config_value_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('system_config_value_type_id')->length(10)->unsigned();
-            $table->foreign('system_config_value_type_id')->references('id')->on('system_config_value_types');
-            $table->string('value');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateSystemConfigValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('system_config_values');
+        Schema::dropIfExists('system_config_value_types');
     }
 }

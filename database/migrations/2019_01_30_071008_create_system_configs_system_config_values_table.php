@@ -15,6 +15,10 @@ class CreateSystemConfigsSystemConfigValuesTable extends Migration
     {
         Schema::create('system_configs_system_config_values', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('system_config_id')->length(10)->unsigned();
+            $table->foreign('system_config_id')->references('id')->on('system_configs');
+            $table->integer('system_config_value_id')->length(10)->unsigned();
+            $table->foreign('system_config_value_id')->references('id')->on('system_config_values');
             $table->timestamps();
         });
     }
