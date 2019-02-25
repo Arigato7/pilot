@@ -23,7 +23,7 @@
             <div class="card mb-3">
                 <div class="position-relative">
                     @if ($item->image)
-                    <img src="{{ route('photos.news.show', ['name'=>$item->image]) }}" alt="photo" class="card-img-bottom">
+                    <img src="{{ asset('storage/images/' . $item->image) }}" alt="photo" class="card-img-bottom">
                     @endif
                     <div class="card-img-overlay row justify-content-between">
                         <div class="col">

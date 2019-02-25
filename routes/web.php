@@ -97,7 +97,8 @@ Route::get('/news/create', 'NewsController@create')->name('news.create')->middle
 Route::post('/news/store', 'NewsController@store')->name('news.store')->middleware('check.admin');
 Route::get('/news/{news}', 'NewsController@show')->name('news.show');
 Route::get('/news/{news}/edit', 'NewsController@edit')->name('news.edit')->middleware('check.admin');
-Route::get('/news/{news}/update', 'NewsController@update')->name('news.update')->middleware('check.admin');
+Route::post('/news/{news}/update', 'NewsController@update')->name('news.update')->middleware('check.admin');
+Route::post('/news/{news}/delete', 'NewsController@delete')->name('news.delete')->middleware('check.admin');
 /**
  * Маршруты для курсов
  */
@@ -156,7 +157,6 @@ Route::get('/users', 'UserController@index')->name('users')->middleware('check.a
  * Маршруты изображений
  */
 Route::get('/storage/userdata/{user}/{photo}', 'PhotoController@showUser')->name('photos.users.show');
-Route::get('/storage/news/{photo}', 'PhotoController@showNews')->name('photos.news.show');
 Route::get('/photo/organization/{photo}', function ($photo) {
     return redirect('/storage/organization/' . $photo);
 })->name('photos.organizations.show');

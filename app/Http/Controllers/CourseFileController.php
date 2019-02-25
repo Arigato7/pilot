@@ -108,7 +108,12 @@ class CourseFileController extends Controller
             $file->delete();
         }
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $course_id
+     * @return void
+     */
     public function deleteAll($course_id) {
         $course = Course::findOrFail($course_id);
         $this->deleteAllFiles('public/courses/' . $course->id);

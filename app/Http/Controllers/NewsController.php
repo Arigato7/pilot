@@ -22,6 +22,12 @@ class NewsController extends Controller
     protected function deleteFile($path) {
         return Storage::disk('local')->delete($path);
     }
+
+    protected function imageFileName($fileName) {
+        return 'I_' . substr(md5(date('d_m_o_His')), 0, 16)
+                . '.'
+                . pathinfo($fileName, PATHINFO_EXTENSION);
+    }
     /**
      * Список новостей
      *
@@ -110,16 +116,17 @@ class NewsController extends Controller
         $news->header = $request->header;
         $news->description = $request->description;
 
-        $this->createDirectory("/public/news");
-        $path = '';
+        $this->createDirectory('/public/images');
+        $imageName = '';
         
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = $file->getClientOriginalName();
-            $path = $file->store('/public/news/');
+            $imageName = $this->imageFileName($fileName);
+            Storage::putFileAs('public/images', $file, $imageName);
         }
 
-        $news->image = $request->image != null ? explode('/', $path)[3] : null;
+        $news->image = $request->image != null ? $imageName : null;
 
         $news->save();
 
