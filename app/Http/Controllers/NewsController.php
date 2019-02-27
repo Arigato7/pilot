@@ -95,11 +95,12 @@ class NewsController extends Controller
         $messages = [
             'header.required' => 'Укажите заголовок новости',
             'image.image' => 'Загруженный файл должен быть изображением',
+            'image.max' => 'Размер файла не должен превышать 7 мегабайт',
             'description.required' => 'Укажите содержимое новости',
         ];
         $validator = Validator::make($request->all(), [
             'header' => 'required|max:255',
-            'image' => 'file|image|nullable',
+            'image' => 'file|image|max:7168|nullable',
             'description' => 'required',
         ], $messages);
         if ($validator->fails()) {
