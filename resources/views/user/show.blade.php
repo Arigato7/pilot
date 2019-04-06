@@ -12,7 +12,7 @@
                         <i class="fa fa-3x fa-user-circle"></i>
                     </div>
                     @else
-                    <img src="{{ route('photos.users.show', ['user'=>$user->login,'photo'=>$user->userInfo->photo]) }}" alt="user photo" class="card-img-top">
+                    <img src="{{ asset('storage/images/' . $user->userInfo->photo) }}" alt="user photo" class="card-img-top">
                     @endif
                     <div class="card-img-overlay text-right">
                         <div class="btn btn-light">

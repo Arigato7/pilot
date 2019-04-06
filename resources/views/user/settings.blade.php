@@ -104,6 +104,7 @@
                                 @endif
                                 <label for="userAbout" class="col-form-label text-secondary">О себе</label>
                                 <textarea name="about" id="userAbout" cols="30" rows="5" class="form-control">{{ Auth::user()->userInfo->about }}</textarea>
+                                <input type="hidden" name="login" value="{{ Auth::user()->login }}" style="display: none;">
                                 <button class="btn btn-light my-2" type="submit">
                                         <i class="fa fa-check mr-2"></i> Сохранить
                                 </button>

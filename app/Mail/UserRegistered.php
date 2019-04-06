@@ -16,7 +16,6 @@ class UserRegistered extends Mailable
     public $login;
     public $name;
     public $lastname;
-    public $password;
     /**
      * Create a new message instance.
      *
@@ -27,7 +26,6 @@ class UserRegistered extends Mailable
         $this->login = $user->login;
         $this->name = UserInfo::where('user_id', $user->id)->first()->name;
         $this->lastname = UserInfo::where('user_id', $user->id)->first()->lastname;
-        $this->password = $password;
     }
 
     /**
@@ -43,7 +41,6 @@ class UserRegistered extends Mailable
                         'login' => $this->login,
                         'name' => $this->name,
                         'lastname' => $this->lastname,
-                        'password' => $this->password
                     ]);
     }
 }

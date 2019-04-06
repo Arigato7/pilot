@@ -30,6 +30,23 @@ class UserController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
+    protected function createDirectory($directory) {
+        if (! Storage::exists($directory)) {
+            Storage::makeDirectory($directory);
+        }
+    }
+
+    protected function deleteFile($path) {
+        Storage::delete($path);
+    }
+
+    protected function getFileName($fileName) {
+        return 'I_' . substr(md5(date('d_m_o_His')), 0, 16)
+                . '.'
+                . pathinfo($fileName, PATHINFO_EXTENSION);
+    }
+
     /**
      * Список пользователей
      *
@@ -136,13 +153,25 @@ class UserController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+
+        $this->createDirectory('/public/images');
+
+        $imageName = '';
+
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
+            $fileName = $file->getClientOriginalName();
+            $imageName = $this->getFileName($fileName);
+
             if (Auth::user()->userInfo->photo != null) {
-                Storage::delete('/public/userdata/' . Auth::user()->userInfo->photo);
+                $this->deleteFile('/public/images/' . Auth::user()->userInfo->photo);
             }
-            $this->photo = $file->store('/public/userdata/' . Auth::user()->login);
+
+            Storage::putFileAs('public/images', $file, $imageName);
         }
+
+        $this->photo = $request->photo != null ? $imageName : null;
+
         DB::table('user_infos')
                     ->where('user_id', Auth::user()->id)
                     ->update([
@@ -152,11 +181,17 @@ class UserController extends Controller
                         'name' => $request->name,
                         'lastname' => $request->lastname,
                         'middlename' => $request->middlename,
-                        'photo' => explode('/', $this->photo)[3],
+                        'photo' => $this->photo,
                         'education_organization_id' => $request->educationOrganization,
                         'about' => $request->about
                     ]);
-        return redirect('user/' . Auth::user()->login . '/settings');
+
+        return redirect()
+                    ->route(
+                        'users.edit', [
+                            'login' => Auth::user()->login
+                        ]
+                    );
     }
     /**
      * Undocumented function
@@ -164,8 +199,8 @@ class UserController extends Controller
      * @param [type] $password
      * @return void
      */
-    protected function checkPassword($password) {
-        
+    protected function checkPassword($secret, $password) {
+        return bcrypt($password) == $secret;
     }
     /**
      * Undocumented function

@@ -24,6 +24,12 @@ class EducationOrganizationController extends Controller
         }
     }
 
+    protected function getFileName($fileName) {
+        return 'I_' . substr(md5(date('d_m_o_His')), 0, 16)
+                . '.'
+                . pathinfo($fileName, PATHINFO_EXTENSION);
+    }
+
     protected function deleteFile($path) {
         return Storage::disk('local')->delete($path);
     }
@@ -123,17 +129,22 @@ class EducationOrganizationController extends Controller
         $organization->address = $request->address;
         $organization->description = $request->description != null ? $request->description : null;
 
-        $path = '';
+
+        $this->createDirectory('/public/images');
+
+        $imageName = '';
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $fileName = $file->getClientOriginalName();
+            $imageName = $this->getFileName($fileName);
+
             if ($organization->photo != null) {
-                $this->deleteFile('/public/organization/' . $organization->photo);
+                $this->deleteFile('/public/images/' . $organization->photo);
             }
-            $path = $file->store('/public/organization/');
+            Storage::putFileAs('public/images', $file, $imageName);
         }
-        $organization->photo = $request->photo != null ? explode('/', $path)[3] : null;
+        $organization->photo = $request->photo != null ? $imageName : null;
 
         $organization->save();
 

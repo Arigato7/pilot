@@ -6,7 +6,7 @@
         @if (! $organization->photo)
         <img src="{{ asset('storage/organization.jpg') }}" alt="photo" class="w-100">
         @else
-        <img src="{{ route('photos.organizations.show', ['name'=>$organization->photo]) }}" alt="photo" class="w-100">
+        <img src="{{ asset('storage/images/' . $organization->photo) }}" alt="photo" class="w-100">
         @endif
         <div class="card-img-overlay">
             <div class="row justify-content-between align-items-center px-3">
