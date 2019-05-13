@@ -31,7 +31,9 @@ class NotifyUserByEmail
      */
     public function handle(UserCreated $event)
     {
-        $email = UserInfo::where('user_id', $event->user->id)->first()->email;
-        Mail::to($email)->send(new UserRegistered($event->user));
+        /* if (UserInfo::where('user_id', $event->user->id)->first() == null) {
+            $email = UserInfo::where('user_id', $event->user->id)->first()->email;
+            Mail::to($email)->send(new UserRegistered($event->user));
+        } */
     }
 }

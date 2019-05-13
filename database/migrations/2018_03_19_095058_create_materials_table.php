@@ -25,6 +25,7 @@ class CreateMaterialsTable extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects');
             $table->string('name');
             $table->string('content');
+            $table->string('content_type')->default('file');
             $table->string('who_deleted')->nullable();
             $table->string('deleted')->nullable();
             $table->string('status')->nullable();

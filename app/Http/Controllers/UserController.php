@@ -210,7 +210,16 @@ class UserController extends Controller
      * @return void
      */
     public function updatePassword(Request $request, $user_id) {
-
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required',
+            're_new_password' => 'required|same:new_password',
+        ]);
+        if ($validator->fails()) {
+            return redirect('user/' . Auth::user()->login . '/settings')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
     }
     /**
      * Удаление пользователя

@@ -109,45 +109,25 @@
                         <h4 class="h4">Список материалов</h4>
                         <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
-                    <div class="list-group">
+                    <div class="p-2">
                     @forelse($materials as $material)
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="col-lg-9 pl-0">
-                                    <h3>
-                                        <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="material__link">
-                                            {{ $material->name }}
-                                            <span class="ml-1 badge {{ $material->status == 'new' ? 'badge-success' : 'badge-primary' }}" data-toggle="tooltip" data-placement="right" title="Статус материала">
-                                                @if ($material->status == 'new')
-                                                Новый
-                                                @elseif ($material->status == 'updated')
-                                                Обновлен
-                                                @else
-                                                Восстановлен
-                                                @endif
-                                            </span>
+                        <div class="card d-inline-block col-lg-4 p-3 mr-0">
+                            <div class="card-body p-0">
+                                <div class="text-center">
+                                    <i class="fa fa-4x fa-{{ $material_types[$material->content_type] }}"></i>
+                                </div>
+                                <div class="pl-0">
+                                    <h4 class="text-center my-2">
+                                        <a href="{{ route('materials.show', ['id'=>$material->id]) }}" title="{{ $material->name }}" class="material__link">
+                                            {{ str_limit($material->name, 30) }}
                                         </a>
-                                    </h3>
-                                    <div class="d-flex align-items-center text-secondary">
-                                        <a href="{{ route('users.show', ['login'=>$material->user_login]) }}" class="text-secondary mr-2"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $material->user_photo != null ? asset('storage/userdata/' . $material->user_login . '/' . $material->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $material->user_name . ' ' . $material->user_lastname }}</div></div>">{{ $material->user_name . ' ' . $material->user_lastname }}</a> 
-                                        <div class="d-flex align-items-center text-light position-relative" style="width: 67px;" data-toggle="tooltip" data-placement="top" title="Рейтинг {{ $material->rate }}">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <div class="d-flex align-items-center text-primary position-absolute" style="top: 0; overflow: hidden; width: {{ round(($material->rate / 5) * 100) }}%;">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                        </div>
+                                    </h4>
+                                    <div class="text-secondary text-center">
+                                        <a href="{{ route('users.show', ['login'=>$material->user_login]) }}" class="text-secondary mr-2"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $material->user_photo != null ? asset('storage/userdata/' . $material->user_login . '/' . $material->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $material->user_name . ' ' . $material->user_lastname }}</div></div>">{{ $material->user_name . ' ' . $material->user_lastname }}</a>
                                     </div>
                                 </div>
-                                <div class="col-3 pr-0 text-center material__date">
-                                    <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="btn btn-lg btn-primary w-100">Открыть</a>
+                                <div class="pr-0 text-center material__date">
+                                    <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="btn btn-sm btn-primary">Открыть</a>
                                     <div class="text-secondary">
                                         {{ date( "d.m.Y в H:i", strtotime($material->date)) }}
                                     </div>
@@ -155,7 +135,7 @@
                             </div>
                         </div>
                     @empty
-                        <div class="list-group-item">
+                        <div class="col-12">
                             <div class="text-center text-secondary py-5">
                                 <div class="h3">
                                     <i class="fa fa-2x fa-info"></i>

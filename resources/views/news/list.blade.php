@@ -52,6 +52,11 @@
                     <div class="card-text">
                         <p class="text-muted">{{ date( "d.m.Y в H:i", strtotime($item->date)) }}</p>
                     </div>
+                    <div class="py-2">
+                        <p class="text-muted">
+                            {{ str_limit($item->description, 100) }}
+                        </p>
+                    </div>
                 </div>
             </div>
             @empty

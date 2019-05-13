@@ -26,6 +26,22 @@ class MaterialController extends Controller
      * @var string
      */
     protected $content;
+
+    protected $contentType;
+
+    protected $fileTypes = [
+        'txt' => 'file-text-o',
+        'pdf' => 'file-pdf-o',
+        'xls' => 'file-excel-o',
+        'xlsx' => 'file-excel-o',
+        'doc' => 'file-word-o',
+        'docx' => 'file-word-o',
+        'ppt' => 'file-powerpoint-o',
+        'pptx' => 'file-powerpoint-o',
+        'zip' => 'file-zip-o',
+        'rar' => 'file-zip-o',
+        '7z' => 'file-zip-o',
+    ];
     /**
      * Временно удаленный файл материала
      *
@@ -61,7 +77,8 @@ class MaterialController extends Controller
             'materials' => $materials,
             'specialties' => $specialties,
             'subjects' => $subjects,
-            'types' => $types
+            'types' => $types,
+            'material_types' => $this->fileTypes
         ]);
     }
     /**
@@ -285,6 +302,7 @@ class MaterialController extends Controller
                         . Auth::user()->login 
                         . '/actual', $this->materialFileName($fileName));
             $this->content = $this->materialFileName($fileName);
+            $this->content_type = pathinfo($fileName, PATHINFO_EXTENSION);
         }
 
         $material = new Material;
@@ -296,6 +314,7 @@ class MaterialController extends Controller
         $material->material_type_id = $request->type;
         $material->description = $request->description;
         $material->content = $this->content;
+        $material->content_type = $this->content_type;
         $material->status = 'new';
 
         $material->save();

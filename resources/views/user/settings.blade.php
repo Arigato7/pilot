@@ -118,11 +118,11 @@
                             <form action="#" method="post">
                                 @csrf
                                 <label for="oldPassword" class="col-form-label text-secondary">Старый пароль</label>
-                                <input class="form-control" type="text" id="oldPassword" placeholder="Введите старый пароль">
+                                <input name="old_password"class="form-control" type="text" id="oldPassword" placeholder="Введите старый пароль">
                                 <label for="newPassword" class="col-form-label text-secondary">Новый пароль</label>
-                                <input class="form-control" type="text" id="newPassword" placeholder="Введите новый пароль">
+                                <input name="new_password" class="form-control" type="text" id="newPassword" placeholder="Введите новый пароль">
                                 <label for="confirmPassword" class="col-form-label text-secondary">Повторите пароль</label>
-                                <input class="form-control" type="text" id="confirmPassword" placeholder="Введите повторно новый пароль">
+                                <input name="re_new_password" class="form-control" type="text" id="confirmPassword" placeholder="Введите повторно новый пароль">
                                 <button class="btn btn-light mt-2" type="button">
                                     <i class="fa fa-check mr-2"></i> Сохранить
                                 </button>
