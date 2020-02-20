@@ -23,6 +23,9 @@
                     <div class="list-group-item">
                         <div class="d-flex align-items-center justify-content-between">
                             {{ $type->name }}
+                            <div class="text-muted">
+                                Добавлено {{ date( "d.m.Y в H:i", strtotime($type->created_at)) }}
+                            </div>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-light" data-toggle="tooltip" data-placement="left" title="Удалить" onclick="event.preventDefault(); document.getElementById('delete-type-{{ $type->id }}').submit()">
                                     <span class="fa fa-2x fa-close"></span>

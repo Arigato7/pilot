@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <div class="col-lg-4 pl-0">
+                <div class="col-lg-3 pl-0">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h4 class="h4">Типы материалов</h4>
                         @can ('administrate', Auth::user())
@@ -30,8 +30,8 @@
                             <div class="list-group">
                                 @forelse($types as $type)
                                 <div class="list-group-item subject">
-                                    <a href="{{ route('materials.filter.type', ['id'=>$type->id]) }}">
-                                        <i class="fa fa-book"></i> {{ $type->name }}
+                                    <a href="{{ route('materials.filter.type', ['id'=>$type->id]) }}" title="{{ $type->name }}">
+                                        <i class="fa fa-book"></i> {{ str_limit($type->name, 25) }}
                                     </a>
                                 </div>
                                 @empty
@@ -57,7 +57,7 @@
                                 @forelse($specialties as $specialty)
                                 <div class="list-group-item specialty">
                                     <div class="d-flex justify-content-between">
-                                        <a href="{{ route('materials.filter.specialty', ['id'=>$specialty->id]) }}" class="d-block">{{ $specialty->name }}</a>
+                                        <a href="{{ route('materials.filter.specialty', ['id'=>$specialty->id]) }}" class="d-block" title="{{ $specialty->name }}">{{ str_limit($specialty->name, 25) }}</a>
                                         <div class="text-secondary">{{ $specialty->code }}</div>
                                     </div>
                                 </div>
@@ -83,8 +83,8 @@
                             <div class="list-group">
                                 @forelse($subjects as $subject)
                                 <div class="list-group-item subject">
-                                    <a href="{{ route('materials.filter.subject', ['id'=>$subject->id]) }}">
-                                        <i class="fa fa-book"></i> {{ $subject->name }}
+                                    <a href="{{ route('materials.filter.subject', ['id'=>$subject->id]) }}" title="{{ $subject->name }}">
+                                        <i class="fa fa-book"></i> {{ str_limit($subject->name, 25) }}
                                     </a>
                                 </div>
                                 @empty
@@ -104,15 +104,15 @@
                     </div>
                     @endcan
                 </div>
-                <div class="col-lg-8 pr-0">
+                <div class="col-lg-9 pr-0">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h4 class="h4">Список материалов</h4>
                         <a href="{{ route('materials.create') }}" class="btn btn-primary btn-sm"  data-toggle="tooltip" data-placement="right" title="Создать"><i class="fa fa-plus mr-2"></i>Создать</a>
                     </div>
-                    <div class="p-2">
+                    <div class="p-2 font-size-0 text-center">
                     @forelse($materials as $material)
-                        <div class="card d-inline-block col-lg-4 p-3 mr-0">
-                            <div class="card-body p-0">
+                        <div class="card col-lg-3 p-0 material-item d-inline-block mr-3 mb-3">
+                            <div class="card-body d-flex justify-content-center align-items-center flex-column">
                                 <div class="text-center">
                                     <i class="fa fa-4x fa-{{ $material_types[$material->content_type] }}"></i>
                                 </div>
@@ -126,6 +126,8 @@
                                         <a href="{{ route('users.show', ['login'=>$material->user_login]) }}" class="text-secondary mr-2"  data-toggle="tooltip" data-html="true" data-placement="top" title="<div class='d-flex justify-content-between align-items-center'><div style='width: 50px;'><img class='w-100' src='{{ $material->user_photo != null ? asset('storage/userdata/' . $material->user_login . '/' . $material->user_photo) : asset('storage/default.png') }}'></div><div class='text-center font-weight-bold col'>{{ $material->user_name . ' ' . $material->user_lastname }}</div></div>">{{ $material->user_name . ' ' . $material->user_lastname }}</a>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-footer">
                                 <div class="pr-0 text-center material__date">
                                     <a href="{{ route('materials.show', ['id'=>$material->id]) }}" class="btn btn-sm btn-primary">Открыть</a>
                                     <div class="text-secondary">

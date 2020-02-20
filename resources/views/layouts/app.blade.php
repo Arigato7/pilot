@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="air">
+<body>
     <div id="app" class="w-100">
         <nav class="navbar navbar-expand-md navbar-light air__navbar">
             <div class="container">

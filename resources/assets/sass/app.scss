@@ -45,6 +45,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.font-size-0 {
+  font-size: 0;
+}
+
 .user-photo {
   width: 15%;
   border-radius: 50%;
@@ -81,6 +85,17 @@
   }
   &__rate-positive {
     height: 3px;
+  }
+  &-item {
+    display: inline-block;
+    margin-right: 1rem;
+    font-size: 1rem;
+    &:hover {
+      outline: 2px solid #007bff;
+    }
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
   }
 }
 

@@ -3,7 +3,10 @@
 namespace Pilot\Http\Controllers;
 
 use Validator;
+use Pilot\User;
 use Pilot\Position;
+use Pilot\Material;
+use Pilot\UserInfo;
 use Illuminate\Http\Request;
 use Pilot\EducationOrganization;
 use Illuminate\Support\Facades\DB;
